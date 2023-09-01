@@ -25,11 +25,11 @@ Pet project
 2. Запускаем все контейнеры\
 ~~```docker run --name gb-dev-db-cont -d gb_dev_db ```~~\
 ```docker-compose up -d --build```
-3. Делаем миграции и применяем\
-``` python3 ./web/manage.py makemigrations```\
-``` python3 ./web/manage.py migrate```
+3. Делаем миграции и применяем (нужно делать в папке где содержится manage.py)\
+``` python3 manage.py makemigrations```\
+``` python3 manage.py migrate```
 4. Запускаем web\
-```python3 ./web/manage.py runserver 0.0.0.0:8888```
+```python3 manage.py runserver 0.0.0.0:8888```
 
 Остановить контейнеры\
 ```docker-compose down```
