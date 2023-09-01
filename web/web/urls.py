@@ -17,6 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from authapp.views import home, RegisterUser, LoginUser, profile_user_view, top_players, logout_user, ProfileUpdateView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',home,  name='home'),
+    path('register/', RegisterUser.as_view(), name='register'),
+    path('login/', LoginUser.as_view(), name='login'),
+    path('profile/', profile_user_view, name='profile'),
+    path('top_players', top_players, name='top'),
+    path('logout/', logout_user,  name='logout'),
+    path('edit_profile/', ProfileUpdateView.as_view(),  name='edit_profile'),
 ]
