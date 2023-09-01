@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div> Этот див не будет видно, как пофиксить кто то в курсе?) </div>
+<div> Этот див не будет видно, как пофиксить кто то в курсе?) </div>
+<div> Этот див не будет видно, как пофиксить кто то в курсе? Две строки под навбаром получаются) </div>
+<h1>Profile</h1>
+
+
+<div>Имя пользователя: {{user.username}}</div>
+<div>Лучший результат: {{profile.top_result}}</div>
+<div>Количество игр: {{profile.count_game}}</div>
+
+<a href="{% url 'edit_profile' %}" class="accordion-button">Редактировать профиль</a>
+{% endblock %}
