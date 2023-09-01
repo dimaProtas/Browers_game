@@ -17,10 +17,17 @@ Pet project
 ## Локальный запуск проекта
 В папке configs  лежать настройки для запустка. Docker файлы настроены для локального пуска. Могут быть изменены,
 если требуется. Все команды из корня проекта
-    
+
+
 1. Собираем контейнер базы\
-``` docker build -t gb_dev_db ./configs/db/ ```
-2. Запускаем контейнер\
-```docker run --name gb-dev-db-cont -d gb_dev_db ```
+~~``` docker build -t gb_dev_db ./configs/db/ ```~~\
+
+2. Запускаем все контейнеры\
+~~```docker run --name gb-dev-db-cont -d gb_dev_db ```~~\
+```docker-compose up -d --build```
 2. Запускаем web\
 ```python3 ./web/manage.py runserver 0.0.0.0:8888```
+
+Остановить контейнеры\
+```docker-compose down```
+
