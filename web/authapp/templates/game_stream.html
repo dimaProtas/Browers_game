@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Stream</title>
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+   const socket = new WebSocket('ws://127.0.0.1:8000/ws/game_stream/');
+
+socket.onopen = (event) => {
+    console.log("WebSocket connection established:", event);
+};
+
+socket.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    console.log("Received data:", data); // Вывести данные в консоль браузера для отладки
+    // Обновите содержимое элементов на странице с полученными данными
+    document.getElementById('player-position').innerText = `Player Position: ${data.player_position}`;
+    document.getElementById('player-health').innerText = `Player Health: ${data.player_health}`;
+    document.getElementById('nearest-objects').innerText = `Nearest Objects: ${data.nearest_objects}`;
+    // Другие обновления для других данных
+};
+
+
+socket.onclose = (event) => {
+    console.log("WebSocket connection closed:", event);
+};
+
+socket.onerror = (error) => {
+    console.error("WebSocket error:", error);
+};
+
+})
+</script>
+
+<div id="game-data"></div>
+</html>

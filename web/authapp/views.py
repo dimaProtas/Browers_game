@@ -9,8 +9,36 @@ from django.views.generic import CreateView, UpdateView
 
 from authapp.forms import CustomUserCreationForm, CustomUserChangeForm
 from authapp.models import ProfileUser, CustomUser
+from authapp.run_game import run_game_and_send_data
 from authapp.utils import DataMixin
 
+# views.py
+from django.http import HttpResponse
+from django.shortcuts import render
+import subprocess
+import os
+from channels.layers import get_channel_layer
+import json
+import asyncio
+import logging
+import multiprocessing
+
+logger = logging.getLogger(__name__)
+
+
+def start_game(request):
+    logger.info("start_game view called")
+
+    # Создайте процесс для запуска игры
+    game_process = multiprocessing.Process(target=run_game_and_send_data)
+    game_process.start()
+
+    return render(request, 'game_stream.html')
+
+
+
+def game(request):
+    return render(request, 'game.html')
 
 def home(request):
     return render(request, 'index.html')
