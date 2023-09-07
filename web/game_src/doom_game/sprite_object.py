@@ -2,7 +2,10 @@ import pygame as pg
 from settings import *
 import os
 from collections import deque
+import os
 
+# Абсолютный путь к корневой директории игры
+GAME_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 class SpriteObject:
     def __init__(self, game, path='resources/sprites/static_sprites/candlebra.png',
@@ -10,14 +13,17 @@ class SpriteObject:
         self.game = game
         self.player = game.player
         self.x, self.y = pos
-        self.image = pg.image.load(path).convert_alpha()
+        self.image = self.load_image(path)
         self.IMAGE_WIDTH = self.image.get_width()
-        self.IMAGE_HALF_WIDTH = self.image.get_width() // 2
+        self.IMAGE_HALF_WIDTH = self.IMAGE_WIDTH // 2
         self.IMAGE_RATIO = self.IMAGE_WIDTH / self.image.get_height()
         self.dx, self.dy, self.theta, self.screen_x, self.dist, self.norm_dist = 0, 0, 0, 0, 1, 1
         self.sprite_half_width = 0
         self.SPRITE_SCALE = scale
         self.SPRITE_HEIGHT_SHIFT = shift
+
+    def load_image(self, path):
+        return pg.image.load(os.path.join(GAME_ROOT, path)).convert_alpha()
 
     def get_sprite_projection(self):
         proj = SCREEN_DIST / self.norm_dist * self.SPRITE_SCALE
@@ -58,20 +64,28 @@ class AnimatedSprite(SpriteObject):
                  pos=(11.5, 3.5), scale=0.8, shift=0.16, animation_time=120):
         super().__init__(game, path, pos, scale, shift)
         self.animation_time = animation_time
-        self.path = path.rsplit('/', 1)[0]
-        self.images = self.get_images(self.path)
+        self.path = os.path.dirname(os.path.join(GAME_ROOT, path))
+        self.images = self.load_images(self.path)
         self.animation_time_prev = pg.time.get_ticks()
         self.animation_trigger = False
 
     def update(self):
         super().update()
         self.check_animation_time()
-        self.animate(self.images)
+        self.animate()
 
-    def animate(self, images):
-        if self.animation_trigger:
+    def animate(self, images=None):
+        if images is not None:
             images.rotate(-1)
             self.image = images[0]
+
+    def load_images(self, path):
+        images = deque()
+        for file_name in os.listdir(path):
+            if os.path.isfile(os.path.join(path, file_name)):
+                img = pg.image.load(os.path.join(path, file_name)).convert_alpha()
+                images.append(img)
+        return images
 
     def check_animation_time(self):
         self.animation_trigger = False

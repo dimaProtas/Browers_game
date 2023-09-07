@@ -1,18 +1,6 @@
 from django.urls import path
-from channels.routing import ProtocolTypeRouter, URLRouter
-from channels.auth import AuthMiddlewareStack
-from authapp import consumers, views
+from authapp import views, consumers
 
-
-websocket_urlpatterns = [
-    path("ws/game_stream/", consumers.GameConsumer.as_asgi()),
-]
-
-application = ProtocolTypeRouter(
-    {
-        "websocket": AuthMiddlewareStack(URLRouter(websocket_urlpatterns)),
-    }
-)
 
 urlpatterns = [
     path('game/', views.game, name='game'),

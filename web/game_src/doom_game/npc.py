@@ -64,7 +64,7 @@ class NPC(AnimatedSprite):
                 self.frame_counter += 1
 
     def animate_pain(self):
-        self.animate(self.pain_images)
+        super().animate(self.pain_images)
         if self.animation_trigger:
             self.pain = False
 
@@ -208,24 +208,4 @@ class CyberDemonNPC(NPC):
         self.attack_damage = 15
         self.speed = 0.055
         self.accuracy = 0.25
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

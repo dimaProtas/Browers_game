@@ -3,13 +3,17 @@ import subprocess
 import asyncio
 from channels.layers import get_channel_layer
 import json
+# from game_src.doom_game.main import Game
 
 def run_game_and_send_data():
-    current_directory = os.getcwd()  # Сохраняем текущую директорию
-    try:
-        game_directory = "C:\\Users\\dima_protasevich\\Documents\\devTem\\GB_dev_agile_web\\web\\game_src\\doom_game"
-        os.chdir(game_directory)
-        subprocess.run(["python", "main.py"], cwd=game_directory, shell=True)
+    pass
+    # current_directory = os.getcwd()  # Сохраняем текущую директорию
+    # try:
+    #     game_directory = "C:\\Users\\dima_protasevich\\Documents\\devTem\\GB_dev_agile_web\\web\\game_src\\doom_game\\"
+    #     os.chdir(game_directory)
+        # subprocess.run(["python", "main.py"], cwd=game_directory, shell=True)
+        # game = Game()
+        # subprocess.run(game.run(), cwd=game_directory, shell=True)
 
         # Получите данные из игры (замените это на вашу логику)
         # game_data = {"message": "Game started!"}
@@ -25,8 +29,8 @@ def run_game_and_send_data():
         #     },
         # ))
 
-    finally:
-        os.chdir(current_directory)  # Восстанавливаем текущую директорию
+    # finally:
+    #     os.chdir(current_directory)  # Восстанавливаем текущую директорию
 
 if __name__ == '__main__':
     run_game_and_send_data()
