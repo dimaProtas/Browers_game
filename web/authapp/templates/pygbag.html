@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container_game_chat">
+    <div class="game_block">
+
+        <div class="game">
+            <!-- iframe, который будет развернут на весь монитор -->
+            <iframe id="fullscreen-iframe" src="http://localhost:8000"></iframe>
+            <!-- Нажмите на кнопку, чтобы развернуть iframe на весь монитор -->
+            <p>
+                <button id="fullscreen-button">Развернуть</button>
+            </p>
+
+        </div>
+
+
+
+    <script>
+        // Получаем ссылку на iframe и кнопку
+        var iframe = document.getElementById("fullscreen-iframe");
+        var fullscreenButton = document.getElementById("fullscreen-button");
+
+        // Обработчик события для кнопки
+        fullscreenButton.addEventListener("click", function() {
+            // Проверяем, поддерживает ли браузер Fullscreen API
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) { // Firefox
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari и Opera
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) { // Internet Explorer
+                iframe.msRequestFullscreen();
+            }
+        });
+    </script>
+</div>
+
+    <div class="messages_block">
+        <div class="message-container">
+        {% for m in messages %}
+            <div class="message {% if m.sender == curent_user %}sent-by-me{% endif %}">
+                <div>
+                    <span class="sender">{{ m.sender }}</span>
+                    <span class="timestamp">{{ m.created_at }}</span>
+                </div>
+                <span class="message-text">{{ m.message }}</span>
+            </div>
+        {% endfor %}
+        </div>
+
+        <form method="post" class="message-form" action="">
+            {% csrf_token %}
+            <div class="message-input-wrapper">
+                <input type="text" id="message-input" placeholder="Введите ваше сообщение...">
+            </div>
+            <button type="submit" class="submit-button">
+                <img src="/media/send.png" alt="send" width="20px">
+            </button>
+        </form>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // JavaScript-код для отправки сообщения через WebSocket
+        const socket = new WebSocket('ws://127.0.0.1:8888/ws/messages/');
+
+        socket.onopen = function (e) {
+            console.log('WebSocket connection established.');
+        };
+
+        socket.onclose = function (event) {
+            if (event.wasClean) {
+                console.log(`Closed cleanly, code=${event.code}, reason=${event.reason}`);
+            } else {
+                console.error('Connection died');
+            }
+        };
+
+        socket.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            // Обработка полученного сообщения, например, вывод на экран
+            //const isSentByMe = data.isSentByMe;
+            addMessage(data.sender, data.message, data.timestamp);
+        };
+
+
+        // Обработчик события submit формы
+        document.querySelector('.message-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // Предотвращаем стандартное действие формы (перенаправление)
+
+            const messageInput = document.getElementById('message-input');
+            const message = messageInput.value;
+
+
+            // Проверяем, не является ли сообщение пустым
+            if (message.trim() !== '') {
+                socket.send(JSON.stringify({ message }));
+                messageInput.value = '';
+            }
+        });
+
+            const messageContainer = document.querySelector('.message-container');
+            let isScrolledToBottom = true;
+
+            // Обработчик прокрутки контейнера
+            messageContainer.addEventListener('scroll', function () {
+                // Проверяем, находится ли скролл внизу
+                isScrolledToBottom = messageContainer.scrollHeight - messageContainer.scrollTop === messageContainer.clientHeight;
+            });
+
+            function addMessage(sender, message, timestamp) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+
+                const senderTimestampDiv = document.createElement('div');
+
+                const senderSpan = document.createElement('span');
+                senderSpan.className = 'sender';
+                senderSpan.textContent = sender;
+
+                const timestampSpan = document.createElement('span');
+                timestampSpan.className = 'timestamp';
+                timestampSpan.textContent = timestamp;
+
+                senderTimestampDiv.appendChild(senderSpan);
+                senderTimestampDiv.appendChild(timestampSpan);
+
+                const messageTextSpan = document.createElement('span');
+                messageTextSpan.className = 'message-text';
+                messageTextSpan.textContent = message;
+
+                messageDiv.appendChild(senderTimestampDiv);
+                messageDiv.appendChild(messageTextSpan);
+
+                messageContainer.appendChild(messageDiv); // Добавляем сообщение в конец контейнера
+
+                // Помечаем сообщение, если оно отправлено мной
+                if (sender === '{{ curent_user }}') {
+                        messageDiv.classList.add('sent-by-me'); // Добавляем класс CSS для пометки
+                    }
+
+                // Если скролл находится внизу, автоматически прокручиваем
+                if (isScrolledToBottom) {
+                    messageContainer.scrollTop = messageContainer.scrollHeight;
+                }
+            }
+
+            window.addEventListener('load', function () {
+            // Получаем контейнер сообщений
+            const messageContainer = document.querySelector('.message-container');
+
+            // Устанавливаем положение скролла внизу
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        });
+    });
+</script>
+
+    </div>
+
+
+
+</div>
+</div>
+
+
+
+
+{% endblock %}

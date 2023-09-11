@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser, ProfileUser
+from .models import CustomUser, ProfileUser, MessagesModel
 
 
 class CustomUserAdmin(UserAdmin):
@@ -34,3 +34,12 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ProfileUser, UserProfileAdmin)
+
+
+class MessagesAdmin(admin.ModelAdmin):
+    list_display = ['id', 'sender', 'message', 'created_at']
+    list_display_links = ['id']
+    search_fields = ['sender']
+
+
+admin.site.register(MessagesModel, MessagesAdmin)

@@ -2,13 +2,14 @@ from django.contrib.auth import logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.db import transaction
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import CreateView, UpdateView
 
-from authapp.forms import CustomUserCreationForm, CustomUserChangeForm
-from authapp.models import ProfileUser, CustomUser
+from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm
+from authapp.models import ProfileUser, CustomUser, MessagesModel
 from authapp.run_game import run_game_and_send_data
 from authapp.utils import DataMixin
 
@@ -23,16 +24,53 @@ import asyncio
 import logging
 import multiprocessing
 
-logger = logging.getLogger(__name__)
+
+class MessageView(View):
+    def get(self, request):
+        curent_user = request.user
+        print(curent_user)
+        messages = MessagesModel.objects.all()
+        form = MessageForm()
+
+        if messages.count() > 20:
+            # Если количество записей больше 20, удаляем лишние записи
+            messages_to_delete = messages.order_by('created_at')[:messages.count() - 20]
+            for message in messages_to_delete:
+                message.delete()
+
+        return render(request, 'pygbag.html', {'messages': messages, 'curent_user': curent_user, 'form': form})
+
+    # def post(self, request):
+    #     # Обработка создания нового сообщения
+    #     if request.method == 'POST':
+    #         form = MessageForm(request.POST)
+    #         if form.is_valid():
+    #
+    #             sender = request.user
+    #             message_text = form.cleaned_data['message']
+    #             message = MessagesModel(sender=sender, message=message_text)
+    #             message.save()
+    #
+    #             # return redirect('/pygbag')
+    #
+    #     messages = MessagesModel.objects.all()
+    #     return render(request, 'pygbag.html', {'messages': messages, 'form': form})
+
+    def delete(self, request, message_id):
+        # Обработка удаления сообщения
+        pass
+
+
+def game_js(request):
+    return render(request, 'index_game.html')
 
 
 def start_game(request):
-    logger.info("start_game view called")
+    # logger.info("start_game view called")
+    # game_process = multiprocessing.Process(target=run_game_and_send_data)
+    # game_process.start()
 
-    # Создайте процесс для запуска игры
-    game_process = multiprocessing.Process(target=run_game_and_send_data)
-    game_process.start()
-
+    # return render(request, 'index_game.html')
     return render(request, 'game_stream.html')
 
 
