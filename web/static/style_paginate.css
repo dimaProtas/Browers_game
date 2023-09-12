@@ -1,0 +1,58 @@
+/* Стилизация пагинации */
+.pegination {
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'DoomFont', sans-serif;
+    display: flex;
+    justify-content: center;
+}
+}
+
+.nav-links {
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.page-numbers {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: #444; /* Цвет фона */
+    color: #ff6f61; /* Цвет текста */
+    border: 1px solid #ff6f61; /* Обводка */
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.page-numbers.current {
+    background-color: #ff6f61; /* Цвет фона текущей страницы */
+    color: #000; /* Цвет текста текущей страницы */
+}
+
+.page-numbers:hover {
+    background-color: #ff6f61; /* Цвет фона при наведении */
+    color: #000; /* Цвет текста при наведении */
+}
+
+.page-numbers:first-child {
+    margin-left: 0;
+}
+
+.page-numbers:last-child {
+    margin-right: 0;
+}
+
+/* Стили для кнопок "Назад" и "Далее" */
+.page-numbers:first-child::before {
+    content: "\f104"; /* Иконка "Назад" (Font Awesome) */
+    font-family: FontAwesome;
+    margin-right: 5px;
+}
+
+.page-numbers:last-child::after {
+    content: "\f105"; /* Иконка "Далее" (Font Awesome) */
+    font-family: FontAwesome;
+    margin-left: 5px;
+}

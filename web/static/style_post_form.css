@@ -1,0 +1,42 @@
+/* Стилизация формы */
+.form_container {
+    background-color: #1d1f21;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #c7c7c7;
+    margin: 15px;
+}
+
+.form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.form p {
+    margin-bottom: 15px;
+}
+
+.form input[type="text"],
+.form textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #282a2e;
+    color: #c7c7c7;
+    border-radius: 5px;
+}
+
+.form .sendButton {
+    background-color: #ff9800;
+    color: #1d1f21;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.form .sendButton:hover {
+    background-color: #e65100;
+}

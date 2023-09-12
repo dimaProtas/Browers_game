@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser, ProfileUser, MessagesModel
-
+from .models import CustomUser, ProfileUser, MessagesModel, PostUser
+from django.utils.safestring import mark_safe
 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
@@ -43,3 +43,26 @@ class MessagesAdmin(admin.ModelAdmin):
 
 
 admin.site.register(MessagesModel, MessagesAdmin)
+
+
+class PostUserAdmin(admin.ModelAdmin):
+    list_display = ['id', 'slug', 'title', 'author', 'get_text', 'created_at', 'get_photo', 'views']
+    list_display_links = ['id']
+    prepopulated_fields = {'slug': ('title',)}
+    search_fields = ['author']
+
+    def get_text(self, obj):
+        return obj.text[:20]
+
+    get_text.short_description = "Пост"
+
+    def get_photo(self, obj):
+        if obj.image:
+            return mark_safe(f'<img src="{obj.image.url}" width="50">')
+        else:
+            return 'нет фото'
+
+    get_photo.short_description = 'изображение'
+
+
+admin.site.register(PostUser, PostUserAdmin)

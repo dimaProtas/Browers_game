@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 <div class="container_game_chat">
     <div class="game_block">
@@ -39,6 +39,8 @@
 
     <div class="messages_block">
         <div class="message-container">
+            <audio id="messageSound" src="{% static 'audio/send_sound.mp3' %}" preload="auto"></audio>
+            <audio id="messageSoundAdd" src="{% static 'audio/add_message.mp3' %}" preload="auto"></audio>
         {% for m in messages %}
             <div class="message {% if m.sender == curent_user %}sent-by-me{% endif %}">
                 <div>
@@ -137,7 +139,22 @@
                 // Помечаем сообщение, если оно отправлено мной
                 if (sender === '{{ curent_user }}') {
                         messageDiv.classList.add('sent-by-me'); // Добавляем класс CSS для пометки
+
+                        // Воспроизводим звук отправки сообщения
+                        const messageSound = document.getElementById('messageSound');
+                        messageSound.play();
+                        console.log('send message sound')
                     }
+
+                // Помечаем сообщение, если оно отправлено мной
+                if (sender !== '{{ curent_user }}') {
+
+                        // Воспроизводим звук полученого сообщения
+                        const messageSound = document.getElementById('messageSoundAdd');
+                        messageSound.play();
+                        console.log('add message sound')
+                    }
+
 
                 // Если скролл находится внизу, автоматически прокручиваем
                 if (isScrolledToBottom) {

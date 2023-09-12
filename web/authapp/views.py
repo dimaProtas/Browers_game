@@ -2,27 +2,19 @@ from django.contrib.auth import logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.db import transaction
-from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, UpdateView
-
-from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm
-from authapp.models import ProfileUser, CustomUser, MessagesModel
-from authapp.run_game import run_game_and_send_data
+from django.core.paginator import Paginator
+from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm, PostForm
+from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser
 from authapp.utils import DataMixin
-
-# views.py
-from django.http import HttpResponse
+from django.views.generic import DetailView
 from django.shortcuts import render
-import subprocess
-import os
-from channels.layers import get_channel_layer
-import json
-import asyncio
-import logging
-import multiprocessing
+from django.db.models import F
+from django.utils.text import slugify
+
 
 
 class MessageView(View):
@@ -79,8 +71,39 @@ def game(request):
     return render(request, 'game.html')
 
 def home(request):
-    return render(request, 'index.html')
+    post = PostUser.objects.all()
+    paginator = Paginator(post, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'index.html', {'page_obj': page_obj})
 
+
+class PostCreated(CreateView):
+    model = PostUser
+    form_class = PostForm
+    template_name = 'add_post_form.html'
+    success_url = '/'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class PostDetailView(DetailView):
+    model = PostUser
+    template_name = 'detail_post.html'
+    context_object_name = 'detail_post'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        self.object.views = F('views') + 1
+        self.object.save()
+        self.object.refresh_from_db()
+        return context
 
 class RegisterUser(DataMixin, CreateView):
     form_class = CustomUserCreationForm

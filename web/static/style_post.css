@@ -1,0 +1,52 @@
+/* Общие стили для контейнера поста */
+.blog-post-area-style {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для изображения поста */
+.big-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Стили для заголовка поста */
+.big-text h3 a {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.big-text h3 a:hover {
+    color: #ff5500; /* Измените цвет при наведении на заголовок */
+}
+
+/* Стили для текста поста */
+.big-text p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* Стили для информации о посте (дата и автор) */
+.big-text h4 {
+    display: flex;
+    font-size: 14px;
+    color: #999;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+.date, .author {
+    margin-right: 10px;
+}
+
+.author-name {
+    color: #ff5500; /* Цвет имени автора */
+}

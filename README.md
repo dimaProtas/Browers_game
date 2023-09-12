@@ -15,31 +15,34 @@ Pet project
     переменные среды хранятся в .env
 
 ## Локальный запуск проекта
-В папке configs  лежать настройки для запустка. Docker файлы настроены для локального пуска. Могут быть изменены,
-если требуется. Все команды из корня проекта
-
-
-1. Собираем контейнер базы\
-~~``` docker build -t gb_dev_db ./configs/db/ ```~~\
-
-2. Запускаем все контейнеры\
-~~```docker run --name gb-dev-db-cont -d gb_dev_db ```~~\
-```docker-compose up -d --build```
-3. Делаем миграции и применяем (нужно делать в папке где содержится manage.py)\
-``` python3 manage.py makemigrations```\
-``` python3 manage.py migrate```
-4. Запускаем web\
-```python3 manage.py runserver 0.0.0.0:8888```
-
-Остановить контейнеры\
-```docker-compose down```
-
-
 Запускаем так же как здесь указоно, докер контейнер работает с MySQL, так как я не смог свою систему подружить
 с PostgreSQL.
-Во вкладке Игра, нажимаем Doom, игра запускаеться на сервере джанго, и через websocket сервер передаёт данные игры 
-в web приложение.
-Оставил настройки settings.py так как там есть настройки websocket
+если у вас работает на Postgres, сразу выполняйте миграции.
+убедитесь что все настройки django-chenels есть в setings.py и в asgi.py (нужно для работычата)
 
-Игра запускаеться в файле consumers.py.
-И там же данные отправляються в websocket.
+У меня работает на бд MySQL, образ собираеться в контейнере docker-compose.yaml.
+собрать контейнер команда \
+```docker-compose up --build```
+
+если контейнер с бд запустился то выполняем миграции\
+``` python .\manage.py makemigrations ```
+```python .\manage.py migrate  ```
+
+выполните установку зависимостей\
+```pip install -r requirements.txt```
+
+если миграции выполнились запускаете django приложение\
+```python .\manage.py runserver 127.0.0.1:8888```
+
+настройки для бд в файле .env:
+фаил .env должен быть в той же директори где и docker-compose.yaml :
+#Настройки Django
+DEBUG=True
+
+#Настройки базы
+MYSQL_DATABASE=gb_dev_db
+MYSQL_USER=user
+MYSQL_PASSWORD=password
+MYSQL_ROOT_PASSWORD=rootpassword
+PGPORT=3306
+DBHOST=192.168.99.104

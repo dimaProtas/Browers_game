@@ -1,7 +1,63 @@
 {% extends 'base.html' %}
+{% load static %}
+
+    {% block style %}
+        <link rel="stylesheet" type="text/css" href="{% static 'style_post.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'style_paginate.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    {% endblock %}
 {% block content %}
-<div class="align-content-center"> Тут какая то всякая разная информация о нашем проекте </div>
-<div class="align-content-center"> Тут какая то всякая разная информация о нашем проекте </div>
-<div class="align-content-center"> Тут какая то всякая разная информация о нашем проекте </div>
-<div class="align-content-center"> Тут какая то всякая разная информация о нашем проекте но опять не видно первых двух строк </div>
+    {% for p in page_obj %}
+       <div class="container">
+            <div class="row">
+                <div class="blog-post-area-style">
+                        <div class="col-md-12">
+                            <div class="single-post-big">
+                                <div class="big-image">
+                                    {% if p.image %}
+                                        <img src="{{ p.image.url }}" alt="">
+                                    {% endif %}
+                                </div>
+                                <div class="big-text">
+                                    <h3><a href="{% url 'detail_post' slug=p.slug %}">{{ p.title }}</a></h3>
+                                    <p>{{ p.text|truncatewords:40|safe }}</p>
+
+                                    <h4><span class="date">{{ p.created_at }}</span>
+                                    <span class="date">Промсотры: {{ p.views }}</span>
+                                    <span class="author">Автор: <span class="author-name">{{ p.author }}</span></span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    <hr>
+                    <a class="button button02" href="{% url 'detail_post' slug=p.slug %}">Читать...</a>
+                </div>
+            </div>
+       </div>
+    {% endfor %}
+
+    {% if page_obj.has_other_pages %}
+        <div class="pegination">
+            <div class="nav-links">
+
+                {% if page_obj.has_previous %}
+                <a class="page-numbers" href="?page={{ page_obj.previous_page_number }}">Назад</a>
+                {% endif %}
+
+                {% for p in page_obj.paginator.page_range %}
+                {% if page_obj.number == p %}
+                <span class="page-numbers current">{{ p }}</span>
+                {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+                <a class="page-numbers" href="?page={{ p }}">{{ p }}</a>
+                {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <a class="page-numbers" href="?page={{ page_obj.next_page_number }}">Далее</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
 {% endblock %}

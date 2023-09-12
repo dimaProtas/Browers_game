@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+    {% block style %}
+        <link rel="stylesheet" type="text/css" href="{% static 'style_detail.css' %}">
+    {% endblock %}
+
+{% block content %}
+
+    <div id="main-content" class="col-2-3">
+            <div class="wrap-col">
+                <div class="wrap-content">
+                    <article>
+                        <div class="art-header">
+                            {% if detail_post.image %}
+                                <img src="{{ detail_post.image.url }}"/>
+                            {% endif %}
+                        </div>
+                        <div class="art-content">
+                            <a href="#"><h3 style="font-size: 37px; line-height: 1.5;">{{ detail_post.title }}</h3></a>
+                            <div class="info">{{ detail_post.created_at }}</div>
+                            <div class="excerpt">Автор: <span class="author-name">{{ detail_post.author }}</span></div>
+                            <p>{{ detail_post.text|safe }}</p>
+                            <div class="excerpt"><p>Количество просмотров: {{ detail_post.views }}</p></div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

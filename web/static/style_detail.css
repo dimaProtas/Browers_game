@@ -1,0 +1,54 @@
+/* Основной контейнер */
+#main-content {
+    background-color: #1E1E1E;
+    padding: 20px;
+    color: #FFFFFF;
+}
+
+/* Заголовок */
+#main-content h3 {
+    font-size: 37px;
+    line-height: 1.5;
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+/* Информация о посте */
+.info {
+    font-size: 14px;
+    color: #BFBFBF;
+    margin-top: 10px;
+}
+
+/* Автор */
+.excerpt p {
+    font-size: 14px;
+    color: #BFBFBF;
+    margin: 10px 0;
+}
+
+/* Количество просмотров */
+#main-content .excerpt p {
+    font-size: 14px;
+    color: #BFBFBF;
+    margin: 10px 0;
+}
+
+/* Текст статьи */
+#main-content p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 20px 0;
+}
+
+/* Изображение */
+.art-header img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+}
+
+.author-name {
+    color: red;
+}
