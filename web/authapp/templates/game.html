@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{%load static%}
+
+{% block content %}
+<h1> Игра </h1>
+
+
+    <li>
+        <a href="{% url 'start_game' %}">Doom</a>
+    </li>
+    <li>
+        <a href="{% url 'pygbag' %}">PygBag Doom</a>
+    </li>
+    <li>
+        <a href="{% url 'js_doom_game' %}">JS Doom Game</a>
+    </li>
+
+
+</body>
+
+
+{% endblock %}

@@ -1,0 +1,54 @@
+.profile_container {
+    background-color: #1d1f21;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+}
+
+.data_profile_container {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.data {
+    float: right;
+}
+
+/* Стили для заголовка */
+h1 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #FF0000;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Стили для информационных блоков */
+div {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+/* Стили для ссылок */
+.accordion-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #FF0000;
+    color: #000;
+    text-decoration: none;
+    border: 2px solid #343a40;
+    border-radius: 5px;
+    margin: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    width: 98%;
+}
+
+.accordion-button:hover {
+    background-color: #343a40;
+    color: #FF0000;
+}
+

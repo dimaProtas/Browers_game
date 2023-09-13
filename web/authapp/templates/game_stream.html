@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Stream</title>
+</head>
+<body>
+    <h1>Игра</h1>
+    <p id="player-position">Player Position: </p>
+    <p id="player-health">Player Health: </p>
+    <canvas id="game-canvas" width="800" height="600"></canvas>
+    <div id="game-data"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const socket = new WebSocket('ws://127.0.0.1:8888/ws/game_stream/');
+            const canvas = document.getElementById('game-canvas');
+            const ctx = canvas.getContext('2d');
+
+            socket.onopen = (event) => {
+                console.log("WebSocket connection established:", event);
+            };
+
+            socket.onmessage = async (event) => {
+                if (event.data instanceof Blob) {
+                    // Если данные - это бинарный Blob, обновите изображение
+                    const imageUrl = URL.createObjectURL(event.data);
+                    const image = new Image();
+                    image.src = imageUrl;
+                    image.onload = () => {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+                    };
+                } else {
+                    const data = JSON.parse(event.data);
+                    console.log("Received data:", data);
+
+                    document.getElementById('player-position').innerText = `Player Position: [${data.player_position.join(', ')}]`;
+                    document.getElementById('player-health').innerText = `Player Health: ${data.player_health}`;
+                    // Другие обновления для других данных
+                }
+            };
+
+            socket.onclose = (event) => {
+                console.log("WebSocket connection closed:", event);
+            };
+
+            socket.onerror = (error) => {
+                console.error("WebSocket error:", error);
+            };
+
+        });
+    </script>
+</body>
+</html>

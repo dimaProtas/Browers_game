@@ -2,19 +2,120 @@ from django.contrib.auth import logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.db import transaction
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import CreateView, UpdateView
-
-from authapp.forms import CustomUserCreationForm, CustomUserChangeForm
-from authapp.models import ProfileUser, CustomUser
+from django.core.paginator import Paginator
+from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm, PostForm, CommentForm
+from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser, CommentModel
 from authapp.utils import DataMixin
+from django.views.generic import DetailView
+from django.shortcuts import render
+from django.db.models import F
+from django.utils.text import slugify
+from django.db.models import Count
+
+
+
+class MessageView(View):
+    def get(self, request):
+        curent_user = request.user
+        print(curent_user)
+        messages = MessagesModel.objects.all()
+        form = MessageForm()
+
+        if messages.count() > 20:
+            # Если количество записей больше 20, удаляем лишние записи
+            messages_to_delete = messages.order_by('created_at')[:messages.count() - 20]
+            for message in messages_to_delete:
+                message.delete()
+
+        return render(request, 'pygbag.html', {'messages': messages, 'curent_user': curent_user, 'form': form})
+
+    # def post(self, request):
+    #     # Обработка создания нового сообщения
+    #     if request.method == 'POST':
+    #         form = MessageForm(request.POST)
+    #         if form.is_valid():
+    #
+    #             sender = request.user
+    #             message_text = form.cleaned_data['message']
+    #             message = MessagesModel(sender=sender, message=message_text)
+    #             message.save()
+    #
+    #             # return redirect('/pygbag')
+    #
+    #     messages = MessagesModel.objects.all()
+    #     return render(request, 'pygbag.html', {'messages': messages, 'form': form})
+
+    def delete(self, request, message_id):
+        # Обработка удаления сообщения
+        pass
+
+
+def game_js(request):
+    return render(request, 'index_game.html')
+
+
+def start_game(request):
+    # logger.info("start_game view called")
+    # game_process = multiprocessing.Process(target=run_game_and_send_data)
+    # game_process.start()
+
+    # return render(request, 'index_game.html')
+    return render(request, 'game_stream.html')
+
+
+def game(request):
+    return render(request, 'game.html')
 
 
 def home(request):
-    return render(request, 'index.html')
+    comment_form = CommentForm()
+    if request.method == 'POST':
+        p_id = request.POST.get('p_id')  # Получаем ID поста из формы
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.author = request.user
+            comment.post_id = p_id
+            comment.save()
+            return redirect('/')
 
+    post = PostUser.objects.annotate(comment_count=Count('comments'))
+    paginator = Paginator(post, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'index.html', {'page_obj': page_obj, 'comment_form': comment_form})
+
+
+class PostCreated(CreateView):
+    model = PostUser
+    form_class = PostForm
+    template_name = 'add_post_form.html'
+    success_url = '/'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class PostDetailView(DetailView):
+    model = PostUser
+    template_name = 'detail_post.html'
+    context_object_name = 'detail_post'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        self.object.views = F('views') + 1
+        self.object.save()
+        self.object.refresh_from_db()
+        return context
 
 class RegisterUser(DataMixin, CreateView):
     form_class = CustomUserCreationForm

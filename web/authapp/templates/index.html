@@ -1,7 +1,116 @@
 {% extends 'base.html' %}
+{% load static %}
+
+    {% block style %}
+        <link rel="stylesheet" type="text/css" href="{% static 'style_post.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'style_paginate.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'style_comments.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    {% endblock %}
 {% block content %}
-<div class="align-content-center"> Тут какая то всякая разная информация о нашем проекте </div>
-<div class="align-content-center"> Тут какая то всякая разная информация о нашем проекте </div>
-<div class="align-content-center"> Тут какая то всякая разная информация о нашем проекте </div>
-<div class="align-content-center"> Тут какая то всякая разная информация о нашем проекте но опять не видно первых двух строк </div>
+    {% for p in page_obj %}
+       <div class="container">
+            <div class="row">
+                <div class="blog-post-area-style">
+                        <div class="col-md-12">
+                            <div class="single-post-big">
+                                <div class="big-image">
+                                    {% if p.image %}
+                                        <img src="{{ p.image.url }}" alt="">
+                                    {% endif %}
+                                </div>
+                                <div class="big-text">
+                                    <h3><a href="{% url 'detail_post' slug=p.slug %}">{{ p.title }}</a></h3>
+                                    <p>{{ p.text|truncatewords:40|safe }}</p>
+
+                                    <h4><span class="date">{{ p.created_at }}</span>
+                                    <span class="date">Промсотры: {{ p.views }}</span>
+                                    <span class="author">Автор: <span class="author-name">{{ p.author }}</span></span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    <hr>
+                    <div class="container_post_footer">
+
+                        <a class="button button02" href="{% url 'detail_post' slug=p.slug %}">Читать...</a>
+
+                        <form method="post" class="form_comment">
+                          {% csrf_token %}
+                          <p class="placeholder-text">Введите комментарий...</p>
+                          <div class="input_button">
+                              {{ comment_form.content }}
+                              <input type="hidden" name="p_id" value="{{ p.id }}">
+                              <button class="img_form" type="submit">
+                                  <i class="fas fa-paper-plane fa-lg"></i>
+                              </button>
+                          </div>
+
+                        </form>
+
+                        <div>
+                            <i class="fas fa-comment" data-toggle="comments-{{ p.id }}">{{ p.comment_count }}</i>
+                            <i class="fas fa-fire">12</i>
+                            <i class="fas fa-thumbs-down">0</i>
+                        </div>
+                    </div>
+
+                    <div id="comments-{{ p.id }}" class="comment_container">
+                        {% for comment in p.comments.all %}
+                            <div class="comment">
+                                <div class="coent_date">
+                                    <span class="author">{{ comment.author }}</span>
+                                    <span class="date_time">{{ comment.created_at }}</span>
+                                </div>
+                                <div class="content">{{ comment.content|safe }}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+       </div>
+    {% endfor %}
+
+    {% if page_obj.has_other_pages %}
+        <div class="pegination">
+            <div class="nav-links">
+
+                {% if page_obj.has_previous %}
+                <a class="page-numbers" href="?page={{ page_obj.previous_page_number }}">Назад</a>
+                {% endif %}
+
+                {% for p in page_obj.paginator.page_range %}
+                {% if page_obj.number == p %}
+                <span class="page-numbers current">{{ p }}</span>
+                {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+                <a class="page-numbers" href="?page={{ p }}">{{ p }}</a>
+                {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <a class="page-numbers" href="?page={{ page_obj.next_page_number }}">Далее</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Скрываем все комментарии при загрузке страницы
+    $(".comment_container").hide();
+
+    // Добавляем обработчик события для иконки "fa-comment"
+    $("[data-toggle^='comments-']").click(function() {
+      var postId = $(this).data("toggle").split("-")[1]; // Получаем ID поста
+      var commentContainer = $("#comments-" + postId); // Находим контейнер комментариев
+
+      // Переключаем видимость комментариев
+      commentContainer.toggle();
+    });
+  });
+</script>
+
 {% endblock %}
+
+

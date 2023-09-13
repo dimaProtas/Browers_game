@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}<link rel="stylesheet" type="text/css" href="{% static 'style_post_form.css' %}">{% endblock %}
+
+{% block content %}
+
+    <div class="form_container">
+        <form method="post" class="form" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            {% for f in form %}
+                <p><label class="form-check" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+            {% endfor %}
+            <input class="sendButton" type="submit" name="submitcontact" value="Опубликовать">
+
+        </form>
+    </div>
+
+
+{% endblock %}
