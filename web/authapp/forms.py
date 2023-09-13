@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 
 from django import forms
-from .models import CustomUser, ProfileUser, PostUser
+from .models import CustomUser, ProfileUser, PostUser, CommentModel
 from django.utils.text import slugify
 
 
@@ -56,3 +56,10 @@ class PostForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = CommentModel
+        fields = ['content']
+

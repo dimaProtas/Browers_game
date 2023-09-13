@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser, ProfileUser, MessagesModel, PostUser
+from .models import CustomUser, ProfileUser, MessagesModel, PostUser, CommentModel
 from django.utils.safestring import mark_safe
 
 class CustomUserAdmin(UserAdmin):
@@ -66,3 +66,12 @@ class PostUserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(PostUser, PostUserAdmin)
+
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['id', 'post', 'author', 'content', 'created_at']
+    list_display_links = ['id']
+    search_fields = ['post']
+
+
+admin.site.register(CommentModel, CommentAdmin)

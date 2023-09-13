@@ -7,13 +7,14 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, UpdateView
 from django.core.paginator import Paginator
-from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm, PostForm
-from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser
+from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm, PostForm, CommentForm
+from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser, CommentModel
 from authapp.utils import DataMixin
 from django.views.generic import DetailView
 from django.shortcuts import render
 from django.db.models import F
 from django.utils.text import slugify
+from django.db.models import Count
 
 
 
@@ -66,16 +67,27 @@ def start_game(request):
     return render(request, 'game_stream.html')
 
 
-
 def game(request):
     return render(request, 'game.html')
 
+
 def home(request):
-    post = PostUser.objects.all()
+    comment_form = CommentForm()
+    if request.method == 'POST':
+        p_id = request.POST.get('p_id')  # Получаем ID поста из формы
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.author = request.user
+            comment.post_id = p_id
+            comment.save()
+            return redirect('/')
+
+    post = PostUser.objects.annotate(comment_count=Count('comments'))
     paginator = Paginator(post, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'index.html', {'page_obj': page_obj})
+    return render(request, 'index.html', {'page_obj': page_obj, 'comment_form': comment_form})
 
 
 class PostCreated(CreateView):

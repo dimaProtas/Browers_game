@@ -4,8 +4,8 @@
     {% block style %}
         <link rel="stylesheet" type="text/css" href="{% static 'style_post.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'style_paginate.css' %}">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+        <link rel="stylesheet" type="text/css" href="{% static 'style_comments.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     {% endblock %}
 {% block content %}
     {% for p in page_obj %}
@@ -31,7 +31,41 @@
                             </div>
                         </div>
                     <hr>
-                    <a class="button button02" href="{% url 'detail_post' slug=p.slug %}">Читать...</a>
+                    <div class="container_post_footer">
+
+                        <a class="button button02" href="{% url 'detail_post' slug=p.slug %}">Читать...</a>
+
+                        <form method="post" class="form_comment">
+                          {% csrf_token %}
+                          <p class="placeholder-text">Введите комментарий...</p>
+                          <div class="input_button">
+                              {{ comment_form.content }}
+                              <input type="hidden" name="p_id" value="{{ p.id }}">
+                              <button class="img_form" type="submit">
+                                  <i class="fas fa-paper-plane fa-lg"></i>
+                              </button>
+                          </div>
+
+                        </form>
+
+                        <div>
+                            <i class="fas fa-comment" data-toggle="comments-{{ p.id }}">{{ p.comment_count }}</i>
+                            <i class="fas fa-fire">12</i>
+                            <i class="fas fa-thumbs-down">0</i>
+                        </div>
+                    </div>
+
+                    <div id="comments-{{ p.id }}" class="comment_container">
+                        {% for comment in p.comments.all %}
+                            <div class="comment">
+                                <div class="coent_date">
+                                    <span class="author">{{ comment.author }}</span>
+                                    <span class="date_time">{{ comment.created_at }}</span>
+                                </div>
+                                <div class="content">{{ comment.content|safe }}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
        </div>
@@ -60,4 +94,23 @@
         </div>
         {% endif %}
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Скрываем все комментарии при загрузке страницы
+    $(".comment_container").hide();
+
+    // Добавляем обработчик события для иконки "fa-comment"
+    $("[data-toggle^='comments-']").click(function() {
+      var postId = $(this).data("toggle").split("-")[1]; // Получаем ID поста
+      var commentContainer = $("#comments-" + postId); // Находим контейнер комментариев
+
+      // Переключаем видимость комментариев
+      commentContainer.toggle();
+    });
+  });
+</script>
+
 {% endblock %}
+
+
