@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block style %}<link rel="stylesheet" type="text/css" href="{% static 'style_profile.css' %}">{% endblock %}
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style_profile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style_profile_post.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
 {% block content %}
 <div class="profile_container">
     <h1>Profile</h1>
@@ -13,7 +17,75 @@
 
 
     <a href="{% url 'edit_profile' %}" class="accordion-button">Редактировать профиль</a>
-    <a href="{% url 'add_post' %}" class="accordion-button">Создать статью</a>
+    <a href="{% url 'add_post' %}" class="accordion-button">Создать пост</a>
+    <p class="accordion-button" data-toggle="post">Мои посты</p>
 </div>
+
+<div class="post_container">
+    {% for p in post_user %}
+        <div class="post">
+            <div class="title_icon_container">
+                <a href="{% url 'detail_post' slug=p.slug %}" class="title">{{ p.title }}</a>
+                <div class="icon">
+                    <a href="{% url 'edit_post' slug=p.slug %}" class="edit_icon">
+                        <i class="fas fa-edit fa-lg edit-post" data-post-id="{{ p.id }}"></i>
+                    </a>
+                    <i class="fas fa-trash fa-lg delete-post" data-post-id="{{ p.id }}"></i>
+                </div>
+            </div>
+            <div class="date_content_img_container">
+                <span class="date_time">{{ p.created_at }}</span>
+                <span class="text">{{ p.text|truncatewords:10 }}</span>
+                {% if p.image %}
+                    <img src="{{ p.image.url }}" alt="img" width="60px">
+                {% endif %}
+            </div>
+
+
+        </div>
+
+    {% endfor %}
+
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+      $(document).ready(function() {
+      $(".post_container").hide(); //скрываем котнтейнер с постами
+      $("[data-toggle^='post']").click(function() {
+        $(".post_container").toggle(); // Переключаем видимость всех контейнеров постов
+      });
+    });
+</script>
+<script>
+  $(document).ready(function() {
+    $(".delete-post").click(function() {
+      var postId = $(this).data("post-id");
+      var currentPost = $(this).closest(".post");
+
+      // Отправляем Ajax-запрос на сервер для удаления поста
+      $.ajax({
+        url: "http://127.0.0.1:8888/delete_post/" + postId + "/", // URL для удаления поста
+        type: "POST",
+        data: {
+          csrfmiddlewaretoken: "{{ csrf_token }}", // CSRF-токен для безопасности
+        },
+        success: function(data) {
+          if (data.sucses) {
+            currentPost.hide();
+          } else {
+            // Обработка ошибки при удалении поста
+            alert("Ошибка при удалении поста: " + data.error);
+          }
+        },
+        error: function() {
+          // Обработка ошибки при Ajax-запросе
+          alert("Произошла ошибка при выполнении запроса.");
+        },
+      });
+    });
+  });
+</script>
 
 {% endblock %}

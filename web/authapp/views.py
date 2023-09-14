@@ -15,6 +15,7 @@ from django.shortcuts import render
 from django.db.models import F
 from django.utils.text import slugify
 from django.db.models import Count
+from django.http import JsonResponse
 
 
 
@@ -83,7 +84,7 @@ def home(request):
             comment.save()
             return redirect('/')
 
-    post = PostUser.objects.annotate(comment_count=Count('comments'))
+    post = PostUser.objects.annotate(comment_count=Count('comments')).order_by('-created_at')
     paginator = Paginator(post, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -104,6 +105,13 @@ class PostCreated(CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+class PostUpdateView(UpdateView):
+    model = PostUser
+    fields = ['title', 'text', 'image']
+    template_name = 'edit_post.html'
+    success_url = '/profile/'
 
 class PostDetailView(DetailView):
     model = PostUser
@@ -143,9 +151,19 @@ class LoginUser(DataMixin, LoginView):
 
 def profile_user_view(request):
     user_id = request.user.id
+    post_user = PostUser.objects.filter(author_id=user_id)
     profile = ProfileUser.objects.get(user_name_id=user_id)
     user = CustomUser.objects.get(id=profile.user_name_id)
-    return render(request, 'profile.html', {'profile': profile, 'user': user})
+    return render(request, 'profile.html', {'profile': profile, 'user': user, 'post_user': post_user})
+
+
+def delete_post(request, post_id):
+    try:
+        post = PostUser.objects.get(id=post_id)
+        post.delete()
+        return JsonResponse({'sucses': True})
+    except PostUser.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Post not found'}, status=404)
 
 
 def top_players(request):

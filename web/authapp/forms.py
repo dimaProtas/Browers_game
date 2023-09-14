@@ -1,8 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 
 from django import forms
-from .models import CustomUser, ProfileUser, PostUser, CommentModel
-from django.utils.text import slugify
+from .models import CustomUser, PostUser, CommentModel
 
 
 # class CustomUserCreationForm(UserCreationForm):
@@ -45,6 +44,12 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = PostUser
         fields = ['title', 'text', 'image']
+
+    image = forms.ImageField(
+        label='Image',
+        required=False,
+        widget=forms.FileInput(attrs={'class': 'image-input'}),
+    )
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)  # Получаем пользователя из аргументов
