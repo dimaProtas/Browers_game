@@ -5,6 +5,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'style_post.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'style_paginate.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'style_comments.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'style_icon.css' %}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     {% endblock %}
 {% block content %}
@@ -50,8 +51,8 @@
 
                         <div>
                             <i class="fas fa-comment" data-toggle="comments-{{ p.id }}">{{ p.comment_count }}</i>
-                            <i class="fas fa-fire">12</i>
-                            <i class="fas fa-thumbs-down">0</i>
+                            <i class="fas fa-fire" data-post-id="{{ p.id }}" data-like-count="{{ p.like_count }}">{{ p.like_count }}</i>
+                            <i class="fas fa-thumbs-down" data-post-id="{{ p.id }}" data-dislike-count="{{ p.dis_like_count }}">{{ p.dis_like_count }}</i>
                         </div>
                     </div>
 
@@ -95,6 +96,10 @@
         {% endif %}
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{# Получаем токен в meta, для использования в скрипте js #}
+<meta name="csrf-token" content="{{ csrf_token }}">
+{# //Импортируем скрипты добавления удаления Like и dislike из static #}
+<script src="{% static 'js/toggle_like_dislike.js' %}"></script>
 <script>
   $(document).ready(function() {
     // Скрываем все комментарии при загрузке страницы

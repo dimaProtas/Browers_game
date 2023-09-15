@@ -72,3 +72,18 @@ class CommentModel(models.Model):
         verbose_name = 'Коментарий'
         verbose_name_plural = 'Коментарии'
         ordering = ['-created_at']
+
+
+class LikeModel(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    post = models.ForeignKey(PostUser, on_delete=models.CASCADE, related_name='like')
+
+    class Meta:
+        unique_together = ('user', 'post')
+
+class DisLikeModel(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    post = models.ForeignKey(PostUser, on_delete=models.CASCADE, related_name='dis_like')
+
+    class Meta:
+        unique_together = ('user', 'post')

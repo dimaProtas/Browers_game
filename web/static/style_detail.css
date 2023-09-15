@@ -57,3 +57,9 @@
 .author-name {
     color: red;
 }
+
+.date_icon_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -13,6 +13,8 @@ urlpatterns = [
     path('add_post/', views.PostCreated.as_view(), name='add_post'),
     path('delete_post/<int:post_id>/', views.delete_post, name='delete_post'),
     path('edit_post/<str:slug>/', views.PostUpdateView.as_view(), name='edit_post'),
+    path('toggle_like/<int:post_id>/', views.toggle_like, name='toggle_like'),
+    path('toggle_dislike/<int:post_id>/', views.toggle_dis_like, name='toggle_dis_like'),
 ]
 
 

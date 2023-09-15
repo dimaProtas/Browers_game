@@ -2,13 +2,13 @@ from django.contrib.auth import logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.db import transaction
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, UpdateView
 from django.core.paginator import Paginator
 from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm, PostForm, CommentForm
-from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser, CommentModel
+from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel
 from authapp.utils import DataMixin
 from django.views.generic import DetailView
 from django.shortcuts import render
@@ -16,7 +16,6 @@ from django.db.models import F
 from django.utils.text import slugify
 from django.db.models import Count
 from django.http import JsonResponse
-
 
 
 class MessageView(View):
@@ -84,7 +83,9 @@ def home(request):
             comment.save()
             return redirect('/')
 
-    post = PostUser.objects.annotate(comment_count=Count('comments')).order_by('-created_at')
+    #distinct=True - позволяет подсчитывать только уникальные элементы
+    post = PostUser.objects.annotate(comment_count=Count('comments')).annotate(like_count=Count('like', distinct=True)).annotate(
+        dis_like_count=Count('dis_like', distinct=True)).order_by('-created_at')
     paginator = Paginator(post, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -113,6 +114,7 @@ class PostUpdateView(UpdateView):
     template_name = 'edit_post.html'
     success_url = '/profile/'
 
+
 class PostDetailView(DetailView):
     model = PostUser
     template_name = 'detail_post.html'
@@ -123,7 +125,12 @@ class PostDetailView(DetailView):
         self.object.views = F('views') + 1
         self.object.save()
         self.object.refresh_from_db()
+        # Добавляем количество лайков в контекст
+        context['like_count'] = LikeModel.objects.filter(post=self.object).count()
+        context['dislike_count'] = DisLikeModel.objects.filter(post=self.object).count()
+        context['comment_count'] = CommentModel.objects.filter(post=self.object).count()
         return context
+
 
 class RegisterUser(DataMixin, CreateView):
     form_class = CustomUserCreationForm
@@ -210,3 +217,35 @@ class ProfileUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('profile')
+
+
+def toggle_like(request, post_id):
+    post = get_object_or_404(PostUser, id=post_id)
+    user = request.user
+
+    like, create = LikeModel.objects.get_or_create(post=post, user=user)
+
+    if create:
+        like.save()
+        message = 'like_add'
+    else:
+        like.delete()
+        message = 'like_delete'
+
+    return JsonResponse({'message': message})
+
+
+def toggle_dis_like(request, post_id):
+    post = get_object_or_404(PostUser, id=post_id)
+    user = request.user
+
+    dis_like, create = DisLikeModel.objects.get_or_create(post=post, user=user)
+
+    if create:
+        dis_like.save()
+        message = 'dislike_add'
+    else:
+        dis_like.delete()
+        message = 'dislike_delete'
+
+    return JsonResponse({'message': message})
