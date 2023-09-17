@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, UpdateView
 from django.core.paginator import Paginator
-from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm, PostForm, CommentForm
+from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm, PostForm
 from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel
 from authapp.utils import DataMixin
 from django.views.generic import DetailView
@@ -15,6 +15,8 @@ from django.shortcuts import render
 from django.db.models import F
 from django.utils.text import slugify
 from django.db.models import Count
+from django.utils import timezone
+import locale
 from django.http import JsonResponse
 
 
@@ -72,24 +74,14 @@ def game(request):
 
 
 def home(request):
-    comment_form = CommentForm()
-    if request.method == 'POST':
-        p_id = request.POST.get('p_id')  # Получаем ID поста из формы
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.author = request.user
-            comment.post_id = p_id
-            comment.save()
-            return redirect('/')
-
-    #distinct=True - позволяет подсчитывать только уникальные элементы
-    post = PostUser.objects.annotate(comment_count=Count('comments')).annotate(like_count=Count('like', distinct=True)).annotate(
+    # distinct=True - позволяет подсчитывать только уникальные элементы
+    post = PostUser.objects.annotate(comment_count=Count('comments')).annotate(
+        like_count=Count('like', distinct=True)).annotate(
         dis_like_count=Count('dis_like', distinct=True)).order_by('-created_at')
     paginator = Paginator(post, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'index.html', {'page_obj': page_obj, 'comment_form': comment_form})
+    return render(request, 'index.html', {'page_obj': page_obj})
 
 
 class PostCreated(CreateView):
@@ -249,3 +241,33 @@ def toggle_dis_like(request, post_id):
         message = 'dislike_delete'
 
     return JsonResponse({'message': message})
+
+
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from .models import PostUser
+
+
+def add_comment(request, post_id):
+    post = get_object_or_404(PostUser, id=post_id)
+    locale.setlocale(locale.LC_TIME, 'ru_RU')
+    formatted_datetime = timezone.localtime(timezone.now()).strftime('%d %B %Y г. %H:%M')
+    locale.setlocale(locale.LC_TIME, '')
+
+    if request.method == 'POST':
+        comment_text = request.POST.get('comment', '')
+
+        if comment_text:
+            comment = CommentModel(
+                author=request.user,
+                post=post,
+                content=comment_text
+            )
+            comment.save()
+
+            return JsonResponse({'result': 'Success', 'author': request.user.username, 'content': comment_text,
+                                 'created_at': formatted_datetime})
+        else:
+            return JsonResponse({'result': 'Empty comment'}, status=400)
+
+    return JsonResponse({'result': 'Method not allowed'}, status=405)

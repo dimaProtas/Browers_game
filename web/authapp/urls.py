@@ -15,6 +15,7 @@ urlpatterns = [
     path('edit_post/<str:slug>/', views.PostUpdateView.as_view(), name='edit_post'),
     path('toggle_like/<int:post_id>/', views.toggle_like, name='toggle_like'),
     path('toggle_dislike/<int:post_id>/', views.toggle_dis_like, name='toggle_dis_like'),
+    path('add_comment/<int:post_id>/', views.add_comment, name='add_comment'),
 ]
 
 

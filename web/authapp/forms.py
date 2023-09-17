@@ -63,8 +63,3 @@ class PostForm(forms.ModelForm):
         return instance
 
 
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = CommentModel
-        fields = ['content']
-

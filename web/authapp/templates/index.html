@@ -36,21 +36,20 @@
 
                         <a class="button button02" href="{% url 'detail_post' slug=p.slug %}">Читать...</a>
 
-                        <form method="post" class="form_comment">
-                          {% csrf_token %}
-                          <p class="placeholder-text">Введите комментарий...</p>
-                          <div class="input_button">
-                              {{ comment_form.content }}
-                              <input type="hidden" name="p_id" value="{{ p.id }}">
-                              <button class="img_form" type="submit">
-                                  <i class="fas fa-paper-plane fa-lg"></i>
-                              </button>
-                          </div>
-
+                        <form method="post" class="form_comment" data-comment-form="{{ p.id }}">
+                            <div class="input_button">
+                                <div class="input_button">
+                                    <input type="text" name="content" class="comment-input" placeholder="Введите комментарий...">
+                                    <input type="hidden" name="p_id" value="{{ p.id }}">
+                                    <div class="img_form">
+                                        <i class="fas fa-paper-plane fa-lg" data-post-id="{{ p.id }}" data-comment-form="{{ p.id }}"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
 
                         <div>
-                            <i class="fas fa-comment" data-toggle="comments-{{ p.id }}">{{ p.comment_count }}</i>
+                            <i class="fas fa-comment" data-toggle="comments-{{ p.id }}" data-comment-count="{{ p.comment_count }}">{{ p.comment_count }}</i>
                             <i class="fas fa-fire" data-post-id="{{ p.id }}" data-like-count="{{ p.like_count }}">{{ p.like_count }}</i>
                             <i class="fas fa-thumbs-down" data-post-id="{{ p.id }}" data-dislike-count="{{ p.dis_like_count }}">{{ p.dis_like_count }}</i>
                         </div>
@@ -100,6 +99,8 @@
 <meta name="csrf-token" content="{{ csrf_token }}">
 {# //Импортируем скрипты добавления удаления Like и dislike из static #}
 <script src="{% static 'js/toggle_like_dislike.js' %}"></script>
+{# //Импортируем скрипты добавления comment из static #}
+<script src="{% static 'js/comment_add_script.js' %}"></script>
 <script>
   $(document).ready(function() {
     // Скрываем все комментарии при загрузке страницы
@@ -115,6 +116,7 @@
     });
   });
 </script>
+
 
 {% endblock %}
 
