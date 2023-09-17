@@ -1,0 +1,152 @@
+[
+  {
+    "model": "authapp.commentmodel",
+    "pk": 1,
+    "fields": {
+      "post": 18,
+      "author": 2,
+      "content": "Что то об Игре DOOM в онлайн (изменённая)",
+      "created_at": "2023-09-13T07:38:00Z"
+    }
+  },
+  {
+    "model": "authapp.commentmodel",
+    "pk": 2,
+    "fields": {
+      "post": 3,
+      "author": 3,
+      "content": "Doom и ничего больше!",
+      "created_at": "2023-09-13T07:39:29Z"
+    }
+  },
+  {
+    "model": "authapp.commentmodel",
+    "pk": 3,
+    "fields": {
+      "post": 18,
+      "author": 1,
+      "content": "Что то об Игре DOOM в онлайн (изменённая)",
+      "created_at": "2023-09-13T07:40:13Z"
+    }
+  },
+  {
+    "model": "authapp.commentmodel",
+    "pk": 4,
+    "fields": {
+      "post": 2,
+      "author": 3,
+      "content": "Новая статья про моё прохождение Doom",
+      "created_at": "2023-09-13T07:40:27Z"
+    }
+  },
+  {
+    "model": "authapp.commentmodel",
+    "pk": 5,
+    "fields": {
+      "post": 3,
+      "author": 3,
+      "content": "Doom и ничего больше!",
+      "created_at": "2023-09-13T07:40:55Z"
+    }
+  },
+  {
+    "model": "authapp.commentmodel",
+    "pk": 6,
+    "fields": {
+      "post": 2,
+      "author": 1,
+      "content": "Новая статья про моё прохождение Doom",
+      "created_at": "2023-09-13T09:22:09Z"
+    }
+  },
+  {
+    "model": "authapp.commentmodel",
+    "pk": 7,
+    "fields": {
+      "post": 18,
+      "author": 1,
+      "content": "Что то об Игре DOOM в онлайн (изменённая)",
+      "created_at": "2023-09-15T14:20:45.108Z"
+    }
+  },
+  {
+    "model": "authapp.commentmodel",
+    "pk": 8,
+    "fields": {
+      "post": 39,
+      "author": 2,
+      "content": "Doom - это культовая видеоигра!)",
+      "created_at": "2023-09-15T14:21:10.791Z"
+    }
+  },
+  {
+    "model": "authapp.commentmodel",
+    "pk": 9,
+    "fields": {
+      "post": 39,
+      "author": 1,
+      "content": "Doom - это культовая видеоигра!)",
+      "created_at": "2023-09-15T14:21:35.726Z"
+    }
+  },
+  {
+    "model": "authapp.commentmodel",
+    "pk": 10,
+    "fields": {
+      "post": 2,
+      "author": 1,
+      "content": "Новая статья про моё прохождение Doom",
+      "created_at": "2023-09-15T14:22:07.891Z"
+    }
+  },
+  {
+    "model": "authapp.commentmodel",
+    "pk": 11,
+    "fields": {
+      "post": 3,
+      "author": 1,
+      "content": "Doom и ничего больше!",
+      "created_at": "2023-09-15T14:22:34.893Z"
+    }
+  },
+  {
+    "model": "authapp.commentmodel",
+    "pk": 12,
+    "fields": {
+      "post": 39,
+      "author": 1,
+      "content": "Doom - это культовая видеоигра!)",
+      "created_at": "2023-09-15T14:25:29.068Z"
+    }
+  },
+  {
+    "model": "authapp.commentmodel",
+    "pk": 13,
+    "fields": {
+      "post": 39,
+      "author": 2,
+      "content": "Doom - это культовая видеоигра!)",
+      "created_at": "2023-09-15T14:33:05.966Z"
+    }
+  },
+  {
+    "model": "authapp.commentmodel",
+    "pk": 14,
+    "fields": {
+      "post": 39,
+      "author": 2,
+      "content": "Doom - это культовая видеоигра!)?",
+      "created_at": "2023-09-15T14:33:09.687Z"
+    }
+  },
+  {
+    "model": "authapp.commentmodel",
+    "pk": 15,
+    "fields": {
+      "post": 18,
+      "author": 2,
+      "content": "Что то об Игре DOOM в онлайн (изменённая)",
+      "created_at": "2023-09-17T13:21:57.728Z"
+    }
+  }
+]
