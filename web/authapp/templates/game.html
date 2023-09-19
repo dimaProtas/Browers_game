@@ -1,8 +1,14 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style_profile.css' %}">
+{% endblock %}
 {%load static%}
 
 {% block content %}
-<h1> Игра </h1>
+<div class="profile_container">
+    <h1> Игра </h1>
 
 
     <li>
@@ -14,7 +20,7 @@
     <li>
         <a href="{% url 'js_doom_game' %}">JS Doom Game</a>
     </li>
-
+</div>
 
 </body>
 

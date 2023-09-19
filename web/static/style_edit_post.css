@@ -20,6 +20,9 @@
 
 .form input[type="text"],
 input[name="email"],
+input[name="password"],
+input[name="password1"],
+input[name="password2"],
 .form textarea {
     width: 100%;
     padding: 10px;

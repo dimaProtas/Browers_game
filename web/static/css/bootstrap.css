@@ -2,8 +2,20 @@
 /*!
  * Bootstrap  v5.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2023 The Bootstrap Authors
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)   position: sticky;
  */
+
+#my-footer {
+  position: fixed;
+  bottom: -100px; /* начальная позиция вне экрана */
+  left: 0;
+  width: 100%;
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+  transition: bottom 0.3s ease-in-out; /* анимация появления/скрытия */
+}
+
 :root,
 [data-bs-theme=light] {
   --bs-blue: #0d6efd;
@@ -191,6 +203,7 @@
 }
 
 body {
+  min-height: 800px;
   margin: 0;
   font-family: var(--bs-body-font-family);
   font-size: var(--bs-body-font-size);

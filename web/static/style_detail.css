@@ -1,3 +1,7 @@
+.comment_container {
+    margin-bottom: 130px;
+}
+
 .container {
     display: flex;
     flex-direction: column;

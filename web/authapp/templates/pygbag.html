@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
+
 {% block content %}
 <div class="container_game_chat">
     <div class="game_block">
 
         <div class="game">
             <!-- iframe, который будет развернут на весь монитор -->
-            <iframe id="fullscreen-iframe" src="http://localhost:8000"></iframe>
+            <iframe  id="fullscreen-iframe" src="http://localhost:8000"></iframe>
             <!-- Нажмите на кнопку, чтобы развернуть iframe на весь монитор -->
             <p>
                 <button id="fullscreen-button">Развернуть</button>
@@ -38,11 +43,14 @@
 </div>
 
     <div class="messages_block">
+        <div class="title_chat">
+            <h2>Чат</h2>
+        </div>
         <div class="message-container">
             <audio id="messageSound" src="{% static 'audio/send_sound.mp3' %}" preload="auto"></audio>
             <audio id="messageSoundAdd" src="{% static 'audio/add_message.mp3' %}" preload="auto"></audio>
         {% for m in messages %}
-            <div class="message {% if m.sender == curent_user %}sent-by-me{% endif %}">
+            <div class="message {% if m.sender == current_user %}sent-by-me{% endif %}">
                 <div>
                     <span class="sender">{{ m.sender }}</span>
                     <span class="timestamp">{{ m.created_at }}</span>
@@ -58,119 +66,9 @@
                 <input type="text" id="message-input" placeholder="Введите ваше сообщение...">
             </div>
             <button type="submit" class="submit-button">
-                <img src="/media/send.png" alt="send" width="20px">
+                <i class="fas fa-paper-plane fa-lg" data-post-id="{{ p.id }}" data-comment-form="{{ p.id }}"></i>
             </button>
         </form>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // JavaScript-код для отправки сообщения через WebSocket
-        const socket = new WebSocket('ws://127.0.0.1:8888/ws/messages/');
-
-        socket.onopen = function (e) {
-            console.log('WebSocket connection established.');
-        };
-
-        socket.onclose = function (event) {
-            if (event.wasClean) {
-                console.log(`Closed cleanly, code=${event.code}, reason=${event.reason}`);
-            } else {
-                console.error('Connection died');
-            }
-        };
-
-        socket.onmessage = function(event) {
-            const data = JSON.parse(event.data);
-            // Обработка полученного сообщения, например, вывод на экран
-            //const isSentByMe = data.isSentByMe;
-            addMessage(data.sender, data.message, data.timestamp);
-        };
-
-
-        // Обработчик события submit формы
-        document.querySelector('.message-form').addEventListener('submit', function (event) {
-            event.preventDefault(); // Предотвращаем стандартное действие формы (перенаправление)
-
-            const messageInput = document.getElementById('message-input');
-            const message = messageInput.value;
-
-
-            // Проверяем, не является ли сообщение пустым
-            if (message.trim() !== '') {
-                socket.send(JSON.stringify({ message }));
-                messageInput.value = '';
-            }
-        });
-
-            const messageContainer = document.querySelector('.message-container');
-            let isScrolledToBottom = true;
-
-            // Обработчик прокрутки контейнера
-            messageContainer.addEventListener('scroll', function () {
-                // Проверяем, находится ли скролл внизу
-                isScrolledToBottom = messageContainer.scrollHeight - messageContainer.scrollTop === messageContainer.clientHeight;
-            });
-
-            function addMessage(sender, message, timestamp) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'message';
-
-                const senderTimestampDiv = document.createElement('div');
-
-                const senderSpan = document.createElement('span');
-                senderSpan.className = 'sender';
-                senderSpan.textContent = sender;
-
-                const timestampSpan = document.createElement('span');
-                timestampSpan.className = 'timestamp';
-                timestampSpan.textContent = timestamp;
-
-                senderTimestampDiv.appendChild(senderSpan);
-                senderTimestampDiv.appendChild(timestampSpan);
-
-                const messageTextSpan = document.createElement('span');
-                messageTextSpan.className = 'message-text';
-                messageTextSpan.textContent = message;
-
-                messageDiv.appendChild(senderTimestampDiv);
-                messageDiv.appendChild(messageTextSpan);
-
-                messageContainer.appendChild(messageDiv); // Добавляем сообщение в конец контейнера
-
-                // Помечаем сообщение, если оно отправлено мной
-                if (sender === '{{ curent_user }}') {
-                        messageDiv.classList.add('sent-by-me'); // Добавляем класс CSS для пометки
-
-                        // Воспроизводим звук отправки сообщения
-                        const messageSound = document.getElementById('messageSound');
-                        messageSound.play();
-                        console.log('send message sound')
-                    }
-
-                // Помечаем сообщение, если оно отправлено мной
-                if (sender !== '{{ curent_user }}') {
-
-                        // Воспроизводим звук полученого сообщения
-                        const messageSound = document.getElementById('messageSoundAdd');
-                        messageSound.play();
-                        console.log('add message sound')
-                    }
-
-
-                // Если скролл находится внизу, автоматически прокручиваем
-                if (isScrolledToBottom) {
-                    messageContainer.scrollTop = messageContainer.scrollHeight;
-                }
-            }
-
-            window.addEventListener('load', function () {
-            // Получаем контейнер сообщений
-            const messageContainer = document.querySelector('.message-container');
-
-            // Устанавливаем положение скролла внизу
-            messageContainer.scrollTop = messageContainer.scrollHeight;
-        });
-    });
-</script>
 
     </div>
 
@@ -179,7 +77,12 @@
 </div>
 </div>
 
+{% include 'inc/window_modal_like_dislike.html' %}
 
+<div id="user-data" data-current-user="{{ current_user }}"></div> {# div передаёт current_user в chat_websocket_script #}
 
+<script>var userIsAuthenticated = {{ request.user.is_authenticated|lower }};</script> {# передаёт в скрипт request.user.is_authenticated #}
+
+<script type="module" src="{% static 'js/chat_websocket_script.js' %}"></script> {# импортируем скрипт chat_websocket_script #}
 
 {% endblock %}

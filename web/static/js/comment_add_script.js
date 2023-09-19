@@ -41,9 +41,12 @@ $(document).ready(function() {
 
                    // Создаем новый HTML-элемент для комментария
                     var newComment = '<div class="comment">' +
-                        '<div class="coent_date">' +
+                        '<div class="comment_date">' +
                             '<span class="author">' + data.author + '</span>' +
+                            '<div>' +
                             '<span class="date_time">' + data.created_at + '</span>' +
+                            '<i class="fas fa-times delete-comment" data-comment-id=' + data.comment_id + '>' + '</i>' +
+                            '</div>' +
                         '</div>' +
                             '<div class="content">' + data.content + '</div>' +
                         '</div>';

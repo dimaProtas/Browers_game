@@ -1,17 +1,29 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style_edit_post.css' %}">
+{% endblock %}
 
 {% block content %}
-<h1>{{title}}</h1>
 
-<form method="post">
-  {% csrf_token %}
+<div class="form_container">
 
-  {% for f in form %}
-<p><label class="form-check" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
-<div class="form-error">{{ f.errors }}</div>
-{% endfor %}
+  <div class="profile_title">
+    <h1>{{title}}</h1>
+  </div>
 
-  <button class="button" type="submit">Регистрация</button>
-</form>
+  <form method="post" class="form">
+    {% csrf_token %}
+
+    {% for f in form %}
+      <p><label class="form-check" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+      <div class="form-error">{{ f.errors }}</div>
+    {% endfor %}
+
+    <button class="btn btn-dark" type="submit">Регистрация</button>
+  </form>
+</div>
+
 
 {% endblock %}
