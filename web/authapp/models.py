@@ -11,7 +11,13 @@ from unidecode import unidecode
 # Модель юзера
 class CustomUser(AbstractUser):
     username = models.CharField(max_length=250, unique=True)
+    status = models.CharField(max_length=30, blank=True, null=True)
+    about_me = models.TextField(blank=True, null=True, verbose_name='about_me')
     email = models.EmailField(('email address'), unique=True)
+    vk = models.CharField(max_length=100, blank=True, null=True)
+    instagram = models.CharField(max_length=100, blank=True, null=True)
+    github = models.CharField(max_length=100, blank=True, null=True)
+    avatar = models.ImageField(upload_to='avatar/%Y/%m/%d/', blank=True, verbose_name='avatar')
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = CustomUserManager()
@@ -22,8 +28,8 @@ class CustomUser(AbstractUser):
 
 # Модель профиля игрока, то есть можем вести некую статистику и выводить ее на условной таблице лидеров
 class ProfileUser(models.Model):
-    user_name = models.OneToOneField(CustomUser, on_delete=models.PROTECT)
-    top_result = models.IntegerField(default=None)
+    user_name = models.OneToOneField(CustomUser, on_delete=models.PROTECT, related_name='profile_user')
+    top_result = models.IntegerField(default=0)
     count_game = models.IntegerField(default=0)
 
 

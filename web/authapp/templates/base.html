@@ -10,6 +10,8 @@
     {% load bootstrap4 %}
     {% bootstrap_css %}
     {% load static %}
+    <link rel="icon" href="/media/unnamed.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="/media/unnamed.jpg" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'style_chat.css' %}">
     {% block style %}{% endblock %}
@@ -39,9 +41,16 @@
 
             {% if request.user.is_authenticated %}
             <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
+            <a class="nav-link" href="{% url 'users_all' %}">Игроки</a>
           </li>
-			<li class="nav-item" style="color: #e9ecef"> <a class="nav-link"> {{ user.username }} </a> </li>
+			<li class="nav-item" style="color: #e9ecef">
+                <a class="nav-link" href="{% url 'profile' %}">
+                    {{ user.username }}
+                    {% if user.avatar %}
+                        <img class="avatar" src="{{ user.avatar.url }}" alt="ava">
+                    {% endif %}
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}">Выйти</a> </li>
 			{% else %}

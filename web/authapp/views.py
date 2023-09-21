@@ -20,6 +20,13 @@ import locale
 from django.http import JsonResponse
 
 
+def users_all_view(request):
+    users = CustomUser.objects.all()
+    paginator = Paginator(users, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'users.html', {'page_obj': page_obj})
+
 class MessageView(View):
     def get(self, request):
         current_user = request.user
@@ -54,6 +61,14 @@ class MessageView(View):
     def delete(self, request, message_id):
         # Обработка удаления сообщения
         pass
+
+
+def mario(request):
+    return render(request, 'mario_js.html')
+
+
+def duck_hunt(request):
+    return render(request, 'duck_hunt.html')
 
 
 def game_js(request):
@@ -156,6 +171,12 @@ def profile_user_view(request):
     return render(request, 'profile.html', {'profile': profile, 'user': user, 'post_user': post_user})
 
 
+class ProfileDetailUserView(DetailView):
+    model = CustomUser
+    template_name = 'detail_profile_user.html'
+    context_object_name = 'detail_profile_user'
+
+
 def delete_post(request, post_id):
     try:
         post = PostUser.objects.get(id=post_id)
@@ -175,7 +196,7 @@ def delete_comment(request, comment_id):
 
 
 def top_players(request):
-    top = ProfileUser.objects.order_by('-top_result')[:5]
+    top = ProfileUser.objects.annotate(post_count=Count('user_name__user_post')).order_by('-top_result')[:10]
     return render(request, 'top.html', {'top': top})
 
 

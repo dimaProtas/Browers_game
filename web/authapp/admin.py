@@ -8,20 +8,28 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ('username', 'email', 'is_staff', 'is_active',)
+    list_display = ('username', 'email', 'get_avatar', 'is_staff', 'is_active')
     list_filter = ('username', 'email', 'is_staff', 'is_active',)
     fieldsets = (
-        (None, {'fields': ('email','username', 'password')}),
+        (None, {'fields': ('status', 'about_me', 'email', 'vk', 'instagram', 'github', 'avatar', 'username', 'password')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'email', 'password1', 'password2', 'is_staff', 'is_active')}
+            'fields': ('username', 'status', 'about_me', 'email', 'vk', 'instagram', 'github', 'avatar', 'password1', 'password2', 'is_staff', 'is_active')}
          ),
     )
     search_fields = ('email',)
     ordering = ('username',)
+
+    def get_avatar(self, obj):
+        if obj.avatar:
+            return mark_safe(f'<img src="{obj.avatar.url}" width="50">')
+        else:
+            return 'нет фото'
+
+    get_avatar.short_description = 'Аватар'
 
 
 admin.site.register(CustomUser, CustomUserAdmin)

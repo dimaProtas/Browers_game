@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style_all_users.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style_paginate.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+    <div class="all_users_container">
+        {% for user in page_obj %}
+            <div class="user_container">
+                <div class="username_status">
+                    <div class="avatar_name">
+                        <a href="{% url 'detail_profile_user' pk=user.id %}">{{ user.username }}</a>
+                    </div>
+                    <div class="status">
+                        {% if user.status %}{{ user.status }}{% else %}нет статуса{% endif %}
+                    </div>
+                </div>
+                <div class="avatar_top_res">
+                    {% if user.avatar %}
+                        <img src="{{ user.avatar.url }}" alt="ava">
+                    {% else %}
+                        <img src="/media/not_avatar.jpg" alt="ava">
+                    {% endif %}
+                    <div class="top_result">
+                        <p>
+                            Лучший результат:
+                            {% if user.profile_user.top_result  %}{{ user.profile_user.top_result }}{% else %}нет игр{% endif %}
+                        </p>
+                        <p>
+                            Количество игр:
+                            {% if user.profile_user.count_game  %}{{ user.profile_user.count_game }}{% else %}нет игр{% endif %}
+                        </p>
+
+                    </div>
+                    <div class="add_friends">
+                        <span class="clik_button">Добавить в друзья</span>
+                    </div>
+                    </div>
+
+            </div>
+        {% endfor %}
+    </div>
+
+{% include 'inc/paginator.html' %}
+{% endblock %}

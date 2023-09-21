@@ -1,7 +1,7 @@
 /* Стилизация пагинации */
 .pegination {
     text-align: center;
-    margin-bottom: 146px;
+    margin-bottom: 20px;
     margin-top: 20px;
     font-family: 'DoomFont', sans-serif;
     display: flex;

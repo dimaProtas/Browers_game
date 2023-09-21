@@ -22,7 +22,14 @@
                         <div class="art-content">
                             <a href="#"><h3 style="font-size: 37px; line-height: 1.5;">{{ detail_post.title }}</h3></a>
                             <div class="info">{{ detail_post.created_at }}</div>
-                            <div class="excerpt">Автор: <span class="author-name">{{ detail_post.author }}</span></div>
+                            <div class="excerpt">Автор:
+                                <span class="author-name">{{ detail_post.author }}</span>
+                                {% if detail_post.author.avatar %}
+                                    <img  src="{{ detail_post.author.avatar.url }}" alt="ava">
+                                {% else %}
+                                    <img src="/media/not_avatar.jpg" alt="ava">
+                                {% endif %}
+                            </div>
                             <p>{{ detail_post.text|safe }}</p>
                             <div class="date_icon_container">
                                 <div class="excerpt"><p>Количество просмотров: {{ detail_post.views }}</p></div>
