@@ -51,6 +51,13 @@
     color: #ff5500; /* Цвет имени автора */
 }
 
+.author img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
 .container_post_footer {
     display: flex;
     justify-content: space-between;

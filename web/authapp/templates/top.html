@@ -1,12 +1,38 @@
 {% extends 'base.html' %}
-{% block content %}
-<h1> TOP </h1>
+{% load static %}
 
-<table>
-<tr><th>Имя пользователя </th><th>Результат </th><th>Количество игр </th></tr> <!--ряд с ячейками заголовков-->
-    {% for t in top %}
-<tr><td>{{t.user_name.username}}</td><td>{{t.top_result}}</td><td>{{t.count_game}}</td></tr> <!--ряд с ячейками тела таблицы-->
-    {% endfor %}
-</table>
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile_container">
+    <h1> TOP 10</h1>
+
+    <div class="data_profile_container">
+        <table>
+            <tr><th>Аватар</th></th><th>Имя пользователя </th><th>Результат </th><th>Количество игр </th> <th>Количество постов </th></tr> <!--ряд с ячейками заголовков-->
+                {% for t in top %}
+                    <tr>
+                        <td class="avatar_table">
+                            {% if t.user_name.avatar %}
+                                <img src="{{ t.user_name.avatar.url }}" alt="ava">
+                            {% else %}
+                                <img src="media/not_avatar.jpg" alt="ava">
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'detail_profile_user' pk=t.user_name.id %}">{{t.user_name.username}}</a>
+                        </td>
+                        <td>{{t.top_result}}</td>
+                        <td>{{t.count_game}}</td>
+                        <td>{{t.post_count}}</td>
+                    </tr> <!--ряд с ячейками тела таблицы-->
+                {% endfor %}
+        </table>
+    </div>
+
+</div>
+
 
 {% endblock %}

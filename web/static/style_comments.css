@@ -9,7 +9,7 @@
     padding: 10px;
 }
 
-.coent_date {
+.comment_date {
     display: flex;
     justify-content: space-between;
 }
@@ -59,4 +59,13 @@
 .placeholder-text {
     font-size: 14px;
     color: #999;
+}
+
+.fa-times {
+    margin-left: 10px;
+}
+
+.fa-times:hover {
+    color: red;
+    transform: scale(1.3);
 }

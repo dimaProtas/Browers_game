@@ -1,0 +1,78 @@
+.avatar_top_res img {
+    width: 70px;
+    height: 65px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 0px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+}
+
+.all_users_container {
+    margin: 10px;
+}
+
+.user_container {
+    background-color: #1d1f21;
+    color: #fff;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.username_status {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.top_result {
+    text-align: center;
+    padding-bottom: 16px;
+}
+
+.avatar_top_res {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add_friends {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 29px;
+    margin-right: 10px;
+}
+
+.clik_button {
+    background-color: #696969;
+    padding: 6px 80px;
+    border-radius: 10px;
+}
+
+.clik_button:hover {
+    background-color: #00FF00;
+    transition: background-color 0.3s;
+    transform: scale(1.1);
+}
+
+.status {
+    margin-right: 15px;
+}
+
+.avatar_name {
+    margin-left: 10px;
+}
+
+.avatar_name a {
+    text-decoration: none;
+    color: #DC143C;;
+}
+
+.avatar_name a:hover {
+    color: #ff5500;
+    transition: color 0.3s;
+}
+
+.avatar_name:hover {
+    transform: scale(1.3);
+}

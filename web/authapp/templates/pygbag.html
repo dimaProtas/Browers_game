@@ -64,8 +64,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // JavaScript-код для отправки сообщения через WebSocket
-        console.log('start connection webscokets...');
-        const socket = new WebSocket('wss://127.0.0.1:8888/ws/messages/');
+        const socket = new WebSocket('ws://127.0.0.1:8888/ws/messages/');
 
         socket.onopen = function (e) {
             console.log('WebSocket connection established.');
@@ -179,6 +178,7 @@
 
 </div>
 </div>
+
 
 
 

@@ -20,10 +20,17 @@ import locale
 from django.http import JsonResponse
 
 
+def users_all_view(request):
+    users = CustomUser.objects.all()
+    paginator = Paginator(users, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'users.html', {'page_obj': page_obj})
+
 class MessageView(View):
     def get(self, request):
-        curent_user = request.user
-        print(curent_user)
+        current_user = request.user
+        print(current_user)
         messages = MessagesModel.objects.all()
         form = MessageForm()
 
@@ -33,7 +40,7 @@ class MessageView(View):
             for message in messages_to_delete:
                 message.delete()
 
-        return render(request, 'pygbag.html', {'messages': messages, 'curent_user': curent_user, 'form': form})
+        return render(request, 'pygbag.html', {'messages': messages, 'current_user': current_user, 'form': form})
 
     # def post(self, request):
     #     # Обработка создания нового сообщения
@@ -54,6 +61,14 @@ class MessageView(View):
     def delete(self, request, message_id):
         # Обработка удаления сообщения
         pass
+
+
+def mario(request):
+    return render(request, 'mario_js.html')
+
+
+def duck_hunt(request):
+    return render(request, 'duck_hunt.html')
 
 
 def game_js(request):
@@ -177,6 +192,12 @@ def profile_user_view(request):
     return render(request, 'profile.html', {'profile': profile, 'user': user, 'post_user': post_user})
 
 
+class ProfileDetailUserView(DetailView):
+    model = CustomUser
+    template_name = 'detail_profile_user.html'
+    context_object_name = 'detail_profile_user'
+
+
 def delete_post(request, post_id):
     try:
         post = PostUser.objects.get(id=post_id)
@@ -186,8 +207,17 @@ def delete_post(request, post_id):
         return JsonResponse({'success': False, 'error': 'Post not found'}, status=404)
 
 
+def delete_comment(request, comment_id):
+    try:
+        comment = CommentModel.objects.get(id=comment_id)
+        comment.delete()
+        return JsonResponse({'sucses': True})
+    except CommentModel.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Comment not found'}, status=404)
+
+
 def top_players(request):
-    top = ProfileUser.objects.order_by('-top_result')[:5]
+    top = ProfileUser.objects.annotate(post_count=Count('user_name__user_post')).order_by('-top_result')[:10]
     return render(request, 'top.html', {'top': top})
 
 
@@ -287,7 +317,7 @@ def add_comment(request, post_id):
             comment.save()
 
             return JsonResponse({'result': 'Success', 'author': request.user.username, 'content': comment_text,
-                                 'created_at': formatted_datetime})
+                                 'created_at': formatted_datetime, 'comment_id': comment.id})
         else:
             return JsonResponse({'result': 'Empty comment'}, status=400)
 

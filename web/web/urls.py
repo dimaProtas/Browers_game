@@ -34,7 +34,7 @@ urlpatterns = [
     path('top_players', top_players, name='top'),
     path('logout/', logout_user,  name='logout'),
     path('edit_profile/', ProfileUpdateView.as_view(),  name='edit_profile'),
-    path("", include("authapp.urls")),
+    path('', include("authapp.urls")),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

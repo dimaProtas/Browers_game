@@ -6,6 +6,7 @@ $(document).ready(function() {
         var postId = $(this).data("post-id");
         var likeCountElement = $(this);
 
+        if (userIsAuthenticated) {
         // Отправляем Ajax-запрос на сервер для создания или удаления лайков
         $.ajax({
             url: "http://127.0.0.1:8888/toggle_like/" + postId + "/", // URL для dislike
@@ -33,6 +34,11 @@ $(document).ready(function() {
                 alert("Произошла ошибка при выполнении запроса.");
             },
         });
+        } else {
+            // Отображение модального окна
+            $("#confirmModal").modal("show");
+        }
+
     });
 });
 
@@ -45,8 +51,9 @@ $(document).ready(function() {
         var postId = $(this).data("post-id");
         var DislikeCountElement = $(this);
 
-        // Отправляем Ajax-запрос на сервер для создания или удаления dislike
-        $.ajax({
+        if (userIsAuthenticated) {
+            // Отправляем Ajax-запрос на сервер для создания или удаления dislike
+            $.ajax({
             url: "http://127.0.0.1:8888/toggle_dislike/" + postId + "/", // URL для dislike
             type: "POST",
             data: {
@@ -72,5 +79,9 @@ $(document).ready(function() {
                 alert("Произошла ошибка при выполнении запроса.");
             },
         });
+        } else {
+            $("#confirmModal").modal("show");
+        }
+
     });
 });

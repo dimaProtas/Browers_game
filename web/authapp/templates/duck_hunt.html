@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="{% static 'duck-hunt/style.css' %}">
+</head>
+
+<body>
+    <p class="points" id="point">Your Score: <p id="score">0</p> </p>
+
+    <div id="game" onclick="">
+        <a class="myButton" id="myButton" onclick="startGame();">START</a>
+
+        <img src="{% static 'duck-hunt/images/backgroundgrass.png' %}" id="grass" alt="" onclick="shoot();">
+        <img src="{% static 'duck-hunt/images/flyingduck.gif' %}" onclick="shootDuck();" id="duck" alt="">
+        <img src="{% static 'duck-hunt/images/sniffingdog.gif' %}" onclick="dogBark.play();" id="dog" alt="">
+
+    </div>
+    <script src="{% static 'duck-hunt/script.js' %}"></script>
+
+</body>
+
+</html>

@@ -429,12 +429,13 @@
       this.xhr.open('GET', url, true);
       this.xhr.overrideMimeType('text/plain; charset=x-user-defined');
       this.xhr.addEventListener('progress', (function(_this) {
-        return function(evt) {
-          if (_this.progress) {
-            return _this.progress(evt.total, evt.loaded);
-          }
-        };
-      })(this));
+          return function(evt) {
+            if (_this.progress) {
+              console.log('Прогресс:', evt.loaded, 'из', evt.total, 'байт');
+              return _this.progress(evt.total, evt.loaded);
+            }
+          };
+        })(this));
       this.xhr.onreadystatechange = (function(_this) {
         return function() {
           return _this._onReadyStateChange();

@@ -17,7 +17,7 @@ from .models import CustomUser, PostUser, CommentModel
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
-        fields = ('email', 'username')
+        fields = ('username', 'status', 'about_me', 'email', 'vk', 'instagram', 'github', 'avatar')
 
 
 class CustomUserCreationForm(UserCreationForm):
