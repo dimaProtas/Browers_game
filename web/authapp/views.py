@@ -73,6 +73,27 @@ def game(request):
     return render(request, 'game.html')
 
 
+import socket
+from django.http import HttpResponse
+from django.views.generic import View
+
+
+class SocketServerView(View):
+    def get(self, request):
+        UDP_IP = "127.0.0.1"
+        UDP_PORT = 12345
+
+        sock = socket.socket(socket.AF_INET,  # Internet
+                             socket.SOCK_DGRAM)  # UDP
+        sock.bind((UDP_IP, UDP_PORT))
+        while True:
+            data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
+            print("received message: %s" % data)
+            response = HttpResponse(f'{data}')
+            sock.close()
+            return response
+
+
 def home(request):
     # distinct=True - позволяет подсчитывать только уникальные элементы
     post = PostUser.objects.annotate(comment_count=Count('comments')).annotate(

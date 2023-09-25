@@ -20,9 +20,9 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'web.settings')
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
     "websocket": AuthMiddlewareStack(
-            URLRouter([
-                re_path(r'ws/game_stream/$', consumers.GameConsumer.as_asgi()),
-                re_path(r'ws/messages/$', consumers.ChatConsumer.as_asgi())
+        URLRouter([
+            re_path(r'ws/game_stream/$', consumers.GameConsumer.as_asgi()),
+            re_path(r'wss/messages/$', consumers.ChatConsumer.as_asgi())
         ])
     ),
 })
