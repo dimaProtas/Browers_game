@@ -3,6 +3,7 @@
 {% block style %}
     <link rel="stylesheet" type="text/css" href="{% static 'style_profile.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'style_profile_post.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style_friends.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {% endblock %}
 {% block content %}
@@ -49,9 +50,85 @@
     <a href="{% url 'edit_profile' %}" class="accordion-button">Редактировать профиль</a>
     <a href="{% url 'add_post' %}" class="accordion-button">Создать пост</a>
     <p class="accordion-button" data-toggle="post">Мои посты</p>
+    <p class="accordion-button" data-toggle="friends">Мои друзья</p>
 </div>
 
 {% include 'inc/post_user.html' with some_variable=post_user %}
+
+
+<div class="friends_container">
+    <div class="toggle_friends">
+        <p class="friends_toggle add_color" data-toggle="accepted">Друзья
+            <span data-friends-count="{{ friends_count }}" class="count_friends">{{ friends_count }}</span>
+        </p>
+        <p class="add_friends_toggle" data-toggle="request">Заявки в друзья
+            <span data-request-count="{{ request_friends_count }}" class="count_request">{{ request_friends_count }}</span>
+        </p>
+    </div>
+    <div class="add_friends_container">
+        {% for f in friends %}
+        {% if f.sent_from_id != user.id %}
+            <div class="friend">
+                <div class="avatar_name_status">
+                    {% if f.sent_from.avatar %}<img src="{{ f.sent_from.avatar.url }}" alt="ava">{% else %}<img src="/media/not_avatar.jpg" alt="ava">{% endif %}
+                    <div>
+                        <a href="{% url 'detail_profile_user' pk=f.sent_from.id %}">{{ f.sent_from.username }}</a>
+                        <div class="status">{% if f.sent_from.status %}<p>{{ f.sent_from.status }}</p>{% else %}Нет статуса{% endif %}</div>
+                    </div>
+                </div>
+                <div class="time_button">
+                    <p class="date_time">{{ f.sent_on }}</p>
+                    <div class="message_delete_button">
+                        <span class="clik_button message">Сообщение</span><span class="clik_button delete">Удалить из друзей</span>
+
+                    </div>
+                </div>
+
+            </div>
+        {% else %}
+            <div class="friend">
+                <div class="avatar_name_status">
+                    {% if f.sent_to.avatar %}<img src="{{ f.sent_to.avatar.url }}" alt="ava">{% else %}<img src="/media/not_avatar.jpg" alt="ava">{% endif %}
+                    <div>
+                        <a href="{% url 'detail_profile_user' pk=f.sent_to.id %}">{{ f.sent_to.username }}</a>
+                        <div class="status">{% if f.sent_to.status %}<p>{{ f.sent_to.status }}</p>{% else %}Нет статуса{% endif %}</div>
+                    </div>
+                </div>
+                <div class="time_button">
+                    <p class="date_time">{{ f.sent_on }}</p>
+                    <div class="message_delete_button">
+                        <span class="clik_button message">Сообщение</span>
+                        <span class="clik_button delete">Удалить из друзей</span>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div class="request_friends_container">
+        {% for r in request_friends %}
+            <div class="friend" data-toggle="friend-{{ r.sent_from.id }}">
+                <div class="avatar_name_status">
+                    {% if r.sent_from.avatar %}<img src="{{ r.sent_from.avatar.url }}" alt="ava">{% else %}<img src="/media/not_avatar.jpg" alt="ava">{% endif %}
+                    <div>
+                        <a href="{% url 'detail_profile_user' pk=r.sent_from.id %}">{{ r.sent_from.username }}</a>
+                        <div class="status">{% if r.sent_from.status %}<p>{{ r.sent_from.status }}</p>{% else %}Нет статуса{% endif %}</div>
+                    </div>
+                </div>
+                <div class="time_button">
+                    <p class="date_time">{{ r.sent_on }}</p>
+                    <div class="message_delete_button">
+                        <span data-user-id="{{ r.sent_from.id }}" data-friend-status="done" class="clik_button message done">Принять</span>
+                        <span data-user-id="{{ r.sent_from.id }}" data-friend-status="cancel" class="clik_button delete cancel">Отклонить</span>
+
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
 
 <div class="modal" id="confirmDeleteModal">
     <div class="modal-dialog">
@@ -77,49 +154,35 @@
 </div> {# Модальное окно удаления поста #}
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="{% static 'js/post_user_hide.js' %}"></script>
+<meta name="csrf-token" content="{{ csrf_token }}"> {# Получаем токен в meta, для использования в скрипте js #}
+<script src="{% static 'js/post_user_hide.js' %}"></script> {# импорт скрипта скпыть\открыть посты #}
+<script src="{% static 'js/post_delete.js' %}"></script> {# импорт скрипта удаления постов #}
 <script>
-  $(document).ready(function() {
-    $(".delete-post").click(function() {
-        var postId = $(this).data("post-id");
-
-        // Установка postId в модальном окне для последующего удаления
-        $("#confirmDelete").data("post-id", postId);
-
-        // Отображение модального окна
-            $("#confirmDeleteModal").modal("show");
-        });
-
-        $("#confirmDelete").click(function() {
-            var postId = $(this).data("post-id");
-            var currentPost = $(".delete-post[data-post-id='" + postId + "']").closest(".post");
-
-
-      // Отправляем Ajax-запрос на сервер для удаления поста
-      $.ajax({
-        url: "http://127.0.0.1:8888/delete_post/" + postId + "/", // URL для удаления поста
-        type: "POST",
-        data: {
-          csrfmiddlewaretoken: "{{ csrf_token }}", // CSRF-токен для безопасности
-        },
-        success: function(data) {
-          if (data.sucses) {
-            currentPost.hide();
-          } else {
-            // Обработка ошибки при удалении поста
-            alert("Ошибка при удалении поста: " + data.error);
-          }
-        },
-
-        error: function() {
-          // Обработка ошибки при Ajax-запросе
-          alert("Произошла ошибка при выполнении запроса.");
-        },
-      });
-      // Закрытие модального окна после удаления
-        $("#confirmDeleteModal").modal("hide");
-    });
+    $(document).ready(function() {
+  $(".friends_container").hide(); //скрываем котнтейнер с друзьями
+  $("[data-toggle^='friends']").click(function() {
+    $(".post_container").hide();
+    $(".friends_container").toggle(); // Переключаем видимость всех контейнеров друзей
   });
-</script>
+});
+</script> {# импорт скрипта скпыть\открыть друзей #}
+<script>
+    $(document).ready(function() {
+      $(".request_friends_container").hide(); //скрываем котнтейнер с друзьями
+      $("[data-toggle^='request']").click(function() {
+        $(".add_friends_container").hide()
+        $(".request_friends_container").toggle() // Переключаем видимость всех контейнеров друзей
+        $(".add_friends_toggle").addClass("add_color");
+        $(".friends_toggle").removeClass("add_color");
+      });
 
+      $("[data-toggle^='accepted']").click(function() {
+        $(".request_friends_container").hide();
+        $(".add_friends_container").toggle(); // Переключаем видимость всех контейнеров друзей
+        $(".add_friends_toggle").removeClass("add_color");
+        $(".friends_toggle").addClass("add_color");
+      });
+    });
+</script> {# импорт скрипта переключения друзей и заявки в друзья #}
+<script src="{% static 'js/done_cancel_friends_script.js' %}"></script>
 {% endblock %}

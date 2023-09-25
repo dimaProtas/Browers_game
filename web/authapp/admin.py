@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser, ProfileUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel
+from .models import CustomUser, ProfileUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, FriendsRequest
 from django.utils.safestring import mark_safe
 
 class CustomUserAdmin(UserAdmin):
@@ -87,7 +87,7 @@ admin.site.register(CommentModel, CommentAdmin)
 
 class LikeAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'post']
-    list_display = ['id', 'user', 'post']
+    list_display_links = ['id']
 
 
 admin.site.register(LikeModel, LikeAdmin)
@@ -95,7 +95,15 @@ admin.site.register(LikeModel, LikeAdmin)
 
 class DisLikeAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'post']
-    list_display = ['id', 'user', 'post']
+    list_display_links = ['id']
 
 
 admin.site.register(DisLikeModel, DisLikeAdmin)
+
+
+class FriendsRequestAdmin(admin.ModelAdmin):
+    list_display = ['id', 'status', 'sent_from', 'sent_to', 'sent_on']
+    list_display_links = ['id']
+
+
+admin.site.register(FriendsRequest, FriendsRequestAdmin)

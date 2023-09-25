@@ -93,3 +93,18 @@ class DisLikeModel(models.Model):
 
     class Meta:
         unique_together = ('user', 'post')
+
+
+class FriendsRequest(models.Model):
+    STATUS_CHOICE = (
+        (1, 'Pending'),
+        (2, 'Accepted'),
+        (3, 'Rejected'),
+    )
+    status = models.IntegerField(choices=STATUS_CHOICE, default=1)
+    sent_from = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="request_sent")
+    sent_to = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="request_received")
+    sent_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('sent_from', 'sent_to')

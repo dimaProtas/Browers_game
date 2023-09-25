@@ -8,7 +8,7 @@ from django.views import View
 from django.views.generic import CreateView, UpdateView
 from django.core.paginator import Paginator
 from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm, PostForm
-from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel
+from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, FriendsRequest
 from authapp.utils import DataMixin
 from django.views.generic import DetailView
 from django.shortcuts import render
@@ -17,14 +17,39 @@ from django.utils.text import slugify
 from django.db.models import Count
 from django.utils import timezone
 import locale
+from django.db.models import Q
 from django.http import JsonResponse
 
 
+# Функция проверки отношений между пользователями.
+def get_relationship_status(user1, user2):
+    # Проверяем, есть ли запрос в друзья от пользователя user1 к пользователю user2
+    friend_request = FriendsRequest.objects.filter(
+        sent_from=user1,
+        sent_to=user2,
+        status=1  # Статус "Pending" означает, что запрос в друзья ожидает подтверждения
+    ).first()
+
+    if friend_request:
+        return "request_sent"  # Запрос в друзья уже отправлен
+    elif FriendsRequest.objects.filter(
+        (Q(sent_from=user1, sent_to=user2, status=2) | Q(sent_from=user2, sent_to=user1, status=2))
+    ).exists():
+        return "friend"  # Пользователи уже друзья
+    else:
+        return "not_friends"  # Пользователи не являются друзьями и нет активных запросов
+
+
 def users_all_view(request):
-    users = CustomUser.objects.all()
+    users = CustomUser.objects.annotate(post_count=Count('user_post')).exclude(id=request.user.id)
     paginator = Paginator(users, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+
+    # Обновляем объекты CustomUser с атрибутом status
+    for user in page_obj:
+        user.relationship_statuses = get_relationship_status(request.user, user)
+
     return render(request, 'users.html', {'page_obj': page_obj})
 
 class MessageView(View):
@@ -57,10 +82,10 @@ class MessageView(View):
     #
     #     messages = MessagesModel.objects.all()
     #     return render(request, 'pygbag.html', {'messages': messages, 'form': form})
-
-    def delete(self, request, message_id):
-        # Обработка удаления сообщения
-        pass
+    #
+    # def delete(self, request, message_id):
+    #     # Обработка удаления сообщения
+    #     pass
 
 
 def mario(request):
@@ -165,10 +190,18 @@ class LoginUser(DataMixin, LoginView):
 
 def profile_user_view(request):
     user_id = request.user.id
+    friends = FriendsRequest.objects.filter(
+        Q(sent_from=user_id, status=2) | Q(sent_to=user_id, status=2)
+    ).order_by('-sent_on')
+    friends_count = friends.count()
+    request_friends = FriendsRequest.objects.filter(sent_to=user_id, status=1)
+    request_friends_count = request_friends.count()
     post_user = PostUser.objects.filter(author_id=user_id)
     profile = ProfileUser.objects.get(user_name_id=user_id)
     user = CustomUser.objects.get(id=profile.user_name_id)
-    return render(request, 'profile.html', {'profile': profile, 'user': user, 'post_user': post_user})
+    return render(request, 'profile.html', {'profile': profile, 'user': user, 'post_user': post_user,
+                                            'friends': friends, 'request_friends': request_friends,
+                                            'request_friends_count': request_friends_count, 'friends_count': friends_count})
 
 
 class ProfileDetailUserView(DetailView):
@@ -301,3 +334,49 @@ def add_comment(request, post_id):
             return JsonResponse({'result': 'Empty comment'}, status=400)
 
     return JsonResponse({'result': 'Method not allowed'}, status=405)
+
+
+def request_friends(request, friends_id):
+    friends = get_object_or_404(CustomUser, id=friends_id)
+
+    existing_request = FriendsRequest.objects.filter(
+        sent_from=request.user,
+        sent_to=friends,
+        status=1  # Проверяем только запросы со статусом "Pending"
+    ).first()
+
+    if existing_request: #проверка на существование такого запроса
+        return JsonResponse({'result': 'Request already exists'})
+
+    if request.method == 'POST':
+        request_friends = FriendsRequest(
+            sent_from=request.user,
+            sent_to=friends,
+        )
+        request_friends.save()
+        return JsonResponse({'result': 'Success'})
+    else:
+        return JsonResponse({'result': 'Method not allowed'}, status=405)
+
+
+def delete_request_friend(request, friend_id):
+    friend = get_object_or_404(CustomUser, id=friend_id)
+    request_friends = get_object_or_404(
+        FriendsRequest.objects.filter(
+            Q(sent_from=friend, sent_to=request.user) | Q(sent_to=friend, sent_from=request.user)
+        )
+    )
+    request_friends.delete()
+    return JsonResponse({'result': 'Success'})
+
+
+def done_cancel_friends(request, friend_id, status):
+    friend = get_object_or_404(CustomUser, id=friend_id)
+    request_friends = get_object_or_404(FriendsRequest, sent_from=friend, sent_to=request.user)
+    if status == 'done':
+        request_friends.status = 2
+        request_friends.save()
+        return JsonResponse({'result': 'done'})
+    elif status == 'cancel':
+        request_friends.delete()
+        return JsonResponse({'result': 'delete'})
