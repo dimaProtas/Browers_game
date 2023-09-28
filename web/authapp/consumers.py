@@ -14,11 +14,11 @@ import locale
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         await self.accept()
-        print(f"WebSocket connected: {self.channel_name}")
+        # print(f"WebSocket connected: {self.channel_name}")
         await self.channel_layer.group_add("chat_group", self.channel_name)
 
     async def disconnect(self, close_code):
-        print(f"WebSocket disconnected: {self.channel_name}")
+        # print(f"WebSocket disconnected: {self.channel_name}")
         await self.channel_layer.group_discard("chat_group", self.channel_name)
 
     @database_sync_to_async

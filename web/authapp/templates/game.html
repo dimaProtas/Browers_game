@@ -11,39 +11,43 @@
     <img class="mario_img" src="/media/doom.jpg" alt="doom">
     <div class="game_button">
         <p>JS Doom Game</p>
-    <a href="{% url 'js_doom_game' %}">Играть</a>
+    <a class="game_add" href="{% url 'js_doom_game' %}">Играть</a>
     </div>
 </div>
 <div class="game_container">
     <img class="mario_img" src="/media/super_mario.jpeg" alt="mario">
     <div class="game_button">
         <p>Super Mario</p>
-        <a href="{% url 'mario' %}">Играть</a>
+        <a class="game_add" href="{% url 'mario' %}">Играть</a>
     </div>
 </div>
 <div class="game_container">
     <img class="mario_img" src="/media/duck_hunt.jpg" alt="duck_hunt">
     <div class="game_button">
         <p>Duck Hunt</p>
-        <a href="{% url 'duck_hunt' %}">Играть</a>
+        <a class="game_add" href="{% url 'duck_hunt' %}">Играть</a>
     </div>
 </div>
 <div class="game_container">
     <img class="mario_img" src="/media/d_m.jpg" alt="pygbag">
     <div class="game_button">
         <p>Doom</p>
-    <a href="{% url 'start_game' %}">Играть</a>
+    <a class="game_add" href="{% url 'start_game' %}">Играть</a>
     </div>
 </div>
 <div class="game_container">
     <img class="mario_img" src="/media/pygbag.jpeg" alt="pygbag">
     <div class="game_button">
         <p>PygBag Doom</p>
-    <a href="{% url 'pygbag' %}">Играть</a>
+    <a class="game_add" href="{% url 'pygbag' %}">Играть</a>
     </div>
 </div>
 
 </body>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<meta name="csrf-token" content="{{ csrf_token }}">
+
+<script src="{% static 'js/game_add_profile.js' %}"></script>  {# импорт скрипта подсчёта кол-во игр пользователя #}
 
 {% endblock %}

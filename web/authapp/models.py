@@ -32,11 +32,33 @@ class ProfileUser(models.Model):
     top_result = models.IntegerField(default=0)
     count_game = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.user_name.username
+
+    class Meta:
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профили'
+
+
+
+class DuckHuntModel(models.Model):
+    best_result = models.IntegerField(default=0)
+    total_points = models.IntegerField(default=0)
+    profile_user = models.OneToOneField(ProfileUser, on_delete=models.PROTECT, related_name='duck_hunt')
+
+    class Meta:
+        verbose_name = 'Duck Hunt'
+        verbose_name_plural = 'Duck Hunt'
+
 
 class MessagesModel(models.Model):
     sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='sent_messages')
     message = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name = 'Чат'
+        verbose_name_plural = 'Сообщения'
 
 
 class PostUser(models.Model):
@@ -86,6 +108,8 @@ class LikeModel(models.Model):
 
     class Meta:
         unique_together = ('user', 'post')
+        verbose_name = 'Лайк'
+        verbose_name_plural = 'Лайки'
 
 class DisLikeModel(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -93,6 +117,8 @@ class DisLikeModel(models.Model):
 
     class Meta:
         unique_together = ('user', 'post')
+        verbose_name = 'Дизлай'
+        verbose_name_plural = 'Дизлайки'
 
 
 class FriendsRequest(models.Model):
@@ -108,3 +134,5 @@ class FriendsRequest(models.Model):
 
     class Meta:
         unique_together = ('sent_from', 'sent_to')
+        verbose_name = 'Друзья'
+        verbose_name_plural = 'Друзья'

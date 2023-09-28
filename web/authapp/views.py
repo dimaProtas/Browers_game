@@ -8,7 +8,8 @@ from django.views import View
 from django.views.generic import CreateView, UpdateView
 from django.core.paginator import Paginator
 from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm, PostForm
-from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, FriendsRequest
+from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, \
+    FriendsRequest, DuckHuntModel
 from authapp.utils import DataMixin
 from django.views.generic import DetailView
 from django.shortcuts import render
@@ -18,7 +19,8 @@ from django.db.models import Count
 from django.utils import timezone
 import locale
 from django.db.models import Q
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseBadRequest
+from django.contrib.auth.decorators import login_required
 
 
 # Функция проверки отношений между пользователями.
@@ -92,8 +94,20 @@ def mario(request):
     return render(request, 'mario_js.html')
 
 
-def duck_hunt(request):
-    return render(request, 'duck_hunt.html')
+class DuckHuntViews(View):
+    def get(self, request):
+        current_user = request.user
+        print(current_user)
+        messages = MessagesModel.objects.all()
+        form = MessageForm()
+
+        if messages.count() > 20:
+            # Если количество записей больше 20, удаляем лишние записи
+            messages_to_delete = messages.order_by('created_at')[:messages.count() - 20]
+            for message in messages_to_delete:
+                message.delete()
+
+        return render(request, 'duck_hunt.html', {'messages': messages, 'current_user': current_user, 'form': form})
 
 
 def game_js(request):
@@ -380,3 +394,32 @@ def done_cancel_friends(request, friend_id, status):
     elif status == 'cancel':
         request_friends.delete()
         return JsonResponse({'result': 'delete'})
+
+
+def game_add_profile(request):
+    profile_user = ProfileUser.objects.get(user_name=request.user)
+    profile_user.count_game += 1
+    profile_user.save()
+    return JsonResponse({'result': 'Success'})
+
+
+@login_required
+def duck_hunt_points_save(request, results):
+    profile_user = ProfileUser.objects.get(user_name=request.user)
+    try:
+        duck_hunt_model = DuckHuntModel.objects.get(profile_user=profile_user)
+    except DuckHuntModel.DoesNotExist:
+        duck_hunt_model = DuckHuntModel(profile_user=profile_user)
+
+    try:
+        results = int(results)  # Преобразуем результат в число, если это не так
+        if results > duck_hunt_model.best_result:
+            duck_hunt_model.best_result = results
+        duck_hunt_model.total_points += 1
+        duck_hunt_model.save()
+        return JsonResponse({'result': 'Success'})
+    except ValueError:
+        return HttpResponseBadRequest({'error': 'Invalid results format'})
+    except Exception as e:
+        return HttpResponseBadRequest({'error': str(e)})
+

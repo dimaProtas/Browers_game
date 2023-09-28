@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser, ProfileUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, FriendsRequest
+from .models import CustomUser, ProfileUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, \
+    FriendsRequest, DuckHuntModel
 from django.utils.safestring import mark_safe
 
 class CustomUserAdmin(UserAdmin):
@@ -36,8 +37,8 @@ admin.site.register(CustomUser, CustomUserAdmin)
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user_name', 'top_result', 'count_game')
-    list_display_links = ('user_name', 'top_result', 'count_game')
+    list_display = ('id', 'user_name', 'top_result', 'count_game')
+    list_display_links = ('id', 'user_name', 'top_result', 'count_game')
     search_fields = ('user_name',)
 
 
@@ -107,3 +108,11 @@ class FriendsRequestAdmin(admin.ModelAdmin):
 
 
 admin.site.register(FriendsRequest, FriendsRequestAdmin)
+
+
+class DuckHuntAdmin(admin.ModelAdmin):
+    list_display = ['id', 'profile_user', 'best_result', 'total_points']
+    list_display_links = ['id']
+
+
+admin.site.register(DuckHuntModel, DuckHuntAdmin)
