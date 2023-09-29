@@ -39,10 +39,10 @@ Pet project
 #Настройки Django
 DEBUG=True
 
-#Настройки базы
-MYSQL_DATABASE=gb_dev_db
-MYSQL_USER=user
-MYSQL_PASSWORD=password
-MYSQL_ROOT_PASSWORD=rootpassword
-PGPORT=3306
-DBHOST=192.168.99.104
+#Настройки базы \
+MYSQL_DATABASE=gb_dev_db \
+MYSQL_USER=user \
+MYSQL_PASSWORD=password \
+MYSQL_ROOT_PASSWORD=rootpassword \
+PGPORT=3306 \
+DBHOST=192.168.99.104 
