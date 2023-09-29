@@ -10,6 +10,8 @@
     {% load bootstrap4 %}
     {% bootstrap_css %}
     {% load static %}
+    <link rel="icon" href="/media/unnamed.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="/media/unnamed.jpg" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'style_chat.css' %}">
     {% block style %}{% endblock %}
@@ -29,7 +31,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'game' %}">Игра</a>
+            <a class="nav-link" href="{% url 'game' %}">Игры</a>
           </li>
 
              <li class="nav-item">
@@ -39,9 +41,16 @@
 
             {% if request.user.is_authenticated %}
             <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
+            <a class="nav-link" href="{% url 'users_all' %}">Игроки</a>
           </li>
-			<li class="nav-item" style="color: #e9ecef"> <a class="nav-link"> {{ user.username }} </a> </li>
+			<li class="nav-item" style="color: #e9ecef">
+                <a class="nav-link" href="{% url 'profile' %}">
+                    {{ user.username }}
+                    {% if user.avatar %}
+                        <img class="avatar" src="{{ user.avatar.url }}" alt="ava">
+                    {% endif %}
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}">Выйти</a> </li>
 			{% else %}
@@ -59,12 +68,34 @@
 
 {% block content %} {% endblock %}
         </div>
-    <footer class="py-5 bg-dark">
+    <footer id="my-footer" class="py-5 bg-dark">
         <div class="container">
         <p class="m-0 text-center text-white">Нижний блок {% now "Y" %}</p>
     </div>
     </footer>
     {% bootstrap_javascript jquery='full' %}
+    <script>
+        window.addEventListener("scroll", function () {
+  var footer = document.getElementById("my-footer");
+  var scrollHeight = window.innerHeight + window.scrollY;
+  var documentHeight = document.body.scrollHeight;
+
+  // Вычисляем, на сколько пикселей скрытый футер должен подняться
+  var hiddenPixels = documentHeight - scrollHeight;
+
+  // Вычисляем, на сколько пикселей нужно поднять футер, чтобы он был виден
+  var showPixels = 100; // Вы можете настроить это значение на свой вкус
+
+  if (hiddenPixels <= showPixels) {
+    // Если скрытый футер близко к нижнему краю, показываем его
+    footer.style.bottom = "0";
+  } else {
+    // В противном случае скрываем футер
+    footer.style.bottom = "-100px";
+  }
+});
+
+    </script>
 </body>
 </html>
 

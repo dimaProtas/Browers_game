@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # созданные приложения
-    # 'daphne',
+    'daphne',
     'channels',
     'authapp',
     'bootstrap4',

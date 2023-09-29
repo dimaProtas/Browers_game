@@ -5,17 +5,52 @@
 
 {% block content %}
 
-    <div class="form_container">
-        <form method="post" class="form" enctype="multipart/form-data">
+<div class="form_container">
+    <form method="post" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+             <p>
+                <label class="form-check" for="{{ form.title.id_for_label }}">Заголовок:</label>
+                {{ form.title }}
+            </p>
 
-            {% csrf_token %}
-            {% for f in form %}
-                <p><label class="form-check" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
-            {% endfor %}
-            <input class="sendButton" type="submit" name="submitcontact" value="Опубликовать">
+            <p>
+                <label class="form-check" for="{{ form.text.id_for_label }}">Текст:</label>
+                {{ form.text }}
+            </p>
+        <p>
+             <label class="form-check" for="id_image">Изображение:</label>
+             <input type="file" name="image" accept="image/*" id="id_image">
+        </p>
 
-        </form>
-    </div>
+        <div id="image-preview-container" style="display: none;" class="image-preview-container">  <!-- Скрыт по умолчанию -->
+            <img id="image-preview" src="" alt="Image Preview" style="max-width: 100px; max-height: 100px;">
+        </div>
+        <input class="sendButton" type="submit" name="submitcontact" value="Опубликовать">
+    </form>
+</div>
+
+
+<script>
+document.getElementById("id_image").addEventListener("change", function () {
+        var input = document.getElementById("id_image");
+        var img = document.getElementById("image-preview");
+        var container = document.getElementById("image-preview-container");
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                img.src = e.target.result;
+                container.style.display = "flex";  // Показать контейнер с изображением
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            img.src = ""; // Очистить миниатюру, если файл не выбран
+            container.style.display = "none"; // Скрыть контейнер, если файл не выбран
+        }
+    });
+</script>
 
 
 {% endblock %}

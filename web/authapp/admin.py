@@ -1,35 +1,44 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser, ProfileUser, MessagesModel, PostUser, CommentModel
+from .models import CustomUser, ProfileUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, \
+    FriendsRequest, DuckHuntModel
 from django.utils.safestring import mark_safe
 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ('username', 'email', 'is_staff', 'is_active',)
+    list_display = ('username', 'email', 'get_avatar', 'is_staff', 'is_active')
     list_filter = ('username', 'email', 'is_staff', 'is_active',)
     fieldsets = (
-        (None, {'fields': ('email','username', 'password')}),
+        (None, {'fields': ('status', 'about_me', 'email', 'vk', 'instagram', 'github', 'avatar', 'username', 'password')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'email', 'password1', 'password2', 'is_staff', 'is_active')}
+            'fields': ('username', 'status', 'about_me', 'email', 'vk', 'instagram', 'github', 'avatar', 'password1', 'password2', 'is_staff', 'is_active')}
          ),
     )
     search_fields = ('email',)
     ordering = ('username',)
+
+    def get_avatar(self, obj):
+        if obj.avatar:
+            return mark_safe(f'<img src="{obj.avatar.url}" width="50">')
+        else:
+            return 'нет фото'
+
+    get_avatar.short_description = 'Аватар'
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user_name', 'top_result', 'count_game')
-    list_display_links = ('user_name', 'top_result', 'count_game')
+    list_display = ('id', 'user_name', 'top_result', 'count_game')
+    list_display_links = ('id', 'user_name', 'top_result', 'count_game')
     search_fields = ('user_name',)
 
 
@@ -75,3 +84,35 @@ class CommentAdmin(admin.ModelAdmin):
 
 
 admin.site.register(CommentModel, CommentAdmin)
+
+
+class LikeAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user', 'post']
+    list_display_links = ['id']
+
+
+admin.site.register(LikeModel, LikeAdmin)
+
+
+class DisLikeAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user', 'post']
+    list_display_links = ['id']
+
+
+admin.site.register(DisLikeModel, DisLikeAdmin)
+
+
+class FriendsRequestAdmin(admin.ModelAdmin):
+    list_display = ['id', 'status', 'sent_from', 'sent_to', 'sent_on']
+    list_display_links = ['id']
+
+
+admin.site.register(FriendsRequest, FriendsRequestAdmin)
+
+
+class DuckHuntAdmin(admin.ModelAdmin):
+    list_display = ['id', 'profile_user', 'best_result', 'total_points']
+    list_display_links = ['id']
+
+
+admin.site.register(DuckHuntModel, DuckHuntAdmin)

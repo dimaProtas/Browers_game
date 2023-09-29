@@ -40,3 +40,9 @@
 .form .sendButton:hover {
     background-color: #e65100;
 }
+
+.image-preview-container {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}

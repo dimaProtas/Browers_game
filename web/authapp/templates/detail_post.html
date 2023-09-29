@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
     {% block style %}
+        <link rel="stylesheet" type="text/css" href="{% static 'style_form_comment_detai_post.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'style_detail.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'style_comments.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'style_icon.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     {% endblock %}
 
 {% block content %}
@@ -19,9 +22,24 @@
                         <div class="art-content">
                             <a href="#"><h3 style="font-size: 37px; line-height: 1.5;">{{ detail_post.title }}</h3></a>
                             <div class="info">{{ detail_post.created_at }}</div>
-                            <div class="excerpt">Автор: <span class="author-name">{{ detail_post.author }}</span></div>
+                            <div class="excerpt">Автор:
+                                <span class="author-name">{{ detail_post.author }}</span>
+                                {% if detail_post.author.avatar %}
+                                    <img  src="{{ detail_post.author.avatar.url }}" alt="ava">
+                                {% else %}
+                                    <img src="/media/not_avatar.jpg" alt="ava">
+                                {% endif %}
+                            </div>
                             <p>{{ detail_post.text|safe }}</p>
-                            <div class="excerpt"><p>Количество просмотров: {{ detail_post.views }}</p></div>
+                            <div class="date_icon_container">
+                                <div class="excerpt"><p>Количество просмотров: {{ detail_post.views }}</p></div>
+                                <div>
+                                    <i class="fas fa-comment" data-comment-count="{{ comment_count }}" data-toggle="comments-{{ detail_post.id }}">{{ comment_count }}</i>
+                                    <i class="fas fa-fire" data-post-id="{{ detail_post.id }}" data-like-count="{{ like_count }}">{{ like_count }}</i>
+                                    <i class="fas fa-thumbs-down" data-post-id="{{ detail_post.id }}" data-dislike-count="{{ dislike_count }}">{{ dislike_count }}</i>
+                                </div>
+                            </div>
+
                         </div>
                     </article>
 
@@ -29,20 +47,62 @@
                 </div>
 
             </div>
+
     </div>
-        <div class="comment_container">
+
+    <div>
+        {% if request.user.is_authenticated %}
+            <form method="post" class="form_comment_detail" data-comment-form="{{ detail_post.id }}">
+                <div class="comment_input">
+
+                    <input type="text" name="content" class="comment-input" placeholder="Введите комментарий...">
+                    <input type="hidden" name="p_id" value="{{ detail_post.id }}">
+                    <div class="img_form">
+                        <i class="fas fa-paper-plane fa-lg" data-post-id="{{ detail_post.id }}" data-comment-form="{{ detail_post.id }}"></i>
+                    </div>
+
+                </div>
+            </form>
+        {% endif %}
+    </div>
+
+        <div id="comments-{{ detail_post.id }}" class="comment_container">
         {% for comment in detail_post.comments.all %}
             <div class="comment">
-                <div class="coent_date">
+                <div class="comment_date">
                     <span class="author">{{ comment.author }}</span>
-                    <span class="date_time">{{ comment.created_at }}</span>
+                    <div>
+                        <span class="date_time">{{ comment.created_at }}</span>
+                        {% if comment.author == request.user %}
+                            <i class="fas fa-times delete-comment" data-comment-id="{{ comment.id }}"></i>
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="content">{{ comment.content }}</div>
             </div>
         {% endfor %}
         </div>
+
+{% include 'inc/window_modal_like_dislike.html' %}
+
+{% include 'inc/modal_delete_comment.html' %}
+
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<script>var userIsAuthenticated = {{ request.user.is_authenticated|lower }};</script>
+
+{# Получаем токен в meta, для использования в скрипте js #}
+<meta name="csrf-token" content="{{ csrf_token }}">
+
+{# Импортируем скрипт удаления коментариев #}
+<script src="{% static 'js/comment_delete.js' %}"></script>
+
+{# Импортируем скрипты добавления удаления Like и dislike из static #}
+<script src="{% static 'js/toggle_like_dislike.js' %}"></script>
+
+{# //Импортируем скрипты добавления comment из static #}
+<script src="{% static 'js/comment_add_script.js' %}"></script>
 
 {% endblock %}

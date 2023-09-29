@@ -1,8 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 
 from django import forms
-from .models import CustomUser, ProfileUser, PostUser, CommentModel
-from django.utils.text import slugify
+from .models import CustomUser, PostUser, CommentModel
 
 
 # class CustomUserCreationForm(UserCreationForm):
@@ -18,7 +17,7 @@ from django.utils.text import slugify
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
-        fields = ('email', 'username')
+        fields = ('username', 'status', 'about_me', 'email', 'vk', 'instagram', 'github', 'avatar')
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -46,6 +45,12 @@ class PostForm(forms.ModelForm):
         model = PostUser
         fields = ['title', 'text', 'image']
 
+    image = forms.ImageField(
+        label='Image',
+        required=False,
+        widget=forms.FileInput(attrs={'class': 'image-input'}),
+    )
+
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)  # Получаем пользователя из аргументов
         super().__init__(*args, **kwargs)
@@ -57,9 +62,4 @@ class PostForm(forms.ModelForm):
             instance.save()
         return instance
 
-
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = CommentModel
-        fields = ['content']
 
