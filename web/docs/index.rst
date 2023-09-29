@@ -12,6 +12,7 @@ Welcome to Game Dev's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   ./admin.rst
    ./views.rst
    ./models.rst
    ./forms.rst

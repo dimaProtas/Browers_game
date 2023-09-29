@@ -34,16 +34,37 @@
                             Количество игр:
                             {% if user.profile_user.count_game  %}{{ user.profile_user.count_game }}{% else %}нет игр{% endif %}
                         </p>
+                        <p>
+                            Количество постов:
+                            {% if user.post_count  %}{{ user.post_count }}{% else %}нет постов{% endif %}
+                        </p>
 
                     </div>
-                    <div class="add_friends">
-                        <span class="clik_button">Добавить в друзья</span>
-                    </div>
+
+    <div class="add_friends">
+            {% if user.relationship_statuses == "friend" %}
+                <span class="clik_button cancel" data-user-id="{{ user.id}}">Удалить из друзей</span>
+            {% elif user.relationship_statuses == "request_sent" %}
+                <span class="clik_button cancel" data-user-id="{{ user.id}}">Отменить заявку</span>
+            {% else %}
+                <span class="clik_button request" data-user-id="{{ user.id}}">Добавить в друзья</span>
+            {% endif %}
+    </div>
+
                     </div>
 
             </div>
+
         {% endfor %}
     </div>
 
 {% include 'inc/paginator.html' %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{# Получаем токен в meta, для использования в скрипте js #}
+<meta name="csrf-token" content="{{ csrf_token }}">
+
+<script src="{% static 'js/delete_request_friends.js' %}"></script>
+
 {% endblock %}

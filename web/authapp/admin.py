@@ -1,10 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser, ProfileUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel
+from .models import CustomUser, ProfileUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, \
+    FriendsRequest, DuckHuntModel
 from django.utils.safestring import mark_safe
 
 class CustomUserAdmin(UserAdmin):
+    '''
+    Custom user admin manager where by UserAdmin model.
+    '''
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
@@ -36,8 +40,8 @@ admin.site.register(CustomUser, CustomUserAdmin)
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user_name', 'top_result', 'count_game')
-    list_display_links = ('user_name', 'top_result', 'count_game')
+    list_display = ('id', 'user_name', 'top_result', 'count_game')
+    list_display_links = ('id', 'user_name', 'top_result', 'count_game')
     search_fields = ('user_name',)
 
 
@@ -87,7 +91,7 @@ admin.site.register(CommentModel, CommentAdmin)
 
 class LikeAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'post']
-    list_display = ['id', 'user', 'post']
+    list_display_links = ['id']
 
 
 admin.site.register(LikeModel, LikeAdmin)
@@ -95,7 +99,23 @@ admin.site.register(LikeModel, LikeAdmin)
 
 class DisLikeAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'post']
-    list_display = ['id', 'user', 'post']
+    list_display_links = ['id']
 
 
 admin.site.register(DisLikeModel, DisLikeAdmin)
+
+
+class FriendsRequestAdmin(admin.ModelAdmin):
+    list_display = ['id', 'status', 'sent_from', 'sent_to', 'sent_on']
+    list_display_links = ['id']
+
+
+admin.site.register(FriendsRequest, FriendsRequestAdmin)
+
+
+class DuckHuntAdmin(admin.ModelAdmin):
+    list_display = ['id', 'profile_user', 'best_result', 'total_points']
+    list_display_links = ['id']
+
+
+admin.site.register(DuckHuntModel, DuckHuntAdmin)

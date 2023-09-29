@@ -13,7 +13,7 @@
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Views" href="views.html" />
+    <link rel="next" title="Admin" href="admin.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -36,7 +36,20 @@
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="admin.html">Admin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="admin.html#authapp.admin.CommentAdmin"><code class="docutils literal notranslate"><span class="pre">CommentAdmin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin.html#authapp.admin.CustomUserAdmin"><code class="docutils literal notranslate"><span class="pre">CustomUserAdmin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin.html#authapp.admin.DisLikeAdmin"><code class="docutils literal notranslate"><span class="pre">DisLikeAdmin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin.html#authapp.admin.DuckHuntAdmin"><code class="docutils literal notranslate"><span class="pre">DuckHuntAdmin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin.html#authapp.admin.FriendsRequestAdmin"><code class="docutils literal notranslate"><span class="pre">FriendsRequestAdmin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin.html#authapp.admin.LikeAdmin"><code class="docutils literal notranslate"><span class="pre">LikeAdmin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin.html#authapp.admin.MessagesAdmin"><code class="docutils literal notranslate"><span class="pre">MessagesAdmin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin.html#authapp.admin.PostUserAdmin"><code class="docutils literal notranslate"><span class="pre">PostUserAdmin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="admin.html#authapp.admin.UserProfileAdmin"><code class="docutils literal notranslate"><span class="pre">UserProfileAdmin</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="views.html">Views</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.DuckHuntViews"><code class="docutils literal notranslate"><span class="pre">DuckHuntViews</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.LoginUser"><code class="docutils literal notranslate"><span class="pre">LoginUser</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.MessageView"><code class="docutils literal notranslate"><span class="pre">MessageView</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.PostCreated"><code class="docutils literal notranslate"><span class="pre">PostCreated</span></code></a></li>
@@ -49,13 +62,18 @@
 <li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.add_comment"><code class="docutils literal notranslate"><span class="pre">add_comment()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.delete_comment"><code class="docutils literal notranslate"><span class="pre">delete_comment()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.delete_post"><code class="docutils literal notranslate"><span class="pre">delete_post()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.duck_hunt"><code class="docutils literal notranslate"><span class="pre">duck_hunt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.delete_request_friend"><code class="docutils literal notranslate"><span class="pre">delete_request_friend()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.done_cancel_friends"><code class="docutils literal notranslate"><span class="pre">done_cancel_friends()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.duck_hunt_points_save"><code class="docutils literal notranslate"><span class="pre">duck_hunt_points_save()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.game"><code class="docutils literal notranslate"><span class="pre">game()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.game_add_profile"><code class="docutils literal notranslate"><span class="pre">game_add_profile()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.game_js"><code class="docutils literal notranslate"><span class="pre">game_js()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.get_relationship_status"><code class="docutils literal notranslate"><span class="pre">get_relationship_status()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.home"><code class="docutils literal notranslate"><span class="pre">home()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.logout_user"><code class="docutils literal notranslate"><span class="pre">logout_user()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.mario"><code class="docutils literal notranslate"><span class="pre">mario()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.profile_user_view"><code class="docutils literal notranslate"><span class="pre">profile_user_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.request_friends"><code class="docutils literal notranslate"><span class="pre">request_friends()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.start_game"><code class="docutils literal notranslate"><span class="pre">start_game()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.toggle_dis_like"><code class="docutils literal notranslate"><span class="pre">toggle_dis_like()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html#authapp.views.toggle_like"><code class="docutils literal notranslate"><span class="pre">toggle_like()</span></code></a></li>
@@ -67,6 +85,8 @@
 <li class="toctree-l2"><a class="reference internal" href="models.html#authapp.models.CommentModel"><code class="docutils literal notranslate"><span class="pre">CommentModel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="models.html#authapp.models.CustomUser"><code class="docutils literal notranslate"><span class="pre">CustomUser</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="models.html#authapp.models.DisLikeModel"><code class="docutils literal notranslate"><span class="pre">DisLikeModel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html#authapp.models.DuckHuntModel"><code class="docutils literal notranslate"><span class="pre">DuckHuntModel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html#authapp.models.FriendsRequest"><code class="docutils literal notranslate"><span class="pre">FriendsRequest</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="models.html#authapp.models.LikeModel"><code class="docutils literal notranslate"><span class="pre">LikeModel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="models.html#authapp.models.MessagesModel"><code class="docutils literal notranslate"><span class="pre">MessagesModel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="models.html#authapp.models.PostUser"><code class="docutils literal notranslate"><span class="pre">PostUser</span></code></a></li>
@@ -116,6 +136,7 @@
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="admin.html">Admin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="views.html">Views</a></li>
 <li class="toctree-l1"><a class="reference internal" href="models.html">Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
@@ -126,7 +147,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="views.html" title="next chapter">Views</a></li>
+      <li>Next: <a href="admin.html" title="next chapter">Admin</a></li>
   </ul></li>
 </ul>
 </div>

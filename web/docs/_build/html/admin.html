@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Admin &#8212; Game Dev 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script src="_static/documentation_options.js?v=2709fde1"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Views" href="views.html" />
+    <link rel="prev" title="Welcome to Game Dev’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-authapp.admin">
+<span id="admin"></span><h1>Admin<a class="headerlink" href="#module-authapp.admin" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.admin.CommentAdmin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.admin.</span></span><span class="sig-name descname"><span class="pre">CommentAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_site</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.admin.CommentAdmin" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.CommentAdmin.list_display">
+<span class="sig-name descname"><span class="pre">list_display</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'post',</span> <span class="pre">'author',</span> <span class="pre">'content',</span> <span class="pre">'created_at']</span></em><a class="headerlink" href="#authapp.admin.CommentAdmin.list_display" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.CommentAdmin.list_display_links">
+<span class="sig-name descname"><span class="pre">list_display_links</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id']</span></em><a class="headerlink" href="#authapp.admin.CommentAdmin.list_display_links" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="authapp.admin.CommentAdmin.media">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#authapp.admin.CommentAdmin.media" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.CommentAdmin.search_fields">
+<span class="sig-name descname"><span class="pre">search_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['post']</span></em><a class="headerlink" href="#authapp.admin.CommentAdmin.search_fields" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.admin.CustomUserAdmin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.admin.</span></span><span class="sig-name descname"><span class="pre">CustomUserAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_site</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.admin.CustomUserAdmin" title="Link to this definition">¶</a></dt>
+<dd><p>Custom user admin manager where by UserAdmin model.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.CustomUserAdmin.add_fieldsets">
+<span class="sig-name descname"><span class="pre">add_fieldsets</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">((None,</span> <span class="pre">{'classes':</span> <span class="pre">('wide',),</span> <span class="pre">'fields':</span> <span class="pre">('username',</span> <span class="pre">'status',</span> <span class="pre">'about_me',</span> <span class="pre">'email',</span> <span class="pre">'vk',</span> <span class="pre">'instagram',</span> <span class="pre">'github',</span> <span class="pre">'avatar',</span> <span class="pre">'password1',</span> <span class="pre">'password2',</span> <span class="pre">'is_staff',</span> <span class="pre">'is_active')}),)</span></em><a class="headerlink" href="#authapp.admin.CustomUserAdmin.add_fieldsets" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.CustomUserAdmin.add_form">
+<span class="sig-name descname"><span class="pre">add_form</span></span><a class="headerlink" href="#authapp.admin.CustomUserAdmin.add_form" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="forms.html#authapp.forms.CustomUserCreationForm" title="authapp.forms.CustomUserCreationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomUserCreationForm</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.CustomUserAdmin.form">
+<span class="sig-name descname"><span class="pre">form</span></span><a class="headerlink" href="#authapp.admin.CustomUserAdmin.form" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="forms.html#authapp.forms.CustomUserChangeForm" title="authapp.forms.CustomUserChangeForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomUserChangeForm</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authapp.admin.CustomUserAdmin.get_avatar">
+<span class="sig-name descname"><span class="pre">get_avatar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.admin.CustomUserAdmin.get_avatar" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.CustomUserAdmin.list_display">
+<span class="sig-name descname"><span class="pre">list_display</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('username',</span> <span class="pre">'email',</span> <span class="pre">'get_avatar',</span> <span class="pre">'is_staff',</span> <span class="pre">'is_active')</span></em><a class="headerlink" href="#authapp.admin.CustomUserAdmin.list_display" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.CustomUserAdmin.list_filter">
+<span class="sig-name descname"><span class="pre">list_filter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('username',</span> <span class="pre">'email',</span> <span class="pre">'is_staff',</span> <span class="pre">'is_active')</span></em><a class="headerlink" href="#authapp.admin.CustomUserAdmin.list_filter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="authapp.admin.CustomUserAdmin.media">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#authapp.admin.CustomUserAdmin.media" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.CustomUserAdmin.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#authapp.admin.CustomUserAdmin.model" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#authapp.models.CustomUser" title="authapp.models.CustomUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomUser</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.CustomUserAdmin.ordering">
+<span class="sig-name descname"><span class="pre">ordering</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('username',)</span></em><a class="headerlink" href="#authapp.admin.CustomUserAdmin.ordering" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.CustomUserAdmin.search_fields">
+<span class="sig-name descname"><span class="pre">search_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('email',)</span></em><a class="headerlink" href="#authapp.admin.CustomUserAdmin.search_fields" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.admin.DisLikeAdmin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.admin.</span></span><span class="sig-name descname"><span class="pre">DisLikeAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_site</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.admin.DisLikeAdmin" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.DisLikeAdmin.list_display">
+<span class="sig-name descname"><span class="pre">list_display</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'user',</span> <span class="pre">'post']</span></em><a class="headerlink" href="#authapp.admin.DisLikeAdmin.list_display" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.DisLikeAdmin.list_display_links">
+<span class="sig-name descname"><span class="pre">list_display_links</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id']</span></em><a class="headerlink" href="#authapp.admin.DisLikeAdmin.list_display_links" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="authapp.admin.DisLikeAdmin.media">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#authapp.admin.DisLikeAdmin.media" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.admin.DuckHuntAdmin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.admin.</span></span><span class="sig-name descname"><span class="pre">DuckHuntAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_site</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.admin.DuckHuntAdmin" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.DuckHuntAdmin.list_display">
+<span class="sig-name descname"><span class="pre">list_display</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'profile_user',</span> <span class="pre">'best_result',</span> <span class="pre">'total_points']</span></em><a class="headerlink" href="#authapp.admin.DuckHuntAdmin.list_display" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.DuckHuntAdmin.list_display_links">
+<span class="sig-name descname"><span class="pre">list_display_links</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id']</span></em><a class="headerlink" href="#authapp.admin.DuckHuntAdmin.list_display_links" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="authapp.admin.DuckHuntAdmin.media">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#authapp.admin.DuckHuntAdmin.media" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.admin.FriendsRequestAdmin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.admin.</span></span><span class="sig-name descname"><span class="pre">FriendsRequestAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_site</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.admin.FriendsRequestAdmin" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.FriendsRequestAdmin.list_display">
+<span class="sig-name descname"><span class="pre">list_display</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'status',</span> <span class="pre">'sent_from',</span> <span class="pre">'sent_to',</span> <span class="pre">'sent_on']</span></em><a class="headerlink" href="#authapp.admin.FriendsRequestAdmin.list_display" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.FriendsRequestAdmin.list_display_links">
+<span class="sig-name descname"><span class="pre">list_display_links</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id']</span></em><a class="headerlink" href="#authapp.admin.FriendsRequestAdmin.list_display_links" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="authapp.admin.FriendsRequestAdmin.media">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#authapp.admin.FriendsRequestAdmin.media" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.admin.LikeAdmin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.admin.</span></span><span class="sig-name descname"><span class="pre">LikeAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_site</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.admin.LikeAdmin" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.LikeAdmin.list_display">
+<span class="sig-name descname"><span class="pre">list_display</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'user',</span> <span class="pre">'post']</span></em><a class="headerlink" href="#authapp.admin.LikeAdmin.list_display" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.LikeAdmin.list_display_links">
+<span class="sig-name descname"><span class="pre">list_display_links</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id']</span></em><a class="headerlink" href="#authapp.admin.LikeAdmin.list_display_links" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="authapp.admin.LikeAdmin.media">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#authapp.admin.LikeAdmin.media" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.admin.MessagesAdmin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.admin.</span></span><span class="sig-name descname"><span class="pre">MessagesAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_site</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.admin.MessagesAdmin" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.MessagesAdmin.list_display">
+<span class="sig-name descname"><span class="pre">list_display</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'sender',</span> <span class="pre">'message',</span> <span class="pre">'created_at']</span></em><a class="headerlink" href="#authapp.admin.MessagesAdmin.list_display" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.MessagesAdmin.list_display_links">
+<span class="sig-name descname"><span class="pre">list_display_links</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id']</span></em><a class="headerlink" href="#authapp.admin.MessagesAdmin.list_display_links" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="authapp.admin.MessagesAdmin.media">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#authapp.admin.MessagesAdmin.media" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.MessagesAdmin.search_fields">
+<span class="sig-name descname"><span class="pre">search_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['sender']</span></em><a class="headerlink" href="#authapp.admin.MessagesAdmin.search_fields" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.admin.PostUserAdmin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.admin.</span></span><span class="sig-name descname"><span class="pre">PostUserAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_site</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.admin.PostUserAdmin" title="Link to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="authapp.admin.PostUserAdmin.get_photo">
+<span class="sig-name descname"><span class="pre">get_photo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.admin.PostUserAdmin.get_photo" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authapp.admin.PostUserAdmin.get_text">
+<span class="sig-name descname"><span class="pre">get_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.admin.PostUserAdmin.get_text" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.PostUserAdmin.list_display">
+<span class="sig-name descname"><span class="pre">list_display</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'slug',</span> <span class="pre">'title',</span> <span class="pre">'author',</span> <span class="pre">'get_text',</span> <span class="pre">'created_at',</span> <span class="pre">'get_photo',</span> <span class="pre">'views']</span></em><a class="headerlink" href="#authapp.admin.PostUserAdmin.list_display" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.PostUserAdmin.list_display_links">
+<span class="sig-name descname"><span class="pre">list_display_links</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id']</span></em><a class="headerlink" href="#authapp.admin.PostUserAdmin.list_display_links" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="authapp.admin.PostUserAdmin.media">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#authapp.admin.PostUserAdmin.media" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.PostUserAdmin.prepopulated_fields">
+<span class="sig-name descname"><span class="pre">prepopulated_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'slug':</span> <span class="pre">('title',)}</span></em><a class="headerlink" href="#authapp.admin.PostUserAdmin.prepopulated_fields" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.PostUserAdmin.search_fields">
+<span class="sig-name descname"><span class="pre">search_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['author']</span></em><a class="headerlink" href="#authapp.admin.PostUserAdmin.search_fields" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.admin.UserProfileAdmin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.admin.</span></span><span class="sig-name descname"><span class="pre">UserProfileAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_site</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.admin.UserProfileAdmin" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.UserProfileAdmin.list_display">
+<span class="sig-name descname"><span class="pre">list_display</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('id',</span> <span class="pre">'user_name',</span> <span class="pre">'top_result',</span> <span class="pre">'count_game')</span></em><a class="headerlink" href="#authapp.admin.UserProfileAdmin.list_display" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.UserProfileAdmin.list_display_links">
+<span class="sig-name descname"><span class="pre">list_display_links</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('id',</span> <span class="pre">'user_name',</span> <span class="pre">'top_result',</span> <span class="pre">'count_game')</span></em><a class="headerlink" href="#authapp.admin.UserProfileAdmin.list_display_links" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="authapp.admin.UserProfileAdmin.media">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="headerlink" href="#authapp.admin.UserProfileAdmin.media" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.admin.UserProfileAdmin.search_fields">
+<span class="sig-name descname"><span class="pre">search_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('user_name',)</span></em><a class="headerlink" href="#authapp.admin.UserProfileAdmin.search_fields" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Game Dev</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Admin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.admin.CommentAdmin"><code class="docutils literal notranslate"><span class="pre">CommentAdmin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.admin.CustomUserAdmin"><code class="docutils literal notranslate"><span class="pre">CustomUserAdmin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.admin.DisLikeAdmin"><code class="docutils literal notranslate"><span class="pre">DisLikeAdmin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.admin.DuckHuntAdmin"><code class="docutils literal notranslate"><span class="pre">DuckHuntAdmin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.admin.FriendsRequestAdmin"><code class="docutils literal notranslate"><span class="pre">FriendsRequestAdmin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.admin.LikeAdmin"><code class="docutils literal notranslate"><span class="pre">LikeAdmin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.admin.MessagesAdmin"><code class="docutils literal notranslate"><span class="pre">MessagesAdmin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.admin.PostUserAdmin"><code class="docutils literal notranslate"><span class="pre">PostUserAdmin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.admin.UserProfileAdmin"><code class="docutils literal notranslate"><span class="pre">UserProfileAdmin</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managers.html">Managers</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Game Dev’s documentation!</a></li>
+      <li>Next: <a href="views.html" title="next chapter">Views</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Pro Bro.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/admin.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

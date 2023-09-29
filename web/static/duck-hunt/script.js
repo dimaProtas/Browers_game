@@ -97,7 +97,32 @@ function shootDuck() {
     // +1 point if duck is shot
     points += 1;
     score.innerHTML = points;
+
+        // Отправляем AJAX-запрос для сохранения очков игры
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        if (userIsAuthenticated === true) {
+            $.ajax({
+            url: "http://127.0.0.1:8888/duck_hunt_save_points/" + points + "/",
+            type: "POST",
+            data: {
+                csrfmiddlewaretoken: csrfToken,
+            },
+            success: function(data) {
+                if (data.result === 'Success') {
+                    console.log('Очки записаны в бд')
+                } else {
+                    alert("Ошибка при сохранении игры!");
+                }
+            },
+            error: function() {
+                alert("Произошла ошибка при выполнении запроса.");
+            },
+        });
+        }
+
+
 }
+
 
 function shoot() {
     duckShoot.currentTime = 0;
