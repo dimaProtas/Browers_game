@@ -1,0 +1,6 @@
+Urls
+=====
+
+.. automodule:: authapp.urls
+   :members:
+   :undoc-members:

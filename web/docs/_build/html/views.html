@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Views &#8212; Game Dev 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script src="_static/documentation_options.js?v=2709fde1"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to Game Dev’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-authapp.views">
+<span id="views"></span><h1>Views<a class="headerlink" href="#module-authapp.views" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.views.LoginUser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">LoginUser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.LoginUser" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.LoginUser.form_class">
+<span class="sig-name descname"><span class="pre">form_class</span></span><a class="headerlink" href="#authapp.views.LoginUser.form_class" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/stable/topics/auth/default/#django.contrib.auth.forms.AuthenticationForm" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">AuthenticationForm</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authapp.views.LoginUser.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.LoginUser.get_context_data" title="Link to this definition">¶</a></dt>
+<dd><p>Insert the form into the context dict.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authapp.views.LoginUser.get_success_url">
+<span class="sig-name descname"><span class="pre">get_success_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.LoginUser.get_success_url" title="Link to this definition">¶</a></dt>
+<dd><p>Return the URL to redirect to after processing a valid form.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.LoginUser.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'login.html'</span></em><a class="headerlink" href="#authapp.views.LoginUser.template_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.views.MessageView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">MessageView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.MessageView" title="Link to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="authapp.views.MessageView.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.MessageView.delete" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authapp.views.MessageView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.MessageView.get" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.views.PostCreated">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">PostCreated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.PostCreated" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.PostCreated.form_class">
+<span class="sig-name descname"><span class="pre">form_class</span></span><a class="headerlink" href="#authapp.views.PostCreated.form_class" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">PostForm</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authapp.views.PostCreated.form_valid">
+<span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.PostCreated.form_valid" title="Link to this definition">¶</a></dt>
+<dd><p>If the form is valid, save the associated model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authapp.views.PostCreated.get_form_kwargs">
+<span class="sig-name descname"><span class="pre">get_form_kwargs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.PostCreated.get_form_kwargs" title="Link to this definition">¶</a></dt>
+<dd><p>Return the keyword arguments for instantiating the form.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.PostCreated.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#authapp.views.PostCreated.model" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">PostUser</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.PostCreated.success_url">
+<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/'</span></em><a class="headerlink" href="#authapp.views.PostCreated.success_url" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.PostCreated.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'add_post_form.html'</span></em><a class="headerlink" href="#authapp.views.PostCreated.template_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.views.PostDetailView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">PostDetailView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.PostDetailView" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.PostDetailView.context_object_name">
+<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'detail_post'</span></em><a class="headerlink" href="#authapp.views.PostDetailView.context_object_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authapp.views.PostDetailView.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.PostDetailView.get_context_data" title="Link to this definition">¶</a></dt>
+<dd><p>Insert the single object into the context dict.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.PostDetailView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#authapp.views.PostDetailView.model" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">PostUser</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.PostDetailView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'detail_post.html'</span></em><a class="headerlink" href="#authapp.views.PostDetailView.template_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.views.PostUpdateView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">PostUpdateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.PostUpdateView" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.PostUpdateView.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['title',</span> <span class="pre">'text',</span> <span class="pre">'image']</span></em><a class="headerlink" href="#authapp.views.PostUpdateView.fields" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.PostUpdateView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#authapp.views.PostUpdateView.model" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">PostUser</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.PostUpdateView.success_url">
+<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/profile/'</span></em><a class="headerlink" href="#authapp.views.PostUpdateView.success_url" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.PostUpdateView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'edit_post.html'</span></em><a class="headerlink" href="#authapp.views.PostUpdateView.template_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.views.ProfileDetailUserView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">ProfileDetailUserView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.ProfileDetailUserView" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.ProfileDetailUserView.context_object_name">
+<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'detail_profile_user'</span></em><a class="headerlink" href="#authapp.views.ProfileDetailUserView.context_object_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.ProfileDetailUserView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#authapp.views.ProfileDetailUserView.model" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">CustomUser</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.ProfileDetailUserView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'detail_profile_user.html'</span></em><a class="headerlink" href="#authapp.views.ProfileDetailUserView.template_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.views.ProfileUpdateView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">ProfileUpdateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.ProfileUpdateView" title="Link to this definition">¶</a></dt>
+<dd><p>Представление для редактирования профиля</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.ProfileUpdateView.form_class">
+<span class="sig-name descname"><span class="pre">form_class</span></span><a class="headerlink" href="#authapp.views.ProfileUpdateView.form_class" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">CustomUserChangeForm</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authapp.views.ProfileUpdateView.form_valid">
+<span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.ProfileUpdateView.form_valid" title="Link to this definition">¶</a></dt>
+<dd><p>If the form is valid, save the associated model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authapp.views.ProfileUpdateView.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.ProfileUpdateView.get_context_data" title="Link to this definition">¶</a></dt>
+<dd><p>Insert the form into the context dict.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authapp.views.ProfileUpdateView.get_object">
+<span class="sig-name descname"><span class="pre">get_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.ProfileUpdateView.get_object" title="Link to this definition">¶</a></dt>
+<dd><p>Return the object the view is displaying.</p>
+<p>Require <cite>self.queryset</cite> and a <cite>pk</cite> or <cite>slug</cite> argument in the URLconf.
+Subclasses can override this to return any object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authapp.views.ProfileUpdateView.get_success_url">
+<span class="sig-name descname"><span class="pre">get_success_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.ProfileUpdateView.get_success_url" title="Link to this definition">¶</a></dt>
+<dd><p>Return the URL to redirect to after processing a valid form.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.ProfileUpdateView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#authapp.views.ProfileUpdateView.model" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">CustomUser</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.ProfileUpdateView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'profile_edit.html'</span></em><a class="headerlink" href="#authapp.views.ProfileUpdateView.template_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.views.RegisterUser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">RegisterUser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.RegisterUser" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.RegisterUser.form_class">
+<span class="sig-name descname"><span class="pre">form_class</span></span><a class="headerlink" href="#authapp.views.RegisterUser.form_class" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">CustomUserCreationForm</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="authapp.views.RegisterUser.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.RegisterUser.get_context_data" title="Link to this definition">¶</a></dt>
+<dd><p>Insert the form into the context dict.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.RegisterUser.success_url">
+<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/login/'</span></em><a class="headerlink" href="#authapp.views.RegisterUser.success_url" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.views.RegisterUser.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'register.html'</span></em><a class="headerlink" href="#authapp.views.RegisterUser.template_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.views.SocketServerView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">SocketServerView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.SocketServerView" title="Link to this definition">¶</a></dt>
+<dd><p>Super puper documentation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="authapp.views.SocketServerView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.SocketServerView.get" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authapp.views.add_comment">
+<span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">add_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.add_comment" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authapp.views.delete_comment">
+<span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">delete_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.delete_comment" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authapp.views.delete_post">
+<span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">delete_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.delete_post" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authapp.views.duck_hunt">
+<span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">duck_hunt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.duck_hunt" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authapp.views.game">
+<span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.game" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authapp.views.game_js">
+<span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">game_js</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.game_js" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authapp.views.home">
+<span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">home</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.home" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authapp.views.logout_user">
+<span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">logout_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.logout_user" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authapp.views.mario">
+<span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">mario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.mario" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authapp.views.profile_user_view">
+<span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">profile_user_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.profile_user_view" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authapp.views.start_game">
+<span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">start_game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.start_game" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authapp.views.toggle_dis_like">
+<span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">toggle_dis_like</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.toggle_dis_like" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authapp.views.toggle_like">
+<span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">toggle_like</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.toggle_like" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authapp.views.top_players">
+<span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">top_players</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.top_players" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="authapp.views.users_all_view">
+<span class="sig-prename descclassname"><span class="pre">authapp.views.</span></span><span class="sig-name descname"><span class="pre">users_all_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.views.users_all_view" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Game Dev</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Views</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.LoginUser"><code class="docutils literal notranslate"><span class="pre">LoginUser</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.MessageView"><code class="docutils literal notranslate"><span class="pre">MessageView</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.PostCreated"><code class="docutils literal notranslate"><span class="pre">PostCreated</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.PostDetailView"><code class="docutils literal notranslate"><span class="pre">PostDetailView</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.PostUpdateView"><code class="docutils literal notranslate"><span class="pre">PostUpdateView</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.ProfileDetailUserView"><code class="docutils literal notranslate"><span class="pre">ProfileDetailUserView</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.ProfileUpdateView"><code class="docutils literal notranslate"><span class="pre">ProfileUpdateView</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.RegisterUser"><code class="docutils literal notranslate"><span class="pre">RegisterUser</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.SocketServerView"><code class="docutils literal notranslate"><span class="pre">SocketServerView</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.add_comment"><code class="docutils literal notranslate"><span class="pre">add_comment()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.delete_comment"><code class="docutils literal notranslate"><span class="pre">delete_comment()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.delete_post"><code class="docutils literal notranslate"><span class="pre">delete_post()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.duck_hunt"><code class="docutils literal notranslate"><span class="pre">duck_hunt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.game"><code class="docutils literal notranslate"><span class="pre">game()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.game_js"><code class="docutils literal notranslate"><span class="pre">game_js()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.home"><code class="docutils literal notranslate"><span class="pre">home()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.logout_user"><code class="docutils literal notranslate"><span class="pre">logout_user()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.mario"><code class="docutils literal notranslate"><span class="pre">mario()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.profile_user_view"><code class="docutils literal notranslate"><span class="pre">profile_user_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.start_game"><code class="docutils literal notranslate"><span class="pre">start_game()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.toggle_dis_like"><code class="docutils literal notranslate"><span class="pre">toggle_dis_like()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.toggle_like"><code class="docutils literal notranslate"><span class="pre">toggle_like()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.top_players"><code class="docutils literal notranslate"><span class="pre">top_players()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.views.users_all_view"><code class="docutils literal notranslate"><span class="pre">users_all_view()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Game Dev’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Pro Bro.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/views.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

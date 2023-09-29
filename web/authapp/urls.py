@@ -1,6 +1,4 @@
-from django.urls import path
-
-
+from django.urls import path, re_path, include
 from authapp import views
 
 
@@ -21,6 +19,7 @@ urlpatterns = [
     path('duck_hunt/', views.duck_hunt, name='duck_hunt'),
     path('detail_profile_user/<int:pk>/', views.ProfileDetailUserView.as_view(), name='detail_profile_user'),
     path('users_all/', views.users_all_view, name='users_all'),
+
 ]
 
 

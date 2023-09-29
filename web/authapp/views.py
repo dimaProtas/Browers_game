@@ -94,6 +94,9 @@ from django.views.generic import View
 
 
 class SocketServerView(View):
+    """
+    Super puper documentation
+    """
     def get(self, request):
         UDP_IP = "127.0.0.1"
         UDP_PORT = 12345

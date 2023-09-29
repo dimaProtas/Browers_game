@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'daphne',
     'channels',
     'bootstrap4',
-
 ]
 
 MIDDLEWARE = [
@@ -55,8 +54,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-
 ]
 
 ROOT_URLCONF = 'web.urls'

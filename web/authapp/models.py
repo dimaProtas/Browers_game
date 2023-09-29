@@ -10,6 +10,9 @@ from unidecode import unidecode
 
 # Модель юзера
 class CustomUser(AbstractUser):
+    """
+    Super Puper documentation
+    """
     username = models.CharField(max_length=250, unique=True)
     status = models.CharField(max_length=30, blank=True, null=True)
     about_me = models.TextField(blank=True, null=True, verbose_name='about_me')
