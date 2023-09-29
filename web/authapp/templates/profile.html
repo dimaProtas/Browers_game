@@ -26,18 +26,18 @@
                  {% if user.status %}<div class="status_profile">{{ user.status }}</div>{% endif %}
 
                 <div class="data_profile_container">
-                <div>Email: <span class="data">{{ user.email }}</span></div>
-                {% if user.vk %}<div>VK: <span class="data">{{ user.vk }}</span></div>{% endif %}
-                {% if user.instagram %}<div>Instagram: <span class="data">{{ user.instagram }}</span></div>{% endif %}
-                {% if user.github %}<div>GitHub: <span class="data">{{ user.github }}</span></div>{% endif %}
-                <div>Лучший результат: <span class="data">
+                <div><img src="/media/email.png" style="width: 23px; height: 23px;"><span class="data">{{ user.email }}</span></div>
+                {% if user.vk %}<div><img src="/media/vk.jpg" style="width: 23px; height: 23px;"><span class="data">{{ user.vk }}</span></div>{% endif %}
+                {% if user.instagram %}<div><img src="/media/inst.png" style="width: 23px; height: 23px;"><span class="data">{{ user.instagram }}</span></div>{% endif %}
+                {% if user.github %}<div><img src="/media/git.jpg" style="width: 23px; height: 23px;"><span class="data">{{ user.github }}</span></div>{% endif %}
+                <div><img src="/media/result.png" style="width: 23px; height: 23px;"><span class="data">
                     {% if profile.top_result %}
                         {{profile.top_result}}
                     {% else %}
                         0
                     {% endif %}
                 </span></div>
-                <div>Количество игр: <span class="data">
+                <div><img src="/media/game-icon.png" style="width: 23px; height: 23px;"> <span class="data">
                     {% if profile.count_game %}
                         {{profile.count_game}}
                     {% else %}
@@ -195,5 +195,5 @@
     });
 </script> {# импорт скрипта переключения друзей и заявки в друзья #}
 <script src="{% static 'js/done_cancel_friends_script.js' %}"></script> {# импорт принять отклонить заявку в друзья #}
-<script src="{% static 'delete_friends_script.js' %}"></script> {# импорт скрипта удаление из друзей #}
+<script src="{% static 'js/delete_friends_script.js' %}"></script> {# импорт скрипта удаление из друзей #}
 {% endblock %}

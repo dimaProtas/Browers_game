@@ -2,3 +2,11 @@
     display: flex;
     justify-content: space-between;
 }
+
+.messages_block {
+    height: 500px;
+    width: 30%;
+    line-height: 1;
+    font-family: 'Patrick Hand SC', cursive;
+}
+

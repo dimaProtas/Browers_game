@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <p class="points" id="point">Your Score: <span id="score">0</span></p>
+
+    <div id="game">
+        <a class="myButton" id="myButton" onclick="startGame();">START</a>
+
+        <img src="images/backgroundgrass.png" id="grass" alt="" onclick="shoot();">
+        <img src="images/flyingduck.gif" onclick="shootDuck();" id="duck" alt="">
+        <img src="images/sniffingdog.gif" onclick="dogBark.play();" id="dog" alt="">
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <script src="{% static 'js/duck-hunt/script.js' %}"></script>
+    <script>
+$(document).ready(function() {
+    $('#score').on('DOMSubtreeModified', function() {
+        console.log("Handler activated");
+        console.log("Before AJAX request");
+
+        // Отправляем AJAX-запрос для сохранения очков игры
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            url: "http://127.0.0.1:8888/duck_hunt_save_points/" + newScore + "/",
+            type: "POST",
+            data: {
+                csrfmiddlewaretoken: csrfToken,
+                score: points
+            },
+            success: function(data) {
+                if (data.result === 'Success') {
+                    currentPost.hide();
+                } else {
+                    alert("Ошибка при сохранении игры!");
+                }
+            },
+            error: function() {
+                alert("Произошла ошибка при выполнении запроса.");
+            },
+        });
+
+        console.log("After AJAX request");
+    });
+});
+
+
+    </script>
+</body>
+
+
+</html>
