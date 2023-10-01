@@ -68,11 +68,14 @@
 
 {% block content %} {% endblock %}
         </div>
+  {% block footer %}
     <footer id="my-footer" class="py-5 bg-dark">
         <div class="container">
         <p class="m-0 text-center text-white">Нижний блок {% now "Y" %}</p>
     </div>
     </footer>
+  {% endblock %}
+
     {% bootstrap_javascript jquery='full' %}
     <script>
         window.addEventListener("scroll", function () {

@@ -5,6 +5,7 @@ $(document).ready(function() {
     $(".fa-fire").click(function() {
         var postId = $(this).data("post-id");
         var likeCountElement = $(this);
+        console.log(csrfToken)
 
         if (userIsAuthenticated) {
         // Отправляем Ajax-запрос на сервер для создания или удаления лайков

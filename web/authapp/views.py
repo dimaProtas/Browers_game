@@ -9,7 +9,7 @@ from django.views.generic import CreateView, UpdateView
 from django.core.paginator import Paginator
 from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm, PostForm
 from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, \
-    FriendsRequest, DuckHuntModel
+    FriendsRequest, DuckHuntModel, SuperMarioModel
 from authapp.utils import DataMixin
 from django.views.generic import DetailView
 from django.shortcuts import render
@@ -67,31 +67,25 @@ class MessageView(View):
             for message in messages_to_delete:
                 message.delete()
 
-        return render(request, 'pygbag.html', {'messages': messages, 'current_user': current_user, 'form': form})
-
-    # def post(self, request):
-    #     # Обработка создания нового сообщения
-    #     if request.method == 'POST':
-    #         form = MessageForm(request.POST)
-    #         if form.is_valid():
-    #
-    #             sender = request.user
-    #             message_text = form.cleaned_data['message']
-    #             message = MessagesModel(sender=sender, message=message_text)
-    #             message.save()
-    #
-    #             # return redirect('/pygbag')
-    #
-    #     messages = MessagesModel.objects.all()
-    #     return render(request, 'pygbag.html', {'messages': messages, 'form': form})
-    #
-    # def delete(self, request, message_id):
-    #     # Обработка удаления сообщения
-    #     pass
+        return render(request, 'game/pygbag.html', {'messages': messages, 'current_user': current_user, 'form': form})
 
 
-def mario(request):
-    return render(request, 'mario_js.html')
+def kerby(request):
+    return render(request, 'game/kirby.html')
+
+class SuperMarioViews(View):
+    def get(self, request):
+        current_user = request.user
+        messages = MessagesModel.objects.all()
+        form = MessageForm()
+
+        if messages.count() > 20:
+            # Если количество записей больше 20, удаляем лишние записи
+            messages_to_delete = messages.order_by('created_at')[:messages.count() - 20]
+            for message in messages_to_delete:
+                message.delete()
+
+        return render(request, 'game/mario_js.html', {'messages': messages, 'current_user': current_user, 'form': form})
 
 
 class DuckHuntViews(View):
@@ -107,7 +101,7 @@ class DuckHuntViews(View):
             for message in messages_to_delete:
                 message.delete()
 
-        return render(request, 'duck_hunt.html', {'messages': messages, 'current_user': current_user, 'form': form})
+        return render(request, 'game/duck_hunt.html', {'messages': messages, 'current_user': current_user, 'form': form})
 
 
 def game_js(request):
@@ -423,3 +417,23 @@ def duck_hunt_points_save(request, results):
     except Exception as e:
         return HttpResponseBadRequest({'error': str(e)})
 
+
+@login_required
+def super_mario_points_save(request, results):
+    profile_user = ProfileUser.objects.get(user_name=request.user)
+    try:
+        super_mario_model = SuperMarioModel.objects.get(profile_user=profile_user)
+    except SuperMarioModel.DoesNotExist:
+        super_mario_model = SuperMarioModel(profile_user=profile_user)
+
+    try:
+        results = int(results)
+        if results > super_mario_model.best_result:
+            super_mario_model.best_result = results
+        super_mario_model.total_points += 50
+        super_mario_model.save()
+        return JsonResponse({'result': 'Success'})
+    except ValueError:
+        return HttpResponseBadRequest({'error': 'Invalid results format'})
+    except Exception as e:
+        return HttpResponseBadRequest({'error': str(e)})

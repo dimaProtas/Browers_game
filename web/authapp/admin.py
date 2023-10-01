@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import CustomUser, ProfileUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, \
-    FriendsRequest, DuckHuntModel
+    FriendsRequest, DuckHuntModel, SuperMarioModel
 from django.utils.safestring import mark_safe
 
 class CustomUserAdmin(UserAdmin):
@@ -116,3 +116,11 @@ class DuckHuntAdmin(admin.ModelAdmin):
 
 
 admin.site.register(DuckHuntModel, DuckHuntAdmin)
+
+
+class SuperMarioAdmin(admin.ModelAdmin):
+    list_display = ['id', 'profile_user', 'best_result', 'total_points']
+    list_display_links = ['id']
+
+
+admin.site.register(SuperMarioModel, SuperMarioAdmin)

@@ -27,16 +27,16 @@
                     {% endif %}
                     <div class="top_result">
                         <p>
-                            Лучший результат:
-                            {% if user.profile_user.top_result  %}{{ user.profile_user.top_result }}{% else %}нет игр{% endif %}
+                            <img src="/media/result.png" style="width: 23px; height: 23px;">
+                            {% if user.profile_user.top_result  %}{{ user.profile_user.top_result }}{% else %}0{% endif %}
                         </p>
                         <p>
-                            Количество игр:
-                            {% if user.profile_user.count_game  %}{{ user.profile_user.count_game }}{% else %}нет игр{% endif %}
+                            <img src="/media/game-icon.png" style="width: 23px; height: 23px;">
+                            {% if user.profile_user.count_game  %}{{ user.profile_user.count_game }}{% else %}0{% endif %}
                         </p>
                         <p>
-                            Количество постов:
-                            {% if user.post_count  %}{{ user.post_count }}{% else %}нет постов{% endif %}
+                            <img src="/media/post.png" style="width: 23px; height: 23px;">
+                            {% if user.post_count  %}{{ user.post_count }}{% else %}0{% endif %}
                         </p>
 
                     </div>

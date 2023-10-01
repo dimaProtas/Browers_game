@@ -23,12 +23,12 @@
             {% if detail_profile_user.status %}<div class="status_profile">{{ detail_profile_user.status }}</div>{% endif %}
             <div class="data_profile_container">
 
-            <div>Email: <span class="data">{{ detail_profile_user.email }}</span></div>
-            {% if detail_profile_user.vk %}<div>VK: <span class="data">{{ detail_profile_user.vk }}</span></div>{% endif %}
-            {% if detail_profile_user.instagram %}<div>Instagram: <span class="data">{{ detail_profile_user.instagram }}</span></div>{% endif %}
-            {% if detail_profile_user.github %}<div>GitHub: <span class="data">{{ detail_profile_user.github }}</span></div>{% endif %}
-            {% if detail_profile_user.profile_user.top_result %}<div>Лучший результат: <span class="data">{{ detail_profile_user.profile_user.top_result }}</span></div>{% endif %}
-            {% if detail_profile_user.profile_user.count_game %}<div>Количество игр: <span class="data">{{ detail_profile_user.profile_user.count_game }}</span></div>{% endif %}
+            <div><img src="/media/email.png" style="width: 23px; height: 23px;"><span class="data">{{ detail_profile_user.email }}</span></div>
+            {% if detail_profile_user.vk %}<div><img src="/media/vk.jpg" style="width: 23px; height: 23px;"><span class="data">{{ detail_profile_user.vk }}</span></div>{% endif %}
+            {% if detail_profile_user.instagram %}<div><img src="/media/inst.png" style="width: 23px; height: 23px;"><span class="data">{{ detail_profile_user.instagram }}</span></div>{% endif %}
+            {% if detail_profile_user.github %}<div><img src="/media/git.jpg" style="width: 23px; height: 23px;"><span class="data">{{ detail_profile_user.github }}</span></div>{% endif %}
+            {% if detail_profile_user.profile_user.top_result %}<div><img src="/media/result.png" style="width: 23px; height: 23px;"><span class="data">{{ detail_profile_user.profile_user.top_result }}</span></div>{% endif %}
+            {% if detail_profile_user.profile_user.count_game %}<div><img src="/media/game-icon.png" style="width: 23px; height: 23px;"><span class="data">{{ detail_profile_user.profile_user.count_game }}</span></div>{% endif %}
         </div>
         </div>
         </div>

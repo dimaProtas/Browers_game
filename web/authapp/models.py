@@ -51,6 +51,16 @@ class DuckHuntModel(models.Model):
         verbose_name_plural = 'Duck Hunt'
 
 
+class SuperMarioModel(models.Model):
+    best_result = models.IntegerField(default=0)
+    total_points = models.IntegerField(default=0)
+    profile_user = models.OneToOneField(ProfileUser, on_delete=models.PROTECT, related_name='super_mario')
+
+    class Meta:
+        verbose_name = 'Super Mario'
+        verbose_name_plural = 'Super Mario'
+
+
 class MessagesModel(models.Model):
     sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='sent_messages')
     message = models.TextField()
