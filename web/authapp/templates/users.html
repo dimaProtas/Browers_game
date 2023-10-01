@@ -60,11 +60,6 @@
 
 {% include 'inc/paginator.html' %}
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-{# Получаем токен в meta, для использования в скрипте js #}
-<meta name="csrf-token" content="{{ csrf_token }}">
-
 <script src="{% static 'js/delete_request_friends.js' %}"></script>
 
 {% endblock %}

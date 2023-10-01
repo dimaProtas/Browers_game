@@ -28,6 +28,7 @@ urlpatterns = [
     path('game_add_profile/', views.game_add_profile),
     path('duck_hunt_save_points/<int:results>/', views.duck_hunt_points_save),
     path('super_mario_save_points/<int:results>/', views.super_mario_points_save),
+    path('kerby_save_points/', views.kerby_points_save),
 ]
 
 

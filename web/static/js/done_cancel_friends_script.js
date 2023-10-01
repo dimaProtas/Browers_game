@@ -1,5 +1,6 @@
 $(document).ready(function() {
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
+    var hostPort = $('meta[name="host-port"]').attr('content');
 
     // Обработчик для кнопки "Принять" и "Отменить"
     $(document).on("click", ".done, .cancel", function() {
@@ -14,7 +15,7 @@ $(document).ready(function() {
 
         // Отправляем Ajax-запрос на сервер
         $.ajax({
-            url: "http://127.0.0.1:8888/done_cancel_friend/" + userId + "/" + status + "/",
+            url: hostPort + "done_cancel_friend/" + userId + "/" + status + "/",
             type: "POST",
             data: {
                 csrfmiddlewaretoken: csrfToken,

@@ -9,7 +9,7 @@ from django.views.generic import CreateView, UpdateView
 from django.core.paginator import Paginator
 from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm, PostForm
 from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, \
-    FriendsRequest, DuckHuntModel, SuperMarioModel
+    FriendsRequest, DuckHuntModel, SuperMarioModel, KerbyModel
 from authapp.utils import DataMixin
 from django.views.generic import DetailView
 from django.shortcuts import render
@@ -21,6 +21,8 @@ import locale
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
+import json
+
 
 
 # Функция проверки отношений между пользователями.
@@ -437,3 +439,30 @@ def super_mario_points_save(request, results):
         return HttpResponseBadRequest({'error': 'Invalid results format'})
     except Exception as e:
         return HttpResponseBadRequest({'error': str(e)})
+
+
+@login_required
+def kerby_points_save(request):
+    profile_user = ProfileUser.objects.get(user_name=request.user)
+    try:
+        kerby_model = KerbyModel.objects.get(profile_user=profile_user)
+    except KerbyModel.DoesNotExist:
+        kerby_model = KerbyModel(profile_user=profile_user)
+
+    total_points = int(request.POST.get('total_points'))
+    alias_saved = int(request.POST.get('alias_saved'))
+    alias_lost = int(request.POST.get('alias_lost'))
+
+    if total_points is not None:
+        try:
+            if total_points > kerby_model.best_result:
+                kerby_model.best_result = total_points
+            kerby_model.allies_saved += alias_saved
+            kerby_model.allies_lost += alias_lost
+            kerby_model.total_points += total_points
+            kerby_model.save()
+            return JsonResponse({'result': 'Success'})
+        except ValueError:
+            return HttpResponseBadRequest({'error': 'Invalid results format'})
+        except Exception as e:
+            return HttpResponseBadRequest({'error': str(e)})

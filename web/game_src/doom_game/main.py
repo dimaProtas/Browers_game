@@ -3,7 +3,7 @@ import asyncio
 import pygame as pg
 import sys
 import json
-sys.path.append('C:\\Users\\dima_protasevich\\Documents\\devTem\\GB_dev_agile_web\\web\\game_src\\doom_game\\')
+# sys.path.append('C:\\Users\\dima_protasevich\\Documents\\devTem\\GB_dev_agile_web\\web\\game_src\\doom_game\\')
 from settings import *
 from map import *
 from player import *

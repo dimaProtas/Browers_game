@@ -60,6 +60,17 @@ class SuperMarioModel(models.Model):
         verbose_name = 'Super Mario'
         verbose_name_plural = 'Super Mario'
 
+class KerbyModel(models.Model):
+    best_result = models.IntegerField(default=0)
+    total_points = models.IntegerField(default=0)
+    allies_saved = models.IntegerField(default=0)
+    allies_lost = models.IntegerField(default=0)
+    profile_user = models.OneToOneField(ProfileUser, on_delete=models.PROTECT, related_name='kerby')
+
+    class Meta:
+        verbose_name = 'Kerby'
+        verbose_name_plural = 'Kerby'
+
 
 class MessagesModel(models.Model):
     sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='sent_messages')
