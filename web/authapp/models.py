@@ -40,7 +40,6 @@ class ProfileUser(models.Model):
         verbose_name_plural = 'Профили'
 
 
-
 class DuckHuntModel(models.Model):
     best_result = models.IntegerField(default=0)
     total_points = models.IntegerField(default=0)

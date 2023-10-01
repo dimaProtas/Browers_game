@@ -29,8 +29,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home,  name='home'),
 
-    path('trymore/', SocketServerView.as_view(), name='server'),
-
     path('register/', RegisterUser.as_view(), name='register'),
     path('login/', LoginUser.as_view(), name='login'),
     path('profile/', profile_user_view, name='profile'),

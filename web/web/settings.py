@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    # 'daphne',
     'authapp',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # созданные приложения
-    'daphne',
     'channels',
     'bootstrap4',
 ]
@@ -86,10 +86,9 @@ WSGI_APPLICATION = 'web.wsgi.application'
 #         'USER': os.environ.get('MYSQL_USER'),
 #         'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
 #         'HOST': os.environ.get('DBHOST'),
-#         'PORT': '3333',  # Порт MySQL по умолчанию
+#         'PORT': '3306',  # Порт MySQL по умолчанию
 #     }
 # }
-
 
 DATABASES = {
     'default': {
@@ -155,4 +154,4 @@ CHANNEL_LAYERS = {
     },
 }
 
-ASGI_APPLICATION = 'web.asgi.application'
+ASGI_APPLICATION = 'web.asgi:application'

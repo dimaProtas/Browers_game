@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth import logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
@@ -17,7 +19,7 @@ from django.db.models import F
 from django.utils.text import slugify
 from django.db.models import Count
 from django.utils import timezone
-import locale
+# import locale
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
@@ -252,7 +254,7 @@ def delete_post(request, post_id):
     try:
         post = PostUser.objects.get(id=post_id)
         post.delete()
-        return JsonResponse({'sucses': True})
+        return JsonResponse({'success': True})
     except PostUser.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Post not found'}, status=404)
 
@@ -351,9 +353,10 @@ from .models import PostUser
 
 def add_comment(request, post_id):
     post = get_object_or_404(PostUser, id=post_id)
-    locale.setlocale(locale.LC_TIME, 'ru_RU')
-    formatted_datetime = timezone.localtime(timezone.now()).strftime('%d %B %Y г. %H:%M')
-    locale.setlocale(locale.LC_TIME, '')
+    # locale.setlocale(locale.LC_TIME, 'ru_RU')
+    # formatted_datetime = timezone.localtime(timezone.now()).strftime('%d %B %Y г. %H:%M')
+    # locale.setlocale(locale.LC_TIME, '')
+    formatted_datetime = datetime.now().strftime('%d %B %Y г. %H:%M')
 
     if request.method == 'POST':
         comment_text = request.POST.get('comment', '')

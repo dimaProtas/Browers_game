@@ -5,7 +5,7 @@ import threading
 from django.utils import timezone
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
-from game_src.doom_game.main import Game
+# from game_src.doom_game.main import Game
 from .models import MessagesModel
 from channels.db import database_sync_to_async
 import locale
