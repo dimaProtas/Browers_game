@@ -13,7 +13,10 @@ from channels.auth import AuthMiddlewareStack
 from django.urls import re_path
 
 from authapp import consumers
+import sys
 
+sds = sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+print(sds)
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'web.settings')
 
 application = ProtocolTypeRouter({
