@@ -39,10 +39,13 @@ Pet project
 #Настройки Django
 DEBUG=True
 
-#Настройки базы \
+## Настройки базы 
 MYSQL_DATABASE=gb_dev_db \
 MYSQL_USER=user \
 MYSQL_PASSWORD=password \
 MYSQL_ROOT_PASSWORD=rootpassword \
 PGPORT=3306 \
 DBHOST=192.168.99.104 
+
+## Изменения шаблонов
+Базовые шаблоны и инклуды лежат в папке base_templates проекта. Шаблоны при приложений в папке  templates приложения. 

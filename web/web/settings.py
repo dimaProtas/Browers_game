@@ -39,19 +39,26 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'daphne',
     'django.contrib.staticfiles',
+
+    'django_extensions',
+    #'corsheaders',
     # созданные приложения
-    # 'channels',
+
     'authapp',
     'bootstrap4',
-
+    'users_messages_app'
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
+
+    'django.middleware.security.SecurityMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+
+   # 'corsheaders.middleware.CorsMiddleware', #кросс запросы
+    'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -64,7 +71,7 @@ ROOT_URLCONF = 'web.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'base_templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -144,7 +151,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authapp.CustomUser'
 
-
+#Асинхронщина
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer",
@@ -159,4 +166,19 @@ CHANNEL_LAYERS = {
 #     },
 # }
 
-ASGI_APPLICATION = "web.asgi.application"
+ASGI_APPLICATION = 'web.asgi.application'
+
+#Кросс запросы
+
+# CORS_ALLOW_CREDENTIALS = False
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:8888",
+#     "http://127.0.0.1:8888",
+#
+# ]
+#
+# CSRF_TRUSTED_ORIGINS = [
+#     "http://localhost:8888",
+#     "http://127.0.0.1:8888",
+#
+# ]

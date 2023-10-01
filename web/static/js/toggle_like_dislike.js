@@ -11,6 +11,7 @@ $(document).ready(function() {
         // Отправляем Ajax-запрос на сервер для создания или удаления лайков
         $.ajax({
             url: "http://127.0.0.1:8888/toggle_like/" + postId + "/", // URL для dislike
+            cache: false,
             type: "POST",
             data: {
                 csrfmiddlewaretoken: csrfToken, // CSRF-токен для безопасности
@@ -55,7 +56,7 @@ $(document).ready(function() {
         if (userIsAuthenticated) {
             // Отправляем Ajax-запрос на сервер для создания или удаления dislike
             $.ajax({
-            url: "http://127.0.0.1:8888/toggle_dislike/" + postId + "/", // URL для dislike
+            url: "http://127.0.0.1/toggle_dislike/" + postId + "/", // URL для dislike
             type: "POST",
             data: {
                 csrfmiddlewaretoken: csrfToken, // CSRF-токен для безопасности
