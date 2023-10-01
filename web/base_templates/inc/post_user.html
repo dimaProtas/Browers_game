@@ -1,0 +1,26 @@
+<div class="post_container">
+    {% for p in some_variable %}
+        <div class="post">
+            <div class="title_icon_container">
+                <a href="{% url 'detail_post' slug=p.slug %}" class="title">{{ p.title }}</a>
+                <div class="icon">
+                    <a href="{% url 'edit_post' slug=p.slug %}" class="edit_icon">
+                        <i class="fas fa-edit fa-lg edit-post" data-post-id="{{ p.id }}"></i>
+                    </a>
+                    <i class="fas fa-trash fa-lg delete-post" data-post-id="{{ p.id }}"></i>
+                </div>
+            </div>
+            <div class="date_content_img_container">
+                <span class="date_time">{{ p.created_at }}</span>
+                <span class="text">{{ p.text|truncatewords:10 }}</span>
+                {% if p.image %}
+                    <img src="{{ p.image.url }}" alt="img" width="60px">
+                {% endif %}
+            </div>
+
+
+        </div>
+
+    {% endfor %}
+
+</div>

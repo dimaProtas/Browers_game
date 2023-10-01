@@ -36,6 +36,7 @@ urlpatterns = [
     path('logout/', logout_user,  name='logout'),
     path('edit_profile/', ProfileUpdateView.as_view(),  name='edit_profile'),
     path('', include("authapp.urls")),
+    path('mess/', include("users_messages_app.urls")),
 ]
 
 

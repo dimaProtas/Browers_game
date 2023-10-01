@@ -1,0 +1,30 @@
+{% load static %}
+<div class="messages_block">
+    <div class="title_chat">
+        <h2>Чат</h2>
+    </div>
+    <div class="message-container">
+        <audio id="messageSound" src="{% static 'audio/send_sound.mp3' %}" preload="auto"></audio>
+        <audio id="messageSoundAdd" src="{% static 'audio/add_message.mp3' %}" preload="auto"></audio>
+    {% for m in messages %}
+        <div class="message {% if m.sender == current_user %}sent-by-me{% endif %}">
+            <div>
+                <span class="sender">{{ m.sender }}</span>
+                <span class="timestamp">{{ m.created_at }}</span>
+            </div>
+            <span class="message-text">{{ m.message }}</span>
+        </div>
+    {% endfor %}
+    </div>
+
+    <form method="post" class="message-form" action="">
+        {% csrf_token %}
+        <div class="message-input-wrapper">
+            <input type="text" id="message-input" placeholder="Введите ваше сообщение...">
+        </div>
+        <button type="submit" class="submit-button">
+            <i class="fas fa-paper-plane fa-lg" data-post-id="{{ p.id }}" data-comment-form="{{ p.id }}"></i>
+        </button>
+    </form>
+
+</div>

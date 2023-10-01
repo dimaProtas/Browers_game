@@ -42,6 +42,8 @@
     flex-direction: column;
     height: 600px;
     overflow: hidden;
+    line-height: 1;
+    font-family: 'Patrick Hand SC', cursive;
 }
 
 .message-container {
