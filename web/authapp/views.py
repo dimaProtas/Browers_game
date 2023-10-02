@@ -9,7 +9,7 @@ from django.views.generic import CreateView, UpdateView
 from django.core.paginator import Paginator
 from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm, PostForm
 from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, \
-    FriendsRequest, DuckHuntModel, SuperMarioModel
+    FriendsRequest, DuckHuntModel, SuperMarioModel, KerbyModel
 from authapp.utils import DataMixin
 from django.views.generic import DetailView
 from django.db.models import F
