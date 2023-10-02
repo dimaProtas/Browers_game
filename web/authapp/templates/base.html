@@ -1,4 +1,4 @@
-{%load static%}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -78,9 +78,6 @@
         <p class="m-0 text-center text-white">Нижний блок {% now "Y" %}</p>
     </div>
     </footer>
-  {% endblock %}
-
-    {% bootstrap_javascript jquery='full' %}
     <script>
         window.addEventListener("scroll", function () {
   var footer = document.getElementById("my-footer");
@@ -102,7 +99,11 @@
   }
 });
 
-    </script>
+</script>
+  {% endblock %}
+
+    {% bootstrap_javascript jquery='full' %}
+
 </body>
 </html>
 

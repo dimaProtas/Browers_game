@@ -51,7 +51,7 @@
 </div>
 
 </body>
-
+<script>var userIsAuthenticated = {{ request.user.is_authenticated|lower }};</script> {# передаёт в скрипт request.user.is_authenticated #}
 <script src="{% static 'js/game_add_profile.js' %}"></script>  {# импорт скрипта подсчёта кол-во игр пользователя #}
 
 {% endblock %}

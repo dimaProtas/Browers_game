@@ -4,6 +4,7 @@
     $(".game_add").click(function() {
 
       // Отправляем Ajax-запрос на сервер для удаления поста
+      if (userIsAuthenticated) {
       $.ajax({
         url: hostPort + "game_add_profile/", // URL для удаления поста
         type: "POST",
@@ -24,5 +25,6 @@
           alert("Произошла ошибка при выполнении запроса.");
         },
       });
+      }
     });
   });

@@ -5,7 +5,7 @@
 Developed By:       ╚╩═╩╩═╩══╩╩╩╩═╩══╝
 */
 
-function start() { 
+function start() {
 
 	$("#inicio").hide(); 
 	
