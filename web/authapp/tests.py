@@ -57,7 +57,7 @@ class StaticURLTests(TestCase):
             '/game/doom_game/': 'game_stream.html',
             '/game/js_doom_game/': 'index_game.html',
             '/mario_js/': 'mario_js.html',
-            '/duck_hunt/': 'duck_hunt.html',
+            '/game/duck_hunt/': 'duck_hunt.html',
         }
 
         for adress, template in templates_url_names.items():

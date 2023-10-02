@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 
 from authapp.models import DisLikeModel
 from authapp.views import home, RegisterUser, LoginUser, profile_user_view, top_players, logout_user, \
-    ProfileUpdateView, game, SocketServerView
+    ProfileUpdateView, game, login_github, login_github_callback, login_vk
 
 
 
@@ -31,13 +31,19 @@ urlpatterns = [
 
     path('register/', RegisterUser.as_view(), name='register'),
     path('login/', LoginUser.as_view(), name='login'),
+
+    path(r'login/github/', login_github, name='login_github'),
+    path(r'login/github/callback/', login_github_callback, name='login_github_callback'),
+    # path(r'login/vk/', login_vk, name='login_vk'),
+    # path(r'^social/', include('social_django.urls')),
+
     path('profile/', profile_user_view, name='profile'),
     path('top_players', top_players, name='top'),
     path('logout/', logout_user,  name='logout'),
     path('edit_profile/', ProfileUpdateView.as_view(),  name='edit_profile'),
     path('', include("authapp.urls")),
     path('mess/', include("users_messages_app.urls")),
-]
+ ]
 
 
 if settings.DEBUG:

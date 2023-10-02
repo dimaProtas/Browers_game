@@ -1,10 +1,8 @@
 from datetime import datetime
 
-from django.contrib.auth import logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.db import transaction
-from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, UpdateView
@@ -14,15 +12,21 @@ from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser, Com
     FriendsRequest, DuckHuntModel, SuperMarioModel
 from authapp.utils import DataMixin
 from django.views.generic import DetailView
-from django.shortcuts import render
 from django.db.models import F
-from django.utils.text import slugify
 from django.db.models import Count
-from django.utils import timezone
 # import locale
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponseBadRequest
+
+from django.shortcuts import redirect, render
+from django.urls import reverse
+from django.conf import settings
+from django.contrib.auth import logout, login
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+import requests
+import logging
+from django.contrib import messages
 
 
 # Функция проверки отношений между пользователями.
@@ -37,7 +41,7 @@ def get_relationship_status(user1, user2):
     if friend_request:
         return "request_sent"  # Запрос в друзья уже отправлен
     elif FriendsRequest.objects.filter(
-        (Q(sent_from=user1, sent_to=user2, status=2) | Q(sent_from=user2, sent_to=user1, status=2))
+            (Q(sent_from=user1, sent_to=user2, status=2) | Q(sent_from=user2, sent_to=user1, status=2))
     ).exists():
         return "friend"  # Пользователи уже друзья
     else:
@@ -55,6 +59,7 @@ def users_all_view(request):
         user.relationship_statuses = get_relationship_status(request.user, user)
 
     return render(request, 'users.html', {'page_obj': page_obj})
+
 
 class MessageView(View):
     def get(self, request):
@@ -74,6 +79,7 @@ class MessageView(View):
 
 def kerby(request):
     return render(request, 'game/kirby.html')
+
 
 class SuperMarioViews(View):
     def get(self, request):
@@ -103,7 +109,8 @@ class DuckHuntViews(View):
             for message in messages_to_delete:
                 message.delete()
 
-        return render(request, 'game/duck_hunt.html', {'messages': messages, 'current_user': current_user, 'form': form})
+        return render(request, 'game/duck_hunt.html',
+                      {'messages': messages, 'current_user': current_user, 'form': form})
 
 
 def game_js(request):
@@ -121,30 +128,6 @@ def start_game(request):
 
 def game(request):
     return render(request, 'game.html')
-
-
-import socket
-from django.http import HttpResponse
-from django.views.generic import View
-
-
-class SocketServerView(View):
-    """
-    Super puper documentation
-    """
-    def get(self, request):
-        UDP_IP = "127.0.0.1"
-        UDP_PORT = 12345
-
-        sock = socket.socket(socket.AF_INET,  # Internet
-                             socket.SOCK_DGRAM)  # UDP
-        sock.bind((UDP_IP, UDP_PORT))
-        while True:
-            data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
-            print("received message: %s" % data)
-            response = HttpResponse(f'{data}')
-            sock.close()
-            return response
 
 
 def home(request):
@@ -227,6 +210,83 @@ class LoginUser(DataMixin, LoginView):
         return reverse_lazy('home')
 
 
+def login_github(request):
+    print('start -> login_github')
+    client_id = settings.GITHUB_CLIENT_ID
+    scope = 'read:user'
+    state = 'somerandomstring123'  # to prevent csrf
+    return redirect(
+        'https://github.com/login/oauth/authorize?client_id={}&scope={}&state={}'.format(client_id,
+                                                                                         scope, state,
+                                                                                         ))
+
+
+def login_github_callback(request):
+    print('start -> login_github_callback')
+    code = request.GET.get('code', None)
+    if not code:
+        return redirect(reverse("home", args=(), kwargs={}))
+
+    params = {
+        'client_id': settings.GITHUB_CLIENT_ID,
+        'client_secret': settings.GITHUB_SECRET,
+        'code': code,
+        'Content-Type': 'application/json'
+    }
+
+    headers = {
+        'Accept': 'application/json'
+    }
+
+    result = requests.post('https://github.com/login/oauth/access_token', data=params, headers=headers)
+    # print(result)
+    # print(result.text)
+    # print(result.json())
+    token = result.json().get('access_token')
+    user_api_url = 'https://api.github.com/user'
+    headers = {
+        'Authorization': 'token ' + token,
+        'Accept': 'application/json'
+    }
+    result = requests.get(user_api_url, headers=headers)
+    print(result.json())
+    user_data = result.json()
+    email = user_data.get('email', None)
+    if not email:  # у нас email обязателен при регистрации!!! Проверка, чтобы с github вернулся email
+        print('email not present in data received from github {}')
+        return redirect(reverse("home", args=(), kwargs={}))
+
+    try:
+        user = CustomUser.objects.get(email=email)  # проверка по email, что пользователь уже есть в БД
+        print('user already in db')
+    except CustomUser.DoesNotExist as e:
+        print(f'Error_1: {e}')
+
+        # Если пользователя нет в БД => Создание нового пользователя
+        try:
+            print('start create new User')
+            user = CustomUser()
+            user.username = user_data.get('login', None)
+            user.email = email
+            user.github = user_data.get('url', None)
+            user.is_admin = False
+            user.is_active = True
+            user.is_superuser = False
+
+            user.save()
+            print('user created in db')
+        except Exception as e:
+            print(f'login error: {e}')
+
+    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+    print('Login by GITHUB Success')
+    return redirect(reverse("home", args=(), kwargs={}))
+
+
+def login_vk():
+    pass
+
+
 def profile_user_view(request):
     user_id = request.user.id
     friends = FriendsRequest.objects.filter(
@@ -240,7 +300,8 @@ def profile_user_view(request):
     user = CustomUser.objects.get(id=profile.user_name_id)
     return render(request, 'profile.html', {'profile': profile, 'user': user, 'post_user': post_user,
                                             'friends': friends, 'request_friends': request_friends,
-                                            'request_friends_count': request_friends_count, 'friends_count': friends_count})
+                                            'request_friends_count': request_friends_count,
+                                            'friends_count': friends_count})
 
 
 class ProfileDetailUserView(DetailView):
@@ -355,7 +416,7 @@ def add_comment(request, post_id):
     # locale.setlocale(locale.LC_TIME, 'ru_RU')
     # formatted_datetime = timezone.localtime(timezone.now()).strftime('%d %B %Y г. %H:%M')
     # locale.setlocale(locale.LC_TIME, '')
-    formatted_datetime = datetime.now().strftime('%d %B %Y г. %H:%M')
+    formatted_datetime = datetime.now().strftime('%d %B %Y г. %H:%M')  # localtime не работал в тестах
 
     if request.method == 'POST':
         comment_text = request.POST.get('comment', '')
@@ -385,7 +446,7 @@ def request_friends(request, friends_id):
         status=1  # Проверяем только запросы со статусом "Pending"
     ).first()
 
-    if existing_request: #проверка на существование такого запроса
+    if existing_request:  # проверка на существование такого запроса
         return JsonResponse({'result': 'Request already exists'})
 
     if request.method == 'POST':

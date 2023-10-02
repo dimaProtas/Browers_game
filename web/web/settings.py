@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+
+from django.urls import reverse_lazy
 from dotenv import load_dotenv
 
 #путь к своему окружению писать здесь
@@ -40,9 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'django_extensions',
     #'corsheaders',
+    'social_django',  # аутентификация через соцсети
     # созданные приложения
 
     'authapp',
@@ -62,7 +64,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-
 ]
 
 ROOT_URLCONF = 'web.urls'
@@ -78,6 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',  # авторизация через соцсети
             ],
         },
     },
@@ -88,16 +90,25 @@ WSGI_APPLICATION = 'web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': os.environ.get('MYSQL_DATABASE'),
+#         'USER': os.environ.get('MYSQL_USER'),
+#         'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
+#         'HOST': os.environ.get('DBHOST'),
+#         'PORT': '3306',  # Порт MySQL по умолчанию
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('MYSQL_DATABASE'),
-        'USER': os.environ.get('MYSQL_USER'),
-        'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
-        'HOST': os.environ.get('DBHOST'),
-        'PORT': '3306',  # Порт MySQL по умолчанию
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 
 # Password validation
@@ -166,6 +177,27 @@ CHANNEL_LAYERS = {
 # }
 
 ASGI_APPLICATION = 'web.asgi.application'
+
+
+# авторизация через соцсети
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True  # для postgres при авторизации через соцсети
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.vk.VKOAuth2',          # бекенд авторизации через ВКонтакте
+    'django.contrib.auth.backends.ModelBackend', # бекенд классической аутентификации, чтобы работала авторизация через обычный логин и пароль
+)
+
+# SOCIAL_AUTH_VK_OAUTH2_KEY = os.environ.get('VK_APP_ID')
+# SOCIAL_AUTH_VK_OAUTH2_SECRET = os.environ.get('VK_API_SECRET')
+
+# LOGIN_URL  is used by login_required decorator
+LOGIN_URL = reverse_lazy('home')
+
+# logout the user - invalidate the session - when browser is closed
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+GITHUB_CLIENT_ID = os.environ.get('GITHUB_APP_ID')
+GITHUB_SECRET = os.environ.get('GITHUB_API_SECRET')
 
 #Кросс запросы
 

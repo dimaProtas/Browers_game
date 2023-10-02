@@ -137,14 +137,14 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v4.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
-<li><p><strong>password</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><em>CharField</em></a>) – Password</p></li>
-<li><p><strong>last_login</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v4.2)"><em>DateTimeField</em></a>) – Last login</p></li>
-<li><p><strong>is_superuser</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BooleanField" title="(in Django v4.2)"><em>BooleanField</em></a>) – Superuser status. Designates that this user has all permissions without explicitly assigning them.</p></li>
-<li><p><strong>first_name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><em>CharField</em></a>) – First name</p></li>
-<li><p><strong>last_name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><em>CharField</em></a>) – Last name</p></li>
-<li><p><strong>is_staff</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BooleanField" title="(in Django v4.2)"><em>BooleanField</em></a>) – Staff status. Designates whether the user can log into this admin site.</p></li>
-<li><p><strong>is_active</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BooleanField" title="(in Django v4.2)"><em>BooleanField</em></a>) – Active. Designates whether this user should be treated as active. Unselect this instead of deleting accounts.</p></li>
-<li><p><strong>date_joined</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v4.2)"><em>DateTimeField</em></a>) – Date joined</p></li>
+<li><p><strong>password</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><em>CharField</em></a>) – Пароль</p></li>
+<li><p><strong>last_login</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v4.2)"><em>DateTimeField</em></a>) – Последний вход</p></li>
+<li><p><strong>is_superuser</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BooleanField" title="(in Django v4.2)"><em>BooleanField</em></a>) – Статус суперпользователя. Указывает, что пользователь имеет все права без явного их назначения.</p></li>
+<li><p><strong>first_name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><em>CharField</em></a>) – Имя</p></li>
+<li><p><strong>last_name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><em>CharField</em></a>) – Фамилия</p></li>
+<li><p><strong>is_staff</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BooleanField" title="(in Django v4.2)"><em>BooleanField</em></a>) – Статус персонала. Отметьте, если пользователь может входить в административную часть сайта.</p></li>
+<li><p><strong>is_active</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BooleanField" title="(in Django v4.2)"><em>BooleanField</em></a>) – Активный. Отметьте, если пользователь должен считаться активным. Уберите эту отметку вместо удаления учётной записи.</p></li>
+<li><p><strong>date_joined</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v4.2)"><em>DateTimeField</em></a>) – Дата регистрации</p></li>
 <li><p><strong>username</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><em>CharField</em></a>) – Username</p></li>
 <li><p><strong>status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><em>CharField</em></a>) – Status</p></li>
 <li><p><strong>about_me</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.TextField" title="(in Django v4.2)"><em>TextField</em></a>) – About_me</p></li>
@@ -160,8 +160,8 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>groups</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> to <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/contrib/auth/#django.contrib.auth.models.Group" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Group</span></code></a>) – Groups. The groups this user belongs to. A user will get all permissions granted to each of their groups. (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">user_set</span></code>)</p></li>
-<li><p><strong>user_permissions</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> to <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/contrib/auth/#django.contrib.auth.models.Permission" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Permission</span></code></a>) – User permissions. Specific permissions for this user. (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">user_set</span></code>)</p></li>
+<li><p><strong>groups</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> to <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/contrib/auth/#django.contrib.auth.models.Group" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Group</span></code></a>) – Группы. Группы, к которым принадлежит данный пользователь. Пользователь получит все права, указанные в каждой из его/её групп. (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">user_set</span></code>)</p></li>
+<li><p><strong>user_permissions</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> to <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/contrib/auth/#django.contrib.auth.models.Permission" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Permission</span></code></a>) – Права пользователя. Индивидуальные права данного пользователя. (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">user_set</span></code>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -169,15 +169,18 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>profile_user</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> from <a class="reference internal" href="#authapp.models.ProfileUser" title="authapp.models.ProfileUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfileUser</span></code></a>) – The profile user of this user (related name of <a class="reference internal" href="#authapp.models.ProfileUser.user_name" title="authapp.models.ProfileUser.user_name"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user_name</span></code></a>)</p></li>
-<li><p><strong>sent_messages</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.MessagesModel" title="authapp.models.MessagesModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MessagesModel</span></code></a>) – All sent messages of this user (related name of <a class="reference internal" href="#authapp.models.MessagesModel.sender" title="authapp.models.MessagesModel.sender"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sender</span></code></a>)</p></li>
-<li><p><strong>user_post</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.PostUser" title="authapp.models.PostUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">PostUser</span></code></a>) – All user post of this user (related name of <a class="reference internal" href="#authapp.models.PostUser.author" title="authapp.models.PostUser.author"><code class="xref py py-attr docutils literal notranslate"><span class="pre">author</span></code></a>)</p></li>
-<li><p><strong>author</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.CommentModel" title="authapp.models.CommentModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommentModel</span></code></a>) – All author of this user (related name of <a class="reference internal" href="#authapp.models.CommentModel.author" title="authapp.models.CommentModel.author"><code class="xref py py-attr docutils literal notranslate"><span class="pre">author</span></code></a>)</p></li>
-<li><p><strong>likemodel</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.LikeModel" title="authapp.models.LikeModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">LikeModel</span></code></a>) – All Лайки of this user (related name of <a class="reference internal" href="#authapp.models.LikeModel.user" title="authapp.models.LikeModel.user"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code></a>)</p></li>
-<li><p><strong>dislikemodel</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.DisLikeModel" title="authapp.models.DisLikeModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">DisLikeModel</span></code></a>) – All Дизлайки of this user (related name of <a class="reference internal" href="#authapp.models.DisLikeModel.user" title="authapp.models.DisLikeModel.user"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code></a>)</p></li>
-<li><p><strong>request_sent</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.FriendsRequest" title="authapp.models.FriendsRequest"><code class="xref py py-class docutils literal notranslate"><span class="pre">FriendsRequest</span></code></a>) – All request sent of this user (related name of <a class="reference internal" href="#authapp.models.FriendsRequest.sent_from" title="authapp.models.FriendsRequest.sent_from"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sent_from</span></code></a>)</p></li>
-<li><p><strong>request_received</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.FriendsRequest" title="authapp.models.FriendsRequest"><code class="xref py py-class docutils literal notranslate"><span class="pre">FriendsRequest</span></code></a>) – All request received of this user (related name of <a class="reference internal" href="#authapp.models.FriendsRequest.sent_to" title="authapp.models.FriendsRequest.sent_to"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sent_to</span></code></a>)</p></li>
-<li><p><strong>logentry</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/contrib/admin/#django.contrib.admin.models.LogEntry" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogEntry</span></code></a>) – All log entries of this user (related name of <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/contrib/admin/#django.contrib.admin.models.LogEntry.user" title="(in Django v4.2)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code></a>)</p></li>
+<li><p><strong>logentry</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/contrib/admin/#django.contrib.admin.models.LogEntry" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogEntry</span></code></a>) – All записи в журнале of this пользователь (related name of <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/contrib/admin/#django.contrib.admin.models.LogEntry.user" title="(in Django v4.2)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code></a>)</p></li>
+<li><p><strong>social_auth</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <code class="xref py py-class docutils literal notranslate"><span class="pre">UserSocialAuth</span></code>) – All social auth of this пользователь (related name of <code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code>)</p></li>
+<li><p><strong>profile_user</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> from <a class="reference internal" href="#authapp.models.ProfileUser" title="authapp.models.ProfileUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfileUser</span></code></a>) – The profile user of this пользователь (related name of <a class="reference internal" href="#authapp.models.ProfileUser.user_name" title="authapp.models.ProfileUser.user_name"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user_name</span></code></a>)</p></li>
+<li><p><strong>sent_messages</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.MessagesModel" title="authapp.models.MessagesModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MessagesModel</span></code></a>) – All sent messages of this пользователь (related name of <a class="reference internal" href="#authapp.models.MessagesModel.sender" title="authapp.models.MessagesModel.sender"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sender</span></code></a>)</p></li>
+<li><p><strong>user_post</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.PostUser" title="authapp.models.PostUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">PostUser</span></code></a>) – All user post of this пользователь (related name of <a class="reference internal" href="#authapp.models.PostUser.author" title="authapp.models.PostUser.author"><code class="xref py py-attr docutils literal notranslate"><span class="pre">author</span></code></a>)</p></li>
+<li><p><strong>author</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.CommentModel" title="authapp.models.CommentModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommentModel</span></code></a>) – All author of this пользователь (related name of <a class="reference internal" href="#authapp.models.CommentModel.author" title="authapp.models.CommentModel.author"><code class="xref py py-attr docutils literal notranslate"><span class="pre">author</span></code></a>)</p></li>
+<li><p><strong>likemodel</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.LikeModel" title="authapp.models.LikeModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">LikeModel</span></code></a>) – All Лайки of this пользователь (related name of <a class="reference internal" href="#authapp.models.LikeModel.user" title="authapp.models.LikeModel.user"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code></a>)</p></li>
+<li><p><strong>dislikemodel</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.DisLikeModel" title="authapp.models.DisLikeModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">DisLikeModel</span></code></a>) – All Дизлайки of this пользователь (related name of <a class="reference internal" href="#authapp.models.DisLikeModel.user" title="authapp.models.DisLikeModel.user"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code></a>)</p></li>
+<li><p><strong>request_sent</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.FriendsRequest" title="authapp.models.FriendsRequest"><code class="xref py py-class docutils literal notranslate"><span class="pre">FriendsRequest</span></code></a>) – All request sent of this пользователь (related name of <a class="reference internal" href="#authapp.models.FriendsRequest.sent_from" title="authapp.models.FriendsRequest.sent_from"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sent_from</span></code></a>)</p></li>
+<li><p><strong>request_received</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.FriendsRequest" title="authapp.models.FriendsRequest"><code class="xref py py-class docutils literal notranslate"><span class="pre">FriendsRequest</span></code></a>) – All request received of this пользователь (related name of <a class="reference internal" href="#authapp.models.FriendsRequest.sent_to" title="authapp.models.FriendsRequest.sent_to"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sent_to</span></code></a>)</p></li>
+<li><p><strong>chats</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> from <code class="xref py py-class docutils literal notranslate"><span class="pre">Chat</span></code>) – All chats of this пользователь (related name of <code class="xref py py-attr docutils literal notranslate"><span class="pre">users</span></code>)</p></li>
+<li><p><strong>chatmessage</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <code class="xref py py-class docutils literal notranslate"><span class="pre">ChatMessage</span></code>) – All chat messages of this пользователь (related name of <code class="xref py py-attr docutils literal notranslate"><span class="pre">author</span></code>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -212,7 +215,7 @@
 <dt class="sig sig-object py" id="authapp.models.CustomUser.author">
 <span class="sig-name descname"><span class="pre">author</span></span><a class="headerlink" href="#authapp.models.CustomUser.author" title="Link to this definition">¶</a></dt>
 <dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.CommentModel" title="authapp.models.CommentModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommentModel</span></code></a></p>
-<p>All author of this user (related name of <a class="reference internal" href="#authapp.models.CommentModel.author" title="authapp.models.CommentModel.author"><code class="xref py py-attr docutils literal notranslate"><span class="pre">author</span></code></a>)</p>
+<p>All author of this пользователь (related name of <a class="reference internal" href="#authapp.models.CommentModel.author" title="authapp.models.CommentModel.author"><code class="xref py py-attr docutils literal notranslate"><span class="pre">author</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -223,17 +226,31 @@
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.models.CustomUser.chatmessage_set">
+<span class="sig-name descname"><span class="pre">chatmessage_set</span></span><a class="headerlink" href="#authapp.models.CustomUser.chatmessage_set" title="Link to this definition">¶</a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <code class="xref py py-class docutils literal notranslate"><span class="pre">ChatMessage</span></code></p>
+<p>All chat messages of this пользователь (related name of <code class="xref py py-attr docutils literal notranslate"><span class="pre">author</span></code>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.models.CustomUser.chats">
+<span class="sig-name descname"><span class="pre">chats</span></span><a class="headerlink" href="#authapp.models.CustomUser.chats" title="Link to this definition">¶</a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> from <code class="xref py py-class docutils literal notranslate"><span class="pre">Chat</span></code></p>
+<p>All chats of this пользователь (related name of <code class="xref py py-attr docutils literal notranslate"><span class="pre">users</span></code>)</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="authapp.models.CustomUser.date_joined">
 <span class="sig-name descname"><span class="pre">date_joined</span></span><a class="headerlink" href="#authapp.models.CustomUser.date_joined" title="Link to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateTimeField</span></code></a></p>
-<p>Date joined</p>
+<p>Дата регистрации</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="authapp.models.CustomUser.dislikemodel_set">
 <span class="sig-name descname"><span class="pre">dislikemodel_set</span></span><a class="headerlink" href="#authapp.models.CustomUser.dislikemodel_set" title="Link to this definition">¶</a></dt>
 <dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.DisLikeModel" title="authapp.models.DisLikeModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">DisLikeModel</span></code></a></p>
-<p>All Дизлайки of this user (related name of <a class="reference internal" href="#authapp.models.DisLikeModel.user" title="authapp.models.DisLikeModel.user"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code></a>)</p>
+<p>All Дизлайки of this пользователь (related name of <a class="reference internal" href="#authapp.models.DisLikeModel.user" title="authapp.models.DisLikeModel.user"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -247,7 +264,7 @@
 <dt class="sig sig-object py" id="authapp.models.CustomUser.first_name">
 <span class="sig-name descname"><span class="pre">first_name</span></span><a class="headerlink" href="#authapp.models.CustomUser.first_name" title="Link to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
-<p>First name</p>
+<p>Имя</p>
 </dd></dl>
 
 <dl class="py method">
@@ -273,7 +290,7 @@
 <dt class="sig sig-object py" id="authapp.models.CustomUser.groups">
 <span class="sig-name descname"><span class="pre">groups</span></span><a class="headerlink" href="#authapp.models.CustomUser.groups" title="Link to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> to <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/contrib/auth/#django.contrib.auth.models.Group" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Group</span></code></a></p>
-<p>Groups. The groups this user belongs to. A user will get all permissions granted to each of their groups. (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">user_set</span></code>)</p>
+<p>Группы. Группы, к которым принадлежит данный пользователь. Пользователь получит все права, указанные в каждой из его/её групп. (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">user_set</span></code>)</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -294,49 +311,49 @@
 <dt class="sig sig-object py" id="authapp.models.CustomUser.is_active">
 <span class="sig-name descname"><span class="pre">is_active</span></span><a class="headerlink" href="#authapp.models.CustomUser.is_active" title="Link to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BooleanField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a></p>
-<p>Active. Designates whether this user should be treated as active. Unselect this instead of deleting accounts.</p>
+<p>Активный. Отметьте, если пользователь должен считаться активным. Уберите эту отметку вместо удаления учётной записи.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="authapp.models.CustomUser.is_staff">
 <span class="sig-name descname"><span class="pre">is_staff</span></span><a class="headerlink" href="#authapp.models.CustomUser.is_staff" title="Link to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BooleanField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a></p>
-<p>Staff status. Designates whether the user can log into this admin site.</p>
+<p>Статус персонала. Отметьте, если пользователь может входить в административную часть сайта.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="authapp.models.CustomUser.is_superuser">
 <span class="sig-name descname"><span class="pre">is_superuser</span></span><a class="headerlink" href="#authapp.models.CustomUser.is_superuser" title="Link to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BooleanField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a></p>
-<p>Superuser status. Designates that this user has all permissions without explicitly assigning them.</p>
+<p>Статус суперпользователя. Указывает, что пользователь имеет все права без явного их назначения.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="authapp.models.CustomUser.last_login">
 <span class="sig-name descname"><span class="pre">last_login</span></span><a class="headerlink" href="#authapp.models.CustomUser.last_login" title="Link to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateTimeField</span></code></a></p>
-<p>Last login</p>
+<p>Последний вход</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="authapp.models.CustomUser.last_name">
 <span class="sig-name descname"><span class="pre">last_name</span></span><a class="headerlink" href="#authapp.models.CustomUser.last_name" title="Link to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
-<p>Last name</p>
+<p>Фамилия</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="authapp.models.CustomUser.likemodel_set">
 <span class="sig-name descname"><span class="pre">likemodel_set</span></span><a class="headerlink" href="#authapp.models.CustomUser.likemodel_set" title="Link to this definition">¶</a></dt>
 <dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.LikeModel" title="authapp.models.LikeModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">LikeModel</span></code></a></p>
-<p>All Лайки of this user (related name of <a class="reference internal" href="#authapp.models.LikeModel.user" title="authapp.models.LikeModel.user"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code></a>)</p>
+<p>All Лайки of this пользователь (related name of <a class="reference internal" href="#authapp.models.LikeModel.user" title="authapp.models.LikeModel.user"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="authapp.models.CustomUser.logentry_set">
 <span class="sig-name descname"><span class="pre">logentry_set</span></span><a class="headerlink" href="#authapp.models.CustomUser.logentry_set" title="Link to this definition">¶</a></dt>
 <dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/contrib/admin/#django.contrib.admin.models.LogEntry" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogEntry</span></code></a></p>
-<p>All log entries of this user (related name of <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/contrib/admin/#django.contrib.admin.models.LogEntry.user" title="(in Django v4.2)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code></a>)</p>
+<p>All записи в журнале of this пользователь (related name of <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/contrib/admin/#django.contrib.admin.models.LogEntry.user" title="(in Django v4.2)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -348,35 +365,42 @@
 <dt class="sig sig-object py" id="authapp.models.CustomUser.password">
 <span class="sig-name descname"><span class="pre">password</span></span><a class="headerlink" href="#authapp.models.CustomUser.password" title="Link to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
-<p>Password</p>
+<p>Пароль</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="authapp.models.CustomUser.profile_user">
 <span class="sig-name descname"><span class="pre">profile_user</span></span><a class="headerlink" href="#authapp.models.CustomUser.profile_user" title="Link to this definition">¶</a></dt>
 <dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> from <a class="reference internal" href="#authapp.models.ProfileUser" title="authapp.models.ProfileUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfileUser</span></code></a></p>
-<p>The profile user of this user (related name of <a class="reference internal" href="#authapp.models.ProfileUser.user_name" title="authapp.models.ProfileUser.user_name"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user_name</span></code></a>)</p>
+<p>The profile user of this пользователь (related name of <a class="reference internal" href="#authapp.models.ProfileUser.user_name" title="authapp.models.ProfileUser.user_name"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user_name</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="authapp.models.CustomUser.request_received">
 <span class="sig-name descname"><span class="pre">request_received</span></span><a class="headerlink" href="#authapp.models.CustomUser.request_received" title="Link to this definition">¶</a></dt>
 <dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.FriendsRequest" title="authapp.models.FriendsRequest"><code class="xref py py-class docutils literal notranslate"><span class="pre">FriendsRequest</span></code></a></p>
-<p>All request received of this user (related name of <a class="reference internal" href="#authapp.models.FriendsRequest.sent_to" title="authapp.models.FriendsRequest.sent_to"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sent_to</span></code></a>)</p>
+<p>All request received of this пользователь (related name of <a class="reference internal" href="#authapp.models.FriendsRequest.sent_to" title="authapp.models.FriendsRequest.sent_to"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sent_to</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="authapp.models.CustomUser.request_sent">
 <span class="sig-name descname"><span class="pre">request_sent</span></span><a class="headerlink" href="#authapp.models.CustomUser.request_sent" title="Link to this definition">¶</a></dt>
 <dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.FriendsRequest" title="authapp.models.FriendsRequest"><code class="xref py py-class docutils literal notranslate"><span class="pre">FriendsRequest</span></code></a></p>
-<p>All request sent of this user (related name of <a class="reference internal" href="#authapp.models.FriendsRequest.sent_from" title="authapp.models.FriendsRequest.sent_from"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sent_from</span></code></a>)</p>
+<p>All request sent of this пользователь (related name of <a class="reference internal" href="#authapp.models.FriendsRequest.sent_from" title="authapp.models.FriendsRequest.sent_from"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sent_from</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="authapp.models.CustomUser.sent_messages">
 <span class="sig-name descname"><span class="pre">sent_messages</span></span><a class="headerlink" href="#authapp.models.CustomUser.sent_messages" title="Link to this definition">¶</a></dt>
 <dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.MessagesModel" title="authapp.models.MessagesModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MessagesModel</span></code></a></p>
-<p>All sent messages of this user (related name of <a class="reference internal" href="#authapp.models.MessagesModel.sender" title="authapp.models.MessagesModel.sender"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sender</span></code></a>)</p>
+<p>All sent messages of this пользователь (related name of <a class="reference internal" href="#authapp.models.MessagesModel.sender" title="authapp.models.MessagesModel.sender"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sender</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.models.CustomUser.social_auth">
+<span class="sig-name descname"><span class="pre">social_auth</span></span><a class="headerlink" href="#authapp.models.CustomUser.social_auth" title="Link to this definition">¶</a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <code class="xref py py-class docutils literal notranslate"><span class="pre">UserSocialAuth</span></code></p>
+<p>All social auth of this пользователь (related name of <code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code>)</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -390,14 +414,14 @@
 <dt class="sig sig-object py" id="authapp.models.CustomUser.user_permissions">
 <span class="sig-name descname"><span class="pre">user_permissions</span></span><a class="headerlink" href="#authapp.models.CustomUser.user_permissions" title="Link to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> to <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/contrib/auth/#django.contrib.auth.models.Permission" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Permission</span></code></a></p>
-<p>User permissions. Specific permissions for this user. (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">user_set</span></code>)</p>
+<p>Права пользователя. Индивидуальные права данного пользователя. (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">user_set</span></code>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="authapp.models.CustomUser.user_post">
 <span class="sig-name descname"><span class="pre">user_post</span></span><a class="headerlink" href="#authapp.models.CustomUser.user_post" title="Link to this definition">¶</a></dt>
 <dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#authapp.models.PostUser" title="authapp.models.PostUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">PostUser</span></code></a></p>
-<p>All user post of this user (related name of <a class="reference internal" href="#authapp.models.PostUser.author" title="authapp.models.PostUser.author"><code class="xref py py-attr docutils literal notranslate"><span class="pre">author</span></code></a>)</p>
+<p>All user post of this пользователь (related name of <a class="reference internal" href="#authapp.models.PostUser.author" title="authapp.models.PostUser.author"><code class="xref py py-attr docutils literal notranslate"><span class="pre">author</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -485,8 +509,9 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="authapp.models.DuckHuntModel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.models.</span></span><span class="sig-name descname"><span class="pre">DuckHuntModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">best_result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_user</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.models.DuckHuntModel" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.models.</span></span><span class="sig-name descname"><span class="pre">DuckHuntModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.models.DuckHuntModel" title="Link to this definition">¶</a></dt>
+<dd><p>Модель хранения данных игры</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v4.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
@@ -735,8 +760,9 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="authapp.models.MessagesModel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.models.</span></span><span class="sig-name descname"><span class="pre">MessagesModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.models.MessagesModel" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.models.</span></span><span class="sig-name descname"><span class="pre">MessagesModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.models.MessagesModel" title="Link to this definition">¶</a></dt>
+<dd><p>Модель хранения данных игры</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v4.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
@@ -994,7 +1020,10 @@ non-SQL backends), respectively. Normally, they should not be set.</p>
 <p>Reverse relationships:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>duck_hunt</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> from <a class="reference internal" href="#authapp.models.DuckHuntModel" title="authapp.models.DuckHuntModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">DuckHuntModel</span></code></a>) – The duck hunt of this Профиль (related name of <a class="reference internal" href="#authapp.models.DuckHuntModel.profile_user" title="authapp.models.DuckHuntModel.profile_user"><code class="xref py py-attr docutils literal notranslate"><span class="pre">profile_user</span></code></a>)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>duck_hunt</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> from <a class="reference internal" href="#authapp.models.DuckHuntModel" title="authapp.models.DuckHuntModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">DuckHuntModel</span></code></a>) – The duck hunt of this Профиль (related name of <a class="reference internal" href="#authapp.models.DuckHuntModel.profile_user" title="authapp.models.DuckHuntModel.profile_user"><code class="xref py py-attr docutils literal notranslate"><span class="pre">profile_user</span></code></a>)</p></li>
+<li><p><strong>super_mario</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> from <a class="reference internal" href="#authapp.models.SuperMarioModel" title="authapp.models.SuperMarioModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperMarioModel</span></code></a>) – The super mario of this Профиль (related name of <a class="reference internal" href="#authapp.models.SuperMarioModel.profile_user" title="authapp.models.SuperMarioModel.profile_user"><code class="xref py py-attr docutils literal notranslate"><span class="pre">profile_user</span></code></a>)</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py exception">
@@ -1034,6 +1063,13 @@ non-SQL backends), respectively. Normally, they should not be set.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.models.ProfileUser.super_mario">
+<span class="sig-name descname"><span class="pre">super_mario</span></span><a class="headerlink" href="#authapp.models.ProfileUser.super_mario" title="Link to this definition">¶</a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> from <a class="reference internal" href="#authapp.models.SuperMarioModel" title="authapp.models.SuperMarioModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuperMarioModel</span></code></a></p>
+<p>The super mario of this Профиль (related name of <a class="reference internal" href="#authapp.models.SuperMarioModel.profile_user" title="authapp.models.SuperMarioModel.profile_user"><code class="xref py py-attr docutils literal notranslate"><span class="pre">profile_user</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="authapp.models.ProfileUser.top_result">
 <span class="sig-name descname"><span class="pre">top_result</span></span><a class="headerlink" href="#authapp.models.ProfileUser.top_result" title="Link to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.IntegerField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerField</span></code></a></p>
@@ -1051,6 +1087,75 @@ non-SQL backends), respectively. Normally, they should not be set.</p>
 <dt class="sig sig-object py" id="authapp.models.ProfileUser.user_name_id">
 <span class="sig-name descname"><span class="pre">user_name_id</span></span><a class="headerlink" href="#authapp.models.ProfileUser.user_name_id" title="Link to this definition">¶</a></dt>
 <dd><p>Internal field, use <a class="reference internal" href="#authapp.models.ProfileUser.user_name" title="authapp.models.ProfileUser.user_name"><code class="xref py py-class docutils literal notranslate"><span class="pre">user_name</span></code></a> instead.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="authapp.models.SuperMarioModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">authapp.models.</span></span><span class="sig-name descname"><span class="pre">SuperMarioModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">best_result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_user</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authapp.models.SuperMarioModel" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v4.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>best_result</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.IntegerField" title="(in Django v4.2)"><em>IntegerField</em></a>) – Best result</p></li>
+<li><p><strong>total_points</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.IntegerField" title="(in Django v4.2)"><em>IntegerField</em></a>) – Total points</p></li>
+</ul>
+</dd>
+</dl>
+<p>Relationship fields:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>profile_user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> to <a class="reference internal" href="#authapp.models.ProfileUser" title="authapp.models.ProfileUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfileUser</span></code></a>) – Profile user (related name: <a class="reference internal" href="#authapp.models.ProfileUser.super_mario" title="authapp.models.ProfileUser.super_mario"><code class="xref py py-attr docutils literal notranslate"><span class="pre">super_mario</span></code></a>)</p>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py" id="authapp.models.SuperMarioModel.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#authapp.models.SuperMarioModel.DoesNotExist" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="authapp.models.SuperMarioModel.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#authapp.models.SuperMarioModel.MultipleObjectsReturned" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.models.SuperMarioModel.best_result">
+<span class="sig-name descname"><span class="pre">best_result</span></span><a class="headerlink" href="#authapp.models.SuperMarioModel.best_result" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.IntegerField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerField</span></code></a></p>
+<p>Best result</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.models.SuperMarioModel.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#authapp.models.SuperMarioModel.id" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BigAutoField</span></code></a></p>
+<p>Primary key: ID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.models.SuperMarioModel.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#authapp.models.SuperMarioModel.objects" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.models.SuperMarioModel.profile_user">
+<span class="sig-name descname"><span class="pre">profile_user</span></span><a class="headerlink" href="#authapp.models.SuperMarioModel.profile_user" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> to <a class="reference internal" href="#authapp.models.ProfileUser" title="authapp.models.ProfileUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfileUser</span></code></a></p>
+<p>Profile user (related name: <a class="reference internal" href="#authapp.models.ProfileUser.super_mario" title="authapp.models.ProfileUser.super_mario"><code class="xref py py-attr docutils literal notranslate"><span class="pre">super_mario</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.models.SuperMarioModel.profile_user_id">
+<span class="sig-name descname"><span class="pre">profile_user_id</span></span><a class="headerlink" href="#authapp.models.SuperMarioModel.profile_user_id" title="Link to this definition">¶</a></dt>
+<dd><p>Internal field, use <a class="reference internal" href="#authapp.models.SuperMarioModel.profile_user" title="authapp.models.SuperMarioModel.profile_user"><code class="xref py py-class docutils literal notranslate"><span class="pre">profile_user</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="authapp.models.SuperMarioModel.total_points">
+<span class="sig-name descname"><span class="pre">total_points</span></span><a class="headerlink" href="#authapp.models.SuperMarioModel.total_points" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.IntegerField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerField</span></code></a></p>
+<p>Total points</p>
 </dd></dl>
 
 </dd></dl>
@@ -1076,6 +1181,7 @@ non-SQL backends), respectively. Normally, they should not be set.</p>
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="admin.html">Admin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="views.html">Views</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Models</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#authapp.models.CommentModel"><code class="docutils literal notranslate"><span class="pre">CommentModel</span></code></a></li>
@@ -1087,6 +1193,7 @@ non-SQL backends), respectively. Normally, they should not be set.</p>
 <li class="toctree-l2"><a class="reference internal" href="#authapp.models.MessagesModel"><code class="docutils literal notranslate"><span class="pre">MessagesModel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#authapp.models.PostUser"><code class="docutils literal notranslate"><span class="pre">PostUser</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#authapp.models.ProfileUser"><code class="docutils literal notranslate"><span class="pre">ProfileUser</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authapp.models.SuperMarioModel"><code class="docutils literal notranslate"><span class="pre">SuperMarioModel</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
