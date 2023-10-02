@@ -89,12 +89,7 @@
 
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>var userIsAuthenticated = {{ request.user.is_authenticated|lower }};</script>
-
-{# Получаем токен в meta, для использования в скрипте js #}
-<meta name="csrf-token" content="{{ csrf_token }}">
 
 {# Импортируем скрипт удаления коментариев #}
 <script src="{% static 'js/comment_delete.js' %}"></script>

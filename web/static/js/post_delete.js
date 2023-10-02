@@ -13,12 +13,13 @@
             var postId = $(this).data("post-id");
             var currentPost = $(".delete-post[data-post-id='" + postId + "']").closest(".post");
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var hostPort = $('meta[name="host-port"]').attr('content');
 
 
 
       // Отправляем Ajax-запрос на сервер для удаления поста
       $.ajax({
-        url: "http://127.0.0.1:8888/delete_post/" + postId + "/", // URL для удаления поста
+        url: hostPort + "delete_post/" + postId + "/", // URL для удаления поста
         type: "POST",
         data: {
           csrfmiddlewaretoken: csrfToken, // CSRF-токен для безопасности

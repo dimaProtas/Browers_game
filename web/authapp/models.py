@@ -40,10 +40,8 @@ class ProfileUser(models.Model):
         verbose_name_plural = 'Профили'
 
 
+
 class DuckHuntModel(models.Model):
-    '''
-    Модель хранения данных игры
-    '''
     best_result = models.IntegerField(default=0)
     total_points = models.IntegerField(default=0)
     profile_user = models.OneToOneField(ProfileUser, on_delete=models.PROTECT, related_name='duck_hunt')
@@ -62,11 +60,19 @@ class SuperMarioModel(models.Model):
         verbose_name = 'Super Mario'
         verbose_name_plural = 'Super Mario'
 
+class KerbyModel(models.Model):
+    best_result = models.IntegerField(default=0)
+    total_points = models.IntegerField(default=0)
+    allies_saved = models.IntegerField(default=0)
+    allies_lost = models.IntegerField(default=0)
+    profile_user = models.OneToOneField(ProfileUser, on_delete=models.PROTECT, related_name='kerby')
+
+    class Meta:
+        verbose_name = 'Kerby'
+        verbose_name_plural = 'Kerby'
+
 
 class MessagesModel(models.Model):
-    '''
-        Модель хранения данных игры
-    '''
     sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='sent_messages')
     message = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)

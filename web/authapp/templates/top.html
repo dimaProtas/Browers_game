@@ -11,7 +11,7 @@
 
     <div class="data_profile_container">
         <table>
-            <tr><th>Аватар</th></th><th>Имя пользователя </th><th>Результат </th><th>Super Mario(best) </th><th>Duck Hunt(best) </th><th>Количество игр </th> <th>Количество постов </th></tr> <!--ряд с ячейками заголовков-->
+            <tr><th>Аватар</th></th><th>Имя пользователя </th><th>Результат </th><th>Kerby(best) </th><th>Super Mario(best) </th><th>Duck Hunt(best) </th><th>Количество игр </th> <th>Количество постов </th></tr> <!--ряд с ячейками заголовков-->
                 {% for t in top %}
                     <tr>
                         <td class="avatar_table">
@@ -25,6 +25,7 @@
                             <a href="{% url 'detail_profile_user' pk=t.user_name.id %}">{{t.user_name.username}}</a>
                         </td>
                         <td>{{t.top_result}}</td>
+                        {% if t.kerby %}<td>{{ t.kerby.best_result }}</td>{% else %}<td>0</td>{% endif %}
                         {% if t.super_mario %}<td>{{ t.super_mario.best_result }}</td>{% else %}<td>0</td>{% endif %}
                         {% if t.duck_hunt %}<td>{{ t.duck_hunt.best_result }}</td>{% else %}<td>0</td>{% endif %}
                         <td>{{t.count_game}}</td>

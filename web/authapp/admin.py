@@ -2,13 +2,10 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import CustomUser, ProfileUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, \
-    FriendsRequest, DuckHuntModel, SuperMarioModel
+    FriendsRequest, DuckHuntModel, SuperMarioModel, KerbyModel
 from django.utils.safestring import mark_safe
 
 class CustomUserAdmin(UserAdmin):
-    '''
-    Custom user admin manager where by UserAdmin model.
-    '''
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
@@ -127,3 +124,11 @@ class SuperMarioAdmin(admin.ModelAdmin):
 
 
 admin.site.register(SuperMarioModel, SuperMarioAdmin)
+
+
+class KerbyAdmin(admin.ModelAdmin):
+    list_display = ['id', 'profile_user', 'best_result', 'total_points', 'allies_saved', 'allies_lost']
+    list_display_links = ['id']
+
+
+admin.site.register(KerbyModel, KerbyAdmin)

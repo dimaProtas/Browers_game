@@ -92,12 +92,8 @@
 
 {% include 'inc/modal_delete_comment.html' %}
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>var userIsAuthenticated = {{ request.user.is_authenticated|lower }};</script>
 
-{# Получаем токен в meta, для использования в скрипте js #}
-<meta name="csrf-token" content="{{ csrf_token }}">
 
 {# //Импортируем скрипты добавления удаления Like и dislike из static #}
 <script src="{% static 'js/toggle_like_dislike.js' %}"></script>

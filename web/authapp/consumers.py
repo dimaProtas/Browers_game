@@ -1,5 +1,5 @@
 import sys
-sys.path.append('/game_src')
+# sys.path.append('/game_src')
 import asyncio
 import threading
 from django.utils import timezone
@@ -57,32 +57,32 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({"sender": sender, "message": message, "timestamp": timestamp}))
 
 
-class GameConsumer(AsyncWebsocketConsumer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.game_thread = None
-
-    async def send_game_data_to_websocket(self, game):
-        while True:
-            game_data = await game.get_game_data()
-            game_display = await game.get_frame_bytes()
-            print(game_display)
-            await self.send(json.dumps(game_data))
-            await self.send(bytes_data=game_display)
-            await asyncio.sleep(1)
-
-    async def connect(self):
-        await self.accept()
-        print(f"WebSocket connected: {self.channel_name}")
-        self.game = Game()
-        self.game_thread = threading.Thread(target=self.game.run)
-        self.game_thread.start()
-        asyncio.create_task(self.send_game_data_to_websocket(self.game))
-
-    async def disconnect(self, close_code):
-        print(f"WebSocket disconnected: {self.channel_name}")
-        if self.game_thread:
-            self.game_thread.join()
+# class GameConsumer(AsyncWebsocketConsumer):
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self.game_thread = None
+#
+#     async def send_game_data_to_websocket(self, game):
+#         while True:
+#             game_data = await game.get_game_data()
+#             game_display = await game.get_frame_bytes()
+#             print(game_display)
+#             await self.send(json.dumps(game_data))
+#             await self.send(bytes_data=game_display)
+#             await asyncio.sleep(1)
+#
+#     async def connect(self):
+#         await self.accept()
+#         print(f"WebSocket connected: {self.channel_name}")
+#         self.game = Game()
+#         self.game_thread = threading.Thread(target=self.game.run)
+#         self.game_thread.start()
+#         asyncio.create_task(self.send_game_data_to_websocket(self.game))
+#
+#     async def disconnect(self, close_code):
+#         print(f"WebSocket disconnected: {self.channel_name}")
+#         if self.game_thread:
+#             self.game_thread.join()
 
 
 class TryMore():

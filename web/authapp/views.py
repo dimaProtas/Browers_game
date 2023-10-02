@@ -27,6 +27,8 @@ from django.contrib.auth.decorators import login_required
 import requests
 import logging
 from django.contrib import messages
+import json
+
 
 
 # Функция проверки отношений между пользователями.
@@ -41,7 +43,7 @@ def get_relationship_status(user1, user2):
     if friend_request:
         return "request_sent"  # Запрос в друзья уже отправлен
     elif FriendsRequest.objects.filter(
-            (Q(sent_from=user1, sent_to=user2, status=2) | Q(sent_from=user2, sent_to=user1, status=2))
+        (Q(sent_from=user1, sent_to=user2, status=2) | Q(sent_from=user2, sent_to=user1, status=2))
     ).exists():
         return "friend"  # Пользователи уже друзья
     else:
@@ -96,6 +98,35 @@ class SuperMarioViews(View):
         return render(request, 'game/mario_js.html', {'messages': messages, 'current_user': current_user, 'form': form})
 
 
+class KerbyView(View):
+    def get(self, request):
+        current_user = request.user
+        messages = MessagesModel.objects.all()
+        form = MessageForm()
+
+        if messages.count() > 20:
+            # Если количество записей больше 20, удаляем лишние записи
+            messages_to_delete = messages.order_by('created_at')[:messages.count() - 20]
+            for message in messages_to_delete:
+                message.delete()
+
+        return render(request, 'game/kirby.html', {'messages': messages, 'current_user': current_user, 'form': form})
+
+class SuperMarioViews(View):
+    def get(self, request):
+        current_user = request.user
+        messages = MessagesModel.objects.all()
+        form = MessageForm()
+
+        if messages.count() > 20:
+            # Если количество записей больше 20, удаляем лишние записи
+            messages_to_delete = messages.order_by('created_at')[:messages.count() - 20]
+            for message in messages_to_delete:
+                message.delete()
+
+        return render(request, 'game/mario_js.html', {'messages': messages, 'current_user': current_user, 'form': form})
+
+
 class DuckHuntViews(View):
     def get(self, request):
         current_user = request.user
@@ -109,8 +140,7 @@ class DuckHuntViews(View):
             for message in messages_to_delete:
                 message.delete()
 
-        return render(request, 'game/duck_hunt.html',
-                      {'messages': messages, 'current_user': current_user, 'form': form})
+        return render(request, 'game/duck_hunt.html', {'messages': messages, 'current_user': current_user, 'form': form})
 
 
 def game_js(request):
@@ -511,6 +541,52 @@ def duck_hunt_points_save(request, results):
         return HttpResponseBadRequest({'error': str(e)})
 
 
+@login_required
+def super_mario_points_save(request, results):
+    profile_user = ProfileUser.objects.get(user_name=request.user)
+    try:
+        super_mario_model = SuperMarioModel.objects.get(profile_user=profile_user)
+    except SuperMarioModel.DoesNotExist:
+        super_mario_model = SuperMarioModel(profile_user=profile_user)
+
+    try:
+        results = int(results)
+        if results > super_mario_model.best_result:
+            super_mario_model.best_result = results
+        super_mario_model.total_points += 50
+        super_mario_model.save()
+        return JsonResponse({'result': 'Success'})
+    except ValueError:
+        return HttpResponseBadRequest({'error': 'Invalid results format'})
+    except Exception as e:
+        return HttpResponseBadRequest({'error': str(e)})
+
+
+@login_required
+def kerby_points_save(request):
+    profile_user = ProfileUser.objects.get(user_name=request.user)
+    try:
+        kerby_model = KerbyModel.objects.get(profile_user=profile_user)
+    except KerbyModel.DoesNotExist:
+        kerby_model = KerbyModel(profile_user=profile_user)
+
+    total_points = int(request.POST.get('total_points'))
+    alias_saved = int(request.POST.get('alias_saved'))
+    alias_lost = int(request.POST.get('alias_lost'))
+
+    if total_points is not None:
+        try:
+            if total_points > kerby_model.best_result:
+                kerby_model.best_result = total_points
+            kerby_model.allies_saved += alias_saved
+            kerby_model.allies_lost += alias_lost
+            kerby_model.total_points += total_points
+            kerby_model.save()
+            return JsonResponse({'result': 'Success'})
+        except ValueError:
+            return HttpResponseBadRequest({'error': 'Invalid results format'})
+        except Exception as e:
+            return HttpResponseBadRequest({'error': str(e)})
 @login_required
 def super_mario_points_save(request, results):
     profile_user = ProfileUser.objects.get(user_name=request.user)

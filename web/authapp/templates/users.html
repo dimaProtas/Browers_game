@@ -51,13 +51,6 @@
             {% endif %}
     </div>
 
-    <div class="add_friends" id="create_chat">
-{#        накостылил чтобы стили не писать#}
-
-                <span class="clik_button" id="chat_button" data-user-id="{{ user.id }}">Создать чат</span>
-
-    </div>
-
                     </div>
 
             </div>
@@ -67,17 +60,6 @@
 
 {% include 'inc/paginator.html' %}
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-{# Получаем токен в meta, для использования в скрипте js #}
-
- <meta name="csrf-token" content="{{ csrf_token }}">
-<script type="application/javascript"> console.log('Проверка токена' +  {{ csrf_token }} )
-</script>
 <script src="{% static 'js/delete_request_friends.js' %}"></script>
-
-<script src="{% static 'js/my_chats.js' %}">
-</script>
-
 
 {% endblock %}
