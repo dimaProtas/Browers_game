@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     #'corsheaders',
-    'social_django',  # аутентификация через соцсети
+    # 'social_django',  # аутентификация через соцсети
     # созданные приложения
 
     'authapp',
@@ -79,7 +79,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',  # авторизация через соцсети
             ],
         },
     },
@@ -108,7 +107,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 
 # Password validation
@@ -183,8 +181,8 @@ ASGI_APPLICATION = 'web.asgi.application'
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True  # для postgres при авторизации через соцсети
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.vk.VKOAuth2',          # бекенд авторизации через ВКонтакте
-    'django.contrib.auth.backends.ModelBackend', # бекенд классической аутентификации, чтобы работала авторизация через обычный логин и пароль
+    # 'social_core.backends.vk.VKOAuth2',          # бекенд авторизации через ВКонтакте
+    'django.contrib.auth.backends.ModelBackend',  # бекенд классической аутентификации, чтобы работала авторизация через обычный логин и пароль
 )
 
 # SOCIAL_AUTH_VK_OAUTH2_KEY = os.environ.get('VK_APP_ID')
