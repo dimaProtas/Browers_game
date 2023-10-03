@@ -279,7 +279,7 @@ def login_github_callback(request):
         'Accept': 'application/json'
     }
     result = requests.get(user_api_url, headers=headers)
-    print(result.json())
+    # print(result.json())
     user_data = result.json()
     email = user_data.get('email', None)
     if not email:  # у нас email обязателен при регистрации!!! Проверка, чтобы с github вернулся email
@@ -313,8 +313,69 @@ def login_github_callback(request):
     return redirect(reverse("home", args=(), kwargs={}))
 
 
-def login_vk():
-    pass
+def login_vk(request):
+    print('start -> login_vk')
+    client_id = settings.VK_APP_ID
+    redirect_uri = 'http://127.0.0.1:8888/login/vk/callback/'
+    return redirect(
+        f'https://oauth.vk.com/authorize?client_id={client_id}&display=page&redirect_uri={redirect_uri}&scope=email&response_type=code&v=5.131&state=123456')
+
+
+def login_vk_callback(request):
+    print('start -> login_vk_callback')
+    code = request.GET.get('code', None)
+    params = {
+        'client_id': settings.VK_APP_ID,
+        'client_secret': settings.VK_API_SECRET,
+        'code': code,
+        'redirect_uri': 'http://127.0.0.1:8888/login/vk/callback/',
+        'Content-Type': 'application/json'
+    }
+    headers = {
+        'Accept': 'application/json'
+    }
+
+    result = requests.post('https://oauth.vk.com/access_token', data=params, headers=headers)
+    # print(result)
+    # print(result.text)
+    email = result.json().get('email')
+    if not email:  # у нас email обязателен при регистрации!!! Проверка, чтобы с VK вернулся email
+        print('email not present in data received from VK {}')
+        return redirect(reverse("home", args=(), kwargs={}))
+
+    # если email есть продолжаем доставать данные пользователя
+    token = result.json().get('access_token')
+    user_id = result.json().get('user_id')
+    user_api_url = f'https://api.vk.com/method/users.get?user_id={user_id}&v=5.154&access_token={token}'
+    headers = {
+        'Accept': 'application/json'
+    }
+    result = requests.get(user_api_url, headers=headers)
+    user_data = result.json()
+    print(user_data)
+    try:
+        user = CustomUser.objects.get(email=email)  # проверка по email, что пользователь уже есть в БД
+        print('user already in db')
+    except CustomUser.DoesNotExist as e:
+        print(f'Error_1: {e}')
+        # Если пользователя нет в БД => Создание нового пользователя
+        try:
+            print('start create new User')
+            user = CustomUser()
+            user.username = user_data['response'][0].get('first_name', None)
+            user.email = email
+            user.vk = 'https://vk.com/id' + f'{user_data["response"][0].get("id", None)}'
+            user.is_admin = False
+            user.is_active = True
+            user.is_superuser = False
+            user.save()
+            print('user created in db')
+        except Exception as e:
+            print(f'login error: {e}')
+
+    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+    print('Login by VK Success')
+    return redirect(reverse("home", args=(), kwargs={}))
 
 
 def profile_user_view(request):

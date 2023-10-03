@@ -44,9 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     #'corsheaders',
-    # 'social_django',  # аутентификация через соцсети
     # созданные приложения
-
     'authapp',
     'bootstrap4',
     'users_messages_app'
@@ -57,12 +55,12 @@ MIDDLEWARE = [
 
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-
    # 'corsheaders.middleware.CorsMiddleware', #кросс запросы
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 
 ]
 
@@ -181,12 +179,8 @@ ASGI_APPLICATION = 'web.asgi.application'
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True  # для postgres при авторизации через соцсети
 
 AUTHENTICATION_BACKENDS = (
-    # 'social_core.backends.vk.VKOAuth2',          # бекенд авторизации через ВКонтакте
     'django.contrib.auth.backends.ModelBackend',  # бекенд классической аутентификации, чтобы работала авторизация через обычный логин и пароль
 )
-
-# SOCIAL_AUTH_VK_OAUTH2_KEY = os.environ.get('VK_APP_ID')
-# SOCIAL_AUTH_VK_OAUTH2_SECRET = os.environ.get('VK_API_SECRET')
 
 # LOGIN_URL  is used by login_required decorator
 LOGIN_URL = reverse_lazy('home')
@@ -194,8 +188,11 @@ LOGIN_URL = reverse_lazy('home')
 # logout the user - invalidate the session - when browser is closed
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
+# secrets
 GITHUB_CLIENT_ID = os.environ.get('GITHUB_APP_ID')
 GITHUB_SECRET = os.environ.get('GITHUB_API_SECRET')
+VK_APP_ID = os.environ.get('VK_APP_ID')
+VK_API_SECRET = os.environ.get('VK_API_SECRET')
 
 #Кросс запросы
 

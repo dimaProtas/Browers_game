@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 # from django.utils.translation import ugettext_lazy as _
+from django.db.models.fields import related
+
 from .managers import CustomUserManager
 from django.utils import timezone
 from django.urls import reverse
@@ -28,7 +30,7 @@ class CustomUser(AbstractUser):
 
 # Модель профиля игрока, то есть можем вести некую статистику и выводить ее на условной таблице лидеров
 class ProfileUser(models.Model):
-    user_name = models.OneToOneField(CustomUser, on_delete=models.PROTECT, related_name='profile_user')
+    user_name = models.OneToOneField(CustomUser, on_delete=related.CASCADE, related_name='profile_user')
     top_result = models.IntegerField(default=0)
     count_game = models.IntegerField(default=0)
 
