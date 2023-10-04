@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 
 from django import forms
+from authapp.apps import user_registered
 from .models import CustomUser, PostUser, CommentModel
 
 
@@ -25,6 +26,16 @@ class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'class': 'form-input'}))
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
     password2 = forms.CharField(label='Повтор пароля', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data['password1'])
+        user.is_active = False
+        user.is_activated = False
+        if commit:
+            user.save()
+        user_registered.send(CustomUserCreationForm, instance=user)
+        return user
 
     class Meta:
         model = CustomUser

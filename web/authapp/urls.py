@@ -29,6 +29,7 @@ urlpatterns = [
     path('duck_hunt_save_points/<int:results>/', views.duck_hunt_points_save),
     path('super_mario_save_points/<int:results>/', views.super_mario_points_save),
     path('kerby_save_points/', views.kerby_points_save),
+    path('game_progress_detail/<int:pk>/', views.GameResultDetail.as_view(), name='game_progress'),
 ]
 
 

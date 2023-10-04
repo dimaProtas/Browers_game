@@ -5,7 +5,7 @@ from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, TemplateView
 from django.core.paginator import Paginator
 from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm, PostForm
 from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, \
@@ -22,6 +22,8 @@ from django.db.models import Q
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 import json
+from django.core.signing import BadSignature
+from .utilites import signer
 
 
 
@@ -196,6 +198,25 @@ class RegisterUser(DataMixin, CreateView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
+class RegisterDoneView(TemplateView):
+    template_name = 'main/register_done.html'
+
+
+def user_activate(request, sign):
+    try:
+        username = signer.unsign(sign)
+    except BadSignature:
+        return render(request, 'main/bad_signature.html')
+    user = get_object_or_404(CustomUser, username=username)
+    if user.is_activated:
+        template = 'main/user_is_activated.html'
+    else:
+        template = 'main/activation_done.html'
+        user.is_active = True
+        user.is_activated = True
+        user.save()
+    return render(request, template)
+
 class LoginUser(DataMixin, LoginView):
     form_class = AuthenticationForm
     template_name = 'login.html'
@@ -252,6 +273,11 @@ def delete_comment(request, comment_id):
 def top_players(request):
     top = ProfileUser.objects.annotate(post_count=Count('user_name__user_post')).order_by('-top_result')[:10]
     return render(request, 'top.html', {'top': top})
+
+class GameResultDetail(DetailView):
+    model = ProfileUser
+    template_name = 'game_progress_detail.html'
+    context_object_name = 'game_progress'
 
 
 def logout_user(request):

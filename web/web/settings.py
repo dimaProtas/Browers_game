@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-&seqbegnc0z*$ror2r6qod$@j7r@*v_!r&@vfv29dh17m0$lx%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -144,6 +144,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authapp.CustomUser'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 465 # 2525
+EMAIL_HOST_USER = os.getenv("EMAIL")
+EMAIL_HOST_PASSWORD = os.getenv("PASSWORD")
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = 'dima_protasevich92@mail.ru'
+
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
 CHANNEL_LAYERS = {
     "default": {
