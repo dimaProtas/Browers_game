@@ -7,11 +7,19 @@
 {%load static%}
 
 {% block content %}
-<div class="game_container">
+<div class="game_all">
+    <div class="game_container">
     <img class="mario_img" src="/media/doom.jpg" alt="doom">
     <div class="game_button">
         <p>JS Doom Game</p>
     <a class="game_add" href="{% url 'js_doom_game' %}">Играть</a>
+    </div>
+</div>
+<div class="game_container">
+    <img class="mario_img" src="/media/tank.jpg" alt="doom">
+    <div class="game_button">
+        <p>Tank 2D</p>
+    <a class="game_add" href="{% url 'tank' %}">Играть</a>
     </div>
 </div>
 <div class="game_container">
@@ -48,6 +56,8 @@
         <p>PygBag Doom</p>
     <a class="game_add" href="{% url 'pygbag' %}">Играть</a>
     </div>
+</div>
+
 </div>
 
 </body>

@@ -74,6 +74,10 @@ class MessageView(View):
         return render(request, 'game/pygbag.html', {'messages': messages, 'current_user': current_user, 'form': form})
 
 
+def tank(request):
+    return render(request, 'game/tank.html')
+
+
 class KerbyView(View):
     def get(self, request):
         current_user = request.user
