@@ -83,21 +83,6 @@ def kerby(request):
     return render(request, 'game/kirby.html')
 
 
-class SuperMarioViews(View):
-    def get(self, request):
-        current_user = request.user
-        messages = MessagesModel.objects.all()
-        form = MessageForm()
-
-        if messages.count() > 20:
-            # Если количество записей больше 20, удаляем лишние записи
-            messages_to_delete = messages.order_by('created_at')[:messages.count() - 20]
-            for message in messages_to_delete:
-                message.delete()
-
-        return render(request, 'game/mario_js.html', {'messages': messages, 'current_user': current_user, 'form': form})
-
-
 class KerbyView(View):
     def get(self, request):
         current_user = request.user
@@ -111,6 +96,7 @@ class KerbyView(View):
                 message.delete()
 
         return render(request, 'game/kirby.html', {'messages': messages, 'current_user': current_user, 'form': form})
+
 
 class SuperMarioViews(View):
     def get(self, request):
