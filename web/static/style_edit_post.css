@@ -1,6 +1,7 @@
 /* Стилизация формы */
 .form_container {
-    background-color: #1d1f21;
+    background-color: rgba(318, 197, 194, 0.2);
+    /*background-color: #1d1f21;*/
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);

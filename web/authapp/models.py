@@ -20,6 +20,7 @@ class CustomUser(AbstractUser):
     instagram = models.CharField(max_length=100, blank=True, null=True)
     github = models.CharField(max_length=100, blank=True, null=True)
     avatar = models.ImageField(upload_to='avatar/%Y/%m/%d/', blank=True, verbose_name='avatar')
+    is_activated = models.BooleanField(default=True, db_index=True, verbose_name='Прошел активацтю')
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = CustomUserManager()
@@ -30,7 +31,7 @@ class CustomUser(AbstractUser):
 
 # Модель профиля игрока, то есть можем вести некую статистику и выводить ее на условной таблице лидеров
 class ProfileUser(models.Model):
-    user_name = models.OneToOneField(CustomUser, on_delete=related.CASCADE, related_name='profile_user')
+    user_name = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='profile_user')
     top_result = models.IntegerField(default=0)
     count_game = models.IntegerField(default=0)
 
@@ -40,7 +41,6 @@ class ProfileUser(models.Model):
     class Meta:
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
-
 
 
 class DuckHuntModel(models.Model):

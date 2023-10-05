@@ -13,6 +13,7 @@
     <a href="{% url 'add_post' %}" class="accordion-button">Создать пост</a>
     <p class="accordion-button" data-toggle="post">Мои посты</p>
     <p class="accordion-button" data-toggle="friends">Мои друзья</p>
+    <a href="{% url 'game_progress' pk=user.profile_user.id %}" class="accordion-button">Достижения</a>
 </div>
     <div class="profile_container">
         <div class="avatar_profile">

@@ -5,7 +5,7 @@ from django.contrib.auth.views import LoginView
 from django.db import transaction
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, TemplateView
 from django.core.paginator import Paginator
 from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm, PostForm
 from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, \
@@ -28,6 +28,8 @@ import requests
 import logging
 from django.contrib import messages
 import json
+from django.core.signing import BadSignature
+from .utilites import signer
 
 
 
@@ -79,8 +81,8 @@ class MessageView(View):
         return render(request, 'game/pygbag.html', {'messages': messages, 'current_user': current_user, 'form': form})
 
 
-def kerby(request):
-    return render(request, 'game/kirby.html')
+def tank(request):
+    return render(request, 'game/tank.html')
 
 
 class KerbyView(View):
@@ -147,11 +149,6 @@ def game(request):
 
 
 def home(request):
-    from django.middleware.csrf import get_token
-
-    csrf_token = get_token(request)
-    print(csrf_token)
-
     # distinct=True - позволяет подсчитывать только уникальные элементы
     post = PostUser.objects.annotate(comment_count=Count('comments')).annotate(
         like_count=Count('like', distinct=True)).annotate(
@@ -212,6 +209,25 @@ class RegisterUser(DataMixin, CreateView):
         c_def = self.get_user_context(title="Регистрация")
         return dict(list(context.items()) + list(c_def.items()))
 
+
+class RegisterDoneView(TemplateView):
+    template_name = 'main/register_done.html'
+
+
+def user_activate(request, sign):
+    try:
+        username = signer.unsign(sign)
+    except BadSignature:
+        return render(request, 'main/bad_signature.html')
+    user = get_object_or_404(CustomUser, username=username)
+    if user.is_activated:
+        template = 'main/user_is_activated.html'
+    else:
+        template = 'main/activation_done.html'
+        user.is_active = True
+        user.is_activated = True
+        user.save()
+    return render(request, template)
 
 class LoginUser(DataMixin, LoginView):
     form_class = AuthenticationForm
@@ -377,8 +393,7 @@ def profile_user_view(request):
     user = CustomUser.objects.get(id=profile.user_name_id)
     return render(request, 'profile.html', {'profile': profile, 'user': user, 'post_user': post_user,
                                             'friends': friends, 'request_friends': request_friends,
-                                            'request_friends_count': request_friends_count,
-                                            'friends_count': friends_count})
+                                            'request_friends_count': request_friends_count, 'friends_count': friends_count})
 
 
 class ProfileDetailUserView(DetailView):
@@ -408,6 +423,11 @@ def delete_comment(request, comment_id):
 def top_players(request):
     top = ProfileUser.objects.annotate(post_count=Count('user_name__user_post')).order_by('-top_result')[:10]
     return render(request, 'top.html', {'top': top})
+
+class GameResultDetail(DetailView):
+    model = ProfileUser
+    template_name = 'game_progress_detail.html'
+    context_object_name = 'game_progress'
 
 
 def logout_user(request):
@@ -634,22 +654,3 @@ def kerby_points_save(request):
             return HttpResponseBadRequest({'error': 'Invalid results format'})
         except Exception as e:
             return HttpResponseBadRequest({'error': str(e)})
-@login_required
-def super_mario_points_save(request, results):
-    profile_user = ProfileUser.objects.get(user_name=request.user)
-    try:
-        super_mario_model = SuperMarioModel.objects.get(profile_user=profile_user)
-    except SuperMarioModel.DoesNotExist:
-        super_mario_model = SuperMarioModel(profile_user=profile_user)
-
-    try:
-        results = int(results)
-        if results > super_mario_model.best_result:
-            super_mario_model.best_result = results
-        super_mario_model.total_points += 50
-        super_mario_model.save()
-        return JsonResponse({'result': 'Success'})
-    except ValueError:
-        return HttpResponseBadRequest({'error': 'Invalid results format'})
-    except Exception as e:
-        return HttpResponseBadRequest({'error': str(e)})

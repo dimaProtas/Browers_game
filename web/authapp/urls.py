@@ -20,6 +20,7 @@ urlpatterns = [
     path('mario_js/', views.SuperMarioViews.as_view(), name='mario'),
     path('duck_hunt/', views.DuckHuntViews.as_view(), name='duck_hunt'),
     path('kerby/', views.KerbyView.as_view(), name='kerby'),
+    path('tank/', views.tank, name='tank'),
     path('detail_profile_user/<int:pk>/', views.ProfileDetailUserView.as_view(), name='detail_profile_user'),
     path('users_all/', views.users_all_view, name='users_all'),
     path('request_friends/<int:friends_id>/', views.request_friends),
@@ -29,6 +30,7 @@ urlpatterns = [
     path('duck_hunt_save_points/<int:results>/', views.duck_hunt_points_save),
     path('super_mario_save_points/<int:results>/', views.super_mario_points_save),
     path('kerby_save_points/', views.kerby_points_save),
+    path('game_progress_detail/<int:pk>/', views.GameResultDetail.as_view(), name='game_progress'),
 ]
 
 

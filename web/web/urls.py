@@ -15,35 +15,26 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.template.defaulttags import url
-from django.urls import path, include, re_path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from authapp.models import DisLikeModel
 from authapp.views import home, RegisterUser, LoginUser, profile_user_view, top_players, logout_user, \
-    ProfileUpdateView, game, login_github, login_github_callback, login_vk, login_vk_callback
+    ProfileUpdateView, RegisterDoneView, user_activate
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home,  name='home'),
-
+    path('register/activate/<str:sign>/', user_activate, name='register_activate'),
+    path('register/done/', RegisterDoneView.as_view(), name='register_done'),
     path('register/', RegisterUser.as_view(), name='register'),
     path('login/', LoginUser.as_view(), name='login'),
-
-    path(r'login/github/', login_github, name='login_github'),
-    path(r'login/github/callback/', login_github_callback, name='login_github_callback'),
-    path(r'login/vk/', login_vk, name='login_vk'),
-    path(r'login/vk/callback/', login_vk_callback, name='login_vk_callback'),
-
     path('profile/', profile_user_view, name='profile'),
     path('top_players', top_players, name='top'),
     path('logout/', logout_user,  name='logout'),
     path('edit_profile/', ProfileUpdateView.as_view(),  name='edit_profile'),
     path('', include("authapp.urls")),
-    path('mess/', include("users_messages_app.urls")),
- ]
-
-
+]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

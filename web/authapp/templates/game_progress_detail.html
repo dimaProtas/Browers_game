@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile_container">
+    <h1> Kerby </h1>
+
+    <div class="data_profile_container">
+        <table>
+            <tr><th> </th></th><th>Имя пользователя </th><th>Лучший результат</th><th>Общий счёт</th><th>Спасено союзников</th> <th>Потеряные союзники</th></tr> <!--ряд с ячейками заголовков-->
+                <tr>
+                        <td>
+                            <img class="mario_img" src="/media/kirbypng.png" alt="doom" style="width: 100px;">
+                        </td>
+                        <td>
+                            <a href="{% url 'detail_profile_user' pk=game_progress.user_name.id %}">{{game_progress.user_name.username}}</a>
+                        </td>
+                        {% if game_progress.kerby %}<td>{{ game_progress.kerby.best_result }}</td>{% else %}<td>0</td>{% endif %}
+                        {% if game_progress.kerby %}<td>{{ game_progress.kerby.total_points }}</td>{% else %}<td>0</td>{% endif %}
+                        {% if game_progress.kerby %}<td>{{ game_progress.kerby.allies_saved }}</td>{% else %}<td>0</td>{% endif %}
+                        {% if game_progress.kerby %}<td>{{ game_progress.kerby.allies_lost }}</td>{% else %}<td>0</td>{% endif %}
+                    </tr> <!--ряд с ячейками тела таблицы-->
+        </table>
+    </div>
+
+</div>
+
+<div class="profile_container">
+    <h1> Super Mario </h1>
+
+    <div class="data_profile_container">
+        <table>
+            <tr><th> </th></th><th>Имя пользователя </th><th>Лучший результат</th><th>Общий счёт</th></tr> <!--ряд с ячейками заголовков-->
+                <tr>
+                        <td >
+                            <img class="mario_img" src="/media/super_mario.jpeg" alt="mario" style="width: 100px;">
+                        </td>
+                        <td>
+                            <a href="{% url 'detail_profile_user' pk=game_progress.user_name.id %}">{{game_progress.user_name.username}}</a>
+                        </td>
+                        {% if game_progress.super_mario %}<td>{{ game_progress.super_mario.best_result }}</td>{% else %}<td>0</td>{% endif %}
+                        {% if game_progress.super_mario %}<td>{{ game_progress.super_mario.total_points }}</td>{% else %}<td>0</td>{% endif %}
+                    </tr> <!--ряд с ячейками тела таблицы-->
+        </table>
+    </div>
+
+</div>
+
+<div class="profile_container">
+    <h1> Duck Hunt </h1>
+
+    <div class="data_profile_container">
+        <table>
+            <tr><th> </th></th><th>Имя пользователя </th><th>Лучший результат</th><th>Общий счёт</th></tr> <!--ряд с ячейками заголовков-->
+                <tr>
+                        <td>
+                            <img class="mario_img" src="/media/duck_hunt.jpg" alt="duck_hunt" style="width: 100px;">
+                        </td>
+                        <td>
+                            <a href="{% url 'detail_profile_user' pk=game_progress.user_name.id %}">{{game_progress.user_name.username}}</a>
+                        </td>
+                        {% if game_progress.duck_hunt %}<td>{{ game_progress.duck_hunt.best_result }}</td>{% else %}<td>0</td>{% endif %}
+                        {% if game_progress.duck_hunt %}<td>{{ game_progress.duck_hunt.total_points }}</td>{% else %}<td>0</td>{% endif %}
+                    </tr> <!--ряд с ячейками тела таблицы-->
+        </table>
+    </div>
+
+</div>
+
+<div class="profile_container">
+    <h1> Общий результат</h1>
+
+    <div class="data_profile_container">
+        <table>
+            <tr><th>Аватар</th></th><th>Имя пользователя </th><th>Общий результат </th><th>Количество игр </th></tr> <!--ряд с ячейками заголовков-->
+                <tr>
+                        <td class="avatar_table">
+                            {% if game_progress.user_name.avatar %}
+                                <img src="{{ game_progress.user_name.avatar.url }}" alt="ava">
+                            {% else %}
+                                <img src="/media/not_avatar.jpg" alt="ava">
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'detail_profile_user' pk=game_progress.user_name.id %}">{{game_progress.user_name.username}}</a>
+                        </td>
+
+                        {% with total_result=game_progress.kerby.best_result|add:game_progress.super_mario.best_result|add:game_progress.duck_hunt.best_result %}
+                        <td>{{ total_result }}</td>
+                        {% endwith %}
+
+                        <td>{{game_progress.count_game}}</td>
+                    </tr> <!--ряд с ячейками тела таблицы-->
+        </table>
+    </div>
+
+</div>
+
+
+{% endblock %}

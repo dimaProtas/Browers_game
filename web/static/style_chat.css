@@ -1,3 +1,15 @@
+ .bg-dark {
+    background-color: rgba(59, 100, 94, 0.3);
+}
+
+ body {
+    background-image: url('/media/fone_2.jpeg');
+    background-size: cover; /* Растянуть изображение, чтобы оно заполнило всю область */
+    background-repeat: no-repeat; /* Запретить повторение изображения */
+    background-attachment: fixed; /* Зафиксировать фон, чтобы он не прокручивался с контентом */
+}
+
+
 /* Стили для контейнера с игрой и чатом */
 .container_game_chat {
     display: flex;
