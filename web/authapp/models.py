@@ -56,7 +56,7 @@ class DuckHuntModel(models.Model):
 class SuperMarioModel(models.Model):
     best_result = models.IntegerField(default=0)
     total_points = models.IntegerField(default=0)
-    profile_user = models.OneToOneField(ProfileUser, on_delete=models.PROTECT, related_name='super_mario')
+    profile_user = models.OneToOneField(ProfileUser, on_delete=models.CASCADE, related_name='super_mario')
 
     class Meta:
         verbose_name = 'Super Mario'
@@ -67,7 +67,7 @@ class KerbyModel(models.Model):
     total_points = models.IntegerField(default=0)
     allies_saved = models.IntegerField(default=0)
     allies_lost = models.IntegerField(default=0)
-    profile_user = models.OneToOneField(ProfileUser, on_delete=models.PROTECT, related_name='kerby')
+    profile_user = models.OneToOneField(ProfileUser, on_delete=models.CASCADE, related_name='kerby')
 
     class Meta:
         verbose_name = 'Kerby'
