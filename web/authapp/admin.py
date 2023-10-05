@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import CustomUser, ProfileUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, \
-    FriendsRequest, DuckHuntModel, SuperMarioModel, KerbyModel
+    FriendsRequest, DuckHuntModel, SuperMarioModel, KerbyModel, BombermanModel
 from django.utils.safestring import mark_safe
 
 class CustomUserAdmin(UserAdmin):
@@ -132,3 +132,11 @@ class KerbyAdmin(admin.ModelAdmin):
 
 
 admin.site.register(KerbyModel, KerbyAdmin)
+
+
+class BombermanAdmin(admin.ModelAdmin):
+    list_display = ['id', 'profile_user', 'count_win', 'total_kills', 'kill_npc_best']
+    list_display_links = ['id']
+
+
+admin.site.register(BombermanModel, BombermanAdmin)

@@ -9,7 +9,7 @@ from django.views.generic import CreateView, UpdateView, TemplateView
 from django.core.paginator import Paginator
 from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm, PostForm
 from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, \
-    FriendsRequest, DuckHuntModel, SuperMarioModel, KerbyModel
+    FriendsRequest, DuckHuntModel, SuperMarioModel, KerbyModel, BombermanModel
 from authapp.utils import DataMixin
 from django.views.generic import DetailView
 from django.shortcuts import render
@@ -76,6 +76,21 @@ class MessageView(View):
 
 def tank(request):
     return render(request, 'game/tank.html')
+
+
+class BombermanView(View):
+    def get(self, request):
+        current_user = request.user
+        messages = MessagesModel.objects.all()
+        form = MessageForm()
+
+        if messages.count() > 20:
+            # Если количество записей больше 20, удаляем лишние записи
+            messages_to_delete = messages.order_by('created_at')[:messages.count() - 20]
+            for message in messages_to_delete:
+                message.delete()
+
+        return render(request, 'game/bomb.html', {'messages': messages, 'current_user': current_user, 'form': form})
 
 
 class KerbyView(View):
@@ -507,3 +522,27 @@ def kerby_points_save(request):
             return HttpResponseBadRequest({'error': 'Invalid results format'})
         except Exception as e:
             return HttpResponseBadRequest({'error': str(e)})
+
+
+@login_required
+def bomberman_points_save(request):
+    profile_user = ProfileUser.objects.get(user_name=request.user)
+    try:
+        bomberman_model = BombermanModel.objects.get(profile_user=profile_user)
+    except BombermanModel.DoesNotExist:
+        bomberman_model = BombermanModel(profile_user=profile_user)
+
+    data = request.POST.get('data_result')
+    data = json.loads(data)
+
+    if "npc_kills" in data:
+        try:
+            bomberman_model.total_kills += data["npc_kills"]
+            if bomberman_model.kill_npc_best < data["npc_kills"]:
+                bomberman_model.kill_npc_best = data["npc_kills"]
+            if "win_game" in data:
+                bomberman_model.count_win = data["win_game"]
+            bomberman_model.save()
+            return JsonResponse({'result': 'Success'})
+        except ValueError:
+            return HttpResponseBadRequest({'error': 'Invalid results format'})

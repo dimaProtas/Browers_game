@@ -44,7 +44,7 @@ class ProfileUser(models.Model):
 class DuckHuntModel(models.Model):
     best_result = models.IntegerField(default=0)
     total_points = models.IntegerField(default=0)
-    profile_user = models.OneToOneField(ProfileUser, on_delete=models.PROTECT, related_name='duck_hunt')
+    profile_user = models.OneToOneField(ProfileUser, on_delete=models.CASCADE, related_name='duck_hunt')
 
     class Meta:
         verbose_name = 'Duck Hunt'
@@ -54,7 +54,7 @@ class DuckHuntModel(models.Model):
 class SuperMarioModel(models.Model):
     best_result = models.IntegerField(default=0)
     total_points = models.IntegerField(default=0)
-    profile_user = models.OneToOneField(ProfileUser, on_delete=models.PROTECT, related_name='super_mario')
+    profile_user = models.OneToOneField(ProfileUser, on_delete=models.CASCADE, related_name='super_mario')
 
     class Meta:
         verbose_name = 'Super Mario'
@@ -65,11 +65,23 @@ class KerbyModel(models.Model):
     total_points = models.IntegerField(default=0)
     allies_saved = models.IntegerField(default=0)
     allies_lost = models.IntegerField(default=0)
-    profile_user = models.OneToOneField(ProfileUser, on_delete=models.PROTECT, related_name='kerby')
+    profile_user = models.OneToOneField(ProfileUser, on_delete=models.CASCADE, related_name='kerby')
 
     class Meta:
         verbose_name = 'Kerby'
         verbose_name_plural = 'Kerby'
+
+
+class BombermanModel(models.Model):
+    count_win = models.IntegerField(default=0)
+    total_kills = models.IntegerField(default=0)
+    kill_npc_best = models.IntegerField(default=0)
+    profile_user = models.OneToOneField(ProfileUser, on_delete=models.CASCADE, related_name='bomberman')
+
+    class Meta:
+        verbose_name = 'Bomberman'
+        verbose_name_plural = 'Bomberman'
+
 
 
 class MessagesModel(models.Model):
