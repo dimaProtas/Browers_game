@@ -140,6 +140,3 @@ class BombermanAdmin(admin.ModelAdmin):
 
 
 admin.site.register(BombermanModel, BombermanAdmin)
-
-admin.site.register(BombermanModel, BombermanAdmin)
-

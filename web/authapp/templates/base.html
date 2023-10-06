@@ -71,7 +71,7 @@
   </nav>
   <div class="container-sm">
 
-{% block content %} {% endblock %}
+{% block content %}
         </div>
   {% block footer %}
     <footer id="my-footer bg-dark-my" class="py-5 bg-dark-my">
@@ -79,15 +79,13 @@
         <p class="m-0 text-center text-white">Нижний блок {% now "Y" %}</p>
     </div>
     </footer>
-<<<<<<< HEAD
+
     <script>
-=======
   {% endblock %}
 
     {% bootstrap_javascript jquery='full' %}
 
   <script>
->>>>>>> 9efadf649d828d4fc245c3fa2a4aa2e366ebe5fa
         window.addEventListener("scroll", function () {
   var footer = document.getElementById("my-footer");
   var scrollHeight = window.innerHeight + window.scrollY;

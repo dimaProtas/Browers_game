@@ -27,7 +27,7 @@ $(document).ready(function() {
           csrfmiddlewaretoken: csrfToken, // CSRF-токен для безопасности
         },
         success: function(data) {
-          if (data.sucses) {
+          if (data.success) {
             currentComment.hide();
 
             var commentCount = parseInt(commentCountElement.data('comment-count'), 10);

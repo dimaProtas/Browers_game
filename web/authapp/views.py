@@ -80,37 +80,13 @@ class BaseGameView(View):
         messages = MessagesModel.objects.all()
         form = MessageForm()
 
+        if messages.count() > 20:
+            # Если количество записей больше 20, удаляем лишние записи
+            messages_to_delete = messages.order_by('created_at')[:messages.count() - 20]
+            for message in messages_to_delete:
+                message.delete()
 
-class BaseGameView(View):
-    template_name = None  # Указать имя шаблона в подклассах
-
-
-
-class MessageView(BaseGameView):
-    template_name = 'game/pygbag.html'
-
-
-def tank(request):
-    return render(request, 'game/tank.html')
-
-
-def tank_iframe(request):
-    return render(request, 'game/tank_iframe.html')
-
-
-class DuckHuntViews(View):
-    def get(self, request):
-        current_user = request.user
-        messages = MessagesModel.objects.all()
-        form = MessageForm()
-
-
-class BombermanView(BaseGameView):
-    template_name = 'game/bomb.html'
-
-
-class KerbyView(BaseGameView):
-    template_name = 'game/kirby.html'
+        return render(request, self.template_name, {'messages': messages, 'current_user': current_user, 'form': form})
 
 
 class MessageView(BaseGameView):
