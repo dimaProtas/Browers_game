@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+from django.urls import reverse_lazy
 from dotenv import load_dotenv
 
 #путь к своему окружению писать здесь
@@ -78,14 +79,25 @@ WSGI_APPLICATION = 'web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('POSTGRES_DB'),
+#         'USER': os.environ.get('POSTGRES_USER'),
+#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+#         'HOST': os.environ.get('DBHOST'),
+#         'PORT': os.environ.get('PGPORT'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_DB'),
-        'USER': os.environ.get('POSTGRES_USER'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('MYSQL_DATABASE'),
+        'USER': os.environ.get('MYSQL_USER'),
+        'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
         'HOST': os.environ.get('DBHOST'),
-        'PORT': os.environ.get('PGPORT'),
+        'PORT': '3306',  # Порт MySQL по умолчанию
     }
 }
 
@@ -137,3 +149,29 @@ STATICFILES_FINDERS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authapp.CustomUser'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 465 # 2525
+EMAIL_HOST_USER = os.getenv("EMAIL")
+EMAIL_HOST_PASSWORD = os.getenv("PASSWORD")
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = 'dima_protasevich92@mail.ru'
+
+ACCOUNT_EMAIL_VERIFICATION = "none"
+
+ASGI_APPLICATION = "web.asgi.application"
+
+# LOGIN_URL  is used by login_required decorator
+LOGIN_URL = reverse_lazy('home')
+
+# logout the user - invalidate the session - when browser is closed
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# secrets
+GITHUB_CLIENT_ID = os.environ.get('GITHUB_APP_ID')
+GITHUB_SECRET = os.environ.get('GITHUB_API_SECRET')
+VK_APP_ID = os.environ.get('VK_APP_ID')
+VK_API_SECRET = os.environ.get('VK_API_SECRET')
