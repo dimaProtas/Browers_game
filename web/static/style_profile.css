@@ -130,3 +130,7 @@ td a:hover {
     font-size: 24px;
 }
 
+tr td {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+

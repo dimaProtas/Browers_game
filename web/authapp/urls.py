@@ -21,6 +21,7 @@ urlpatterns = [
     path('duck_hunt/', views.DuckHuntViews.as_view(), name='duck_hunt'),
     path('kerby/', views.KerbyView.as_view(), name='kerby'),
     path('tank/', views.tank, name='tank'),
+    path('tank_iframe/', views.tank_iframe, name='tank_iframe'),
     path('bomberman/', views.BombermanView.as_view(), name='bomberman'),
     path('detail_profile_user/<int:pk>/', views.ProfileDetailUserView.as_view(), name='detail_profile_user'),
     path('users_all/', views.users_all_view, name='users_all'),

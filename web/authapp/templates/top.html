@@ -24,19 +24,7 @@
                         <td>
                             <a href="{% url 'detail_profile_user' pk=t.user_name.id %}">{{t.user_name.username}}</a>
                         </td>
-
-                        {% with kerby_best_result=t.kerby.best_result|default:0 %}
-                        {% with super_mario_best_result=t.super_mario.best_result|default:0 %}
-                        {% with duck_hunt_best_result=t.duck_hunt.best_result|default:0 %}
-                        {% with bomberman_kill_npc_best=t.bomberman.kill_npc_best|default:0 %}
-
-                        {% with total_result=kerby_best_result|add:super_mario_best_result|add:duck_hunt_best_result|add:bomberman_kill_npc_best %}
-                        <td>{{ total_result }}</td>
-                        {% endwith %}
-                        {% endwith %}
-                        {% endwith %}
-                        {% endwith %}
-                        {% endwith %}
+                        <td>{{ t.top_result }}</td>
 
                         {% if t.kerby %}<td>{{ t.kerby.best_result }}</td>{% else %}<td>0</td>{% endif %}
                         {% if t.kerby %}<td>{{ t.bomberman.kill_npc_best }}</td>{% else %}<td>0</td>{% endif %}

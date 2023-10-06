@@ -110,11 +110,7 @@
                         <td>
                             <a href="{% url 'detail_profile_user' pk=game_progress.user_name.id %}">{{game_progress.user_name.username}}</a>
                         </td>
-
-                        {% with total_result=game_progress.kerby.best_result|add:game_progress.super_mario.best_result|add:game_progress.duck_hunt.best_result|add:game_progress.bomberman.kill_npc_best %}
-                        <td>{{ total_result }}</td>
-                        {% endwith %}
-
+                        <td>{{ game_progress.top_result }}</td>
                         <td>{{game_progress.count_game}}</td>
                     </tr> <!--ряд с ячейками тела таблицы-->
         </table>

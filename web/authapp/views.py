@@ -58,10 +58,12 @@ def users_all_view(request):
 
     return render(request, 'users.html', {'page_obj': page_obj})
 
-class MessageView(View):
+
+class BaseGameView(View):
+    template_name = None  # Указать имя шаблона в подклассах
+
     def get(self, request):
         current_user = request.user
-        print(current_user)
         messages = MessagesModel.objects.all()
         form = MessageForm()
 
@@ -71,71 +73,35 @@ class MessageView(View):
             for message in messages_to_delete:
                 message.delete()
 
-        return render(request, 'game/pygbag.html', {'messages': messages, 'current_user': current_user, 'form': form})
+        return render(request, self.template_name, {'messages': messages, 'current_user': current_user, 'form': form})
+
+
+class MessageView(BaseGameView):
+    template_name = 'game/pygbag.html'
 
 
 def tank(request):
     return render(request, 'game/tank.html')
 
 
-class BombermanView(View):
-    def get(self, request):
-        current_user = request.user
-        messages = MessagesModel.objects.all()
-        form = MessageForm()
-
-        if messages.count() > 20:
-            # Если количество записей больше 20, удаляем лишние записи
-            messages_to_delete = messages.order_by('created_at')[:messages.count() - 20]
-            for message in messages_to_delete:
-                message.delete()
-
-        return render(request, 'game/bomb.html', {'messages': messages, 'current_user': current_user, 'form': form})
+def tank_iframe(request):
+    return render(request, 'game/tank_iframe.html')
 
 
-class KerbyView(View):
-    def get(self, request):
-        current_user = request.user
-        messages = MessagesModel.objects.all()
-        form = MessageForm()
-
-        if messages.count() > 20:
-            # Если количество записей больше 20, удаляем лишние записи
-            messages_to_delete = messages.order_by('created_at')[:messages.count() - 20]
-            for message in messages_to_delete:
-                message.delete()
-
-        return render(request, 'game/kirby.html', {'messages': messages, 'current_user': current_user, 'form': form})
-
-class SuperMarioViews(View):
-    def get(self, request):
-        current_user = request.user
-        messages = MessagesModel.objects.all()
-        form = MessageForm()
-
-        if messages.count() > 20:
-            # Если количество записей больше 20, удаляем лишние записи
-            messages_to_delete = messages.order_by('created_at')[:messages.count() - 20]
-            for message in messages_to_delete:
-                message.delete()
-
-        return render(request, 'game/mario_js.html', {'messages': messages, 'current_user': current_user, 'form': form})
+class BombermanView(BaseGameView):
+    template_name = 'game/bomb.html'
 
 
-class DuckHuntViews(View):
-    def get(self, request):
-        current_user = request.user
-        print(current_user)
-        messages = MessagesModel.objects.all()
-        form = MessageForm()
+class KerbyView(BaseGameView):
+    template_name = 'game/kirby.html'
 
-        if messages.count() > 20:
-            # Если количество записей больше 20, удаляем лишние записи
-            messages_to_delete = messages.order_by('created_at')[:messages.count() - 20]
-            for message in messages_to_delete:
-                message.delete()
 
-        return render(request, 'game/duck_hunt.html', {'messages': messages, 'current_user': current_user, 'form': form})
+class SuperMarioViews(BaseGameView):
+    template_name = 'game/mario_js.html'
+
+
+class DuckHuntViews(BaseGameView):
+    template_name = 'game/duck_hunt.html'
 
 
 def game_js(request):
@@ -467,8 +433,11 @@ def duck_hunt_points_save(request, results):
         results = int(results)  # Преобразуем результат в число, если это не так
         if results > duck_hunt_model.best_result:
             duck_hunt_model.best_result = results
+        if duck_hunt_model.profile_user.top_result < duck_hunt_model.best_result:
+            duck_hunt_model.profile_user.top_result += results
         duck_hunt_model.total_points += 1
         duck_hunt_model.save()
+        duck_hunt_model.profile_user.save()
         return JsonResponse({'result': 'Success'})
     except ValueError:
         return HttpResponseBadRequest({'error': 'Invalid results format'})
@@ -488,8 +457,11 @@ def super_mario_points_save(request, results):
         results = int(results)
         if results > super_mario_model.best_result:
             super_mario_model.best_result = results
+        if super_mario_model.profile_user.top_result < super_mario_model.best_result:
+            super_mario_model.profile_user.top_result += results
         super_mario_model.total_points += 50
         super_mario_model.save()
+        super_mario_model.profile_user.save()
         return JsonResponse({'result': 'Success'})
     except ValueError:
         return HttpResponseBadRequest({'error': 'Invalid results format'})
@@ -513,10 +485,13 @@ def kerby_points_save(request):
         try:
             if total_points > kerby_model.best_result:
                 kerby_model.best_result = total_points
+            if  kerby_model.profile_user.top_result < kerby_model.best_result:
+                kerby_model.profile_user.top_result += total_points
             kerby_model.allies_saved += alias_saved
             kerby_model.allies_lost += alias_lost
             kerby_model.total_points += total_points
             kerby_model.save()
+            kerby_model.profile_user.save()
             return JsonResponse({'result': 'Success'})
         except ValueError:
             return HttpResponseBadRequest({'error': 'Invalid results format'})
@@ -539,10 +514,12 @@ def bomberman_points_save(request):
         try:
             bomberman_model.total_kills += data["npc_kills"]
             if bomberman_model.kill_npc_best < data["npc_kills"]:
-                bomberman_model.kill_npc_best = data["npc_kills"]
+                bomberman_model.kill_npc_bprofile_userest = data["npc_kills"]
+                bomberman_model.profile_user.top_result += data["npc_kills"]
             if "win_game" in data:
                 bomberman_model.count_win = data["win_game"]
             bomberman_model.save()
+            bomberman_model.profile_user.save()
             return JsonResponse({'result': 'Success'})
         except ValueError:
             return HttpResponseBadRequest({'error': 'Invalid results format'})
