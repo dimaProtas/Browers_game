@@ -2,6 +2,7 @@ $(document).ready(function() {
     $(document).on("click", ".delete-comment", function() {
         var commentId = $(this).data("comment-id");
 
+
         // Установка commentId в модальном окне для последующего удаления
         $("#confirmDelete").data("comment-id", commentId);
 
@@ -14,12 +15,13 @@ $(document).ready(function() {
         var postId = $(".fa-lg").data("post-id");
         var commentId = $(this).data("comment-id");
         var currentComment = $(".delete-comment[data-comment-id='" + commentId + "']").closest(".comment");
-        var csrfToken = $('meta[name="csrf-token"]').attr('content');
         var commentCountElement = $(`[data-toggle="comments-${postId}"]`);
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        var hostPort = $('meta[name="host-port"]').attr('content');
 
       // Отправляем Ajax-запрос на сервер для удаления комента
       $.ajax({
-        url: "http://127.0.0.1:8888/delete_comment/" + commentId + "/", // URL для удаления комента
+        url: hostPort + "delete_comment/" + commentId + "/", // URL для удаления комента
         type: "POST",
         data: {
           csrfmiddlewaretoken: csrfToken, // CSRF-токен для безопасности

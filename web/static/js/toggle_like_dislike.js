@@ -1,6 +1,7 @@
 //обработчик удаления и добавления лайков
 $(document).ready(function() {
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
+    var hostPort = $('meta[name="host-port"]').attr('content');
 
     $(".fa-fire").click(function() {
         var postId = $(this).data("post-id");
@@ -10,8 +11,7 @@ $(document).ready(function() {
         if (userIsAuthenticated) {
         // Отправляем Ajax-запрос на сервер для создания или удаления лайков
         $.ajax({
-            url: "http://127.0.0.1:8888/toggle_like/" + postId + "/", // URL для dislike
-            cache: false,
+            url: hostPort + "toggle_like/" + postId + "/", // URL для dislike
             type: "POST",
             data: {
                 csrfmiddlewaretoken: csrfToken, // CSRF-токен для безопасности
@@ -48,6 +48,7 @@ $(document).ready(function() {
 //обработчик удаления и добавления дизлаков
 $(document).ready(function() {
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
+    var hostPort = $('meta[name="host-port"]').attr('content');
 
     $(".fa-thumbs-down").click(function() {
         var postId = $(this).data("post-id");
@@ -56,7 +57,7 @@ $(document).ready(function() {
         if (userIsAuthenticated) {
             // Отправляем Ajax-запрос на сервер для создания или удаления dislike
             $.ajax({
-            url: "http://127.0.0.1/toggle_dislike/" + postId + "/", // URL для dislike
+            url: hostPort + "toggle_dislike/" + postId + "/", // URL для dislike
             type: "POST",
             data: {
                 csrfmiddlewaretoken: csrfToken, // CSRF-токен для безопасности

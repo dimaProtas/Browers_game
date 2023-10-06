@@ -5,11 +5,11 @@ from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, TemplateView
 from django.core.paginator import Paginator
 from authapp.forms import CustomUserCreationForm, CustomUserChangeForm, MessageForm, PostForm
 from authapp.models import ProfileUser, CustomUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, \
-    FriendsRequest, DuckHuntModel, SuperMarioModel
+    FriendsRequest, DuckHuntModel, SuperMarioModel, KerbyModel, BombermanModel
 from authapp.utils import DataMixin
 from django.views.generic import DetailView
 from django.shortcuts import render
@@ -21,6 +21,10 @@ import locale
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
+import json
+from django.core.signing import BadSignature
+from .utilites import signer
+
 
 
 # Функция проверки отношений между пользователями.
@@ -54,20 +58,11 @@ def users_all_view(request):
 
     return render(request, 'users.html', {'page_obj': page_obj})
 
-class MessageView(View):
-    def get(self, request):
-        current_user = request.user
-        print(current_user)
-        messages = MessagesModel.objects.all()
-        form = MessageForm()
 
-        if messages.count() > 20:
-            # Если количество записей больше 20, удаляем лишние записи
-            messages_to_delete = messages.order_by('created_at')[:messages.count() - 20]
-            for message in messages_to_delete:
-                message.delete()
+class BaseGameView(View):
+    template_name = None  # Указать имя шаблона в подклассах
 
-        return render(request, 'game/pygbag.html', {'messages': messages, 'current_user': current_user, 'form': form})
+    return render(request, 'game/pygbag.html', {'messages': messages, 'current_user': current_user, 'form': form})
 
 
 def kerby(request):
@@ -91,7 +86,6 @@ class SuperMarioViews(View):
 class DuckHuntViews(View):
     def get(self, request):
         current_user = request.user
-        print(current_user)
         messages = MessagesModel.objects.all()
         form = MessageForm()
 
@@ -101,7 +95,35 @@ class DuckHuntViews(View):
             for message in messages_to_delete:
                 message.delete()
 
-        return render(request, 'game/duck_hunt.html', {'messages': messages, 'current_user': current_user, 'form': form})
+        return render(request, self.template_name, {'messages': messages, 'current_user': current_user, 'form': form})
+
+
+class MessageView(BaseGameView):
+    template_name = 'game/pygbag.html'
+
+
+def tank(request):
+    return render(request, 'game/tank.html')
+
+
+def tank_iframe(request):
+    return render(request, 'game/tank_iframe.html')
+
+
+class BombermanView(BaseGameView):
+    template_name = 'game/bomb.html'
+
+
+class KerbyView(BaseGameView):
+    template_name = 'game/kirby.html'
+
+
+class SuperMarioViews(BaseGameView):
+    template_name = 'game/mario_js.html'
+
+
+class DuckHuntViews(BaseGameView):
+    template_name = 'game/duck_hunt.html'
 
 
 def game_js(request):
@@ -188,6 +210,25 @@ class RegisterUser(DataMixin, CreateView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
+class RegisterDoneView(TemplateView):
+    template_name = 'main/register_done.html'
+
+
+def user_activate(request, sign):
+    try:
+        username = signer.unsign(sign)
+    except BadSignature:
+        return render(request, 'main/bad_signature.html')
+    user = get_object_or_404(CustomUser, username=username)
+    if user.is_activated:
+        template = 'main/user_is_activated.html'
+    else:
+        template = 'main/activation_done.html'
+        user.is_active = True
+        user.is_activated = True
+        user.save()
+    return render(request, template)
+
 class LoginUser(DataMixin, LoginView):
     form_class = AuthenticationForm
     template_name = 'login.html'
@@ -244,6 +285,11 @@ def delete_comment(request, comment_id):
 def top_players(request):
     top = ProfileUser.objects.annotate(post_count=Count('user_name__user_post')).order_by('-top_result')[:10]
     return render(request, 'top.html', {'top': top})
+
+class GameResultDetail(DetailView):
+    model = ProfileUser
+    template_name = 'game_progress_detail.html'
+    context_object_name = 'game_progress'
 
 
 def logout_user(request):
@@ -414,8 +460,11 @@ def duck_hunt_points_save(request, results):
         results = int(results)  # Преобразуем результат в число, если это не так
         if results > duck_hunt_model.best_result:
             duck_hunt_model.best_result = results
+        if duck_hunt_model.profile_user.top_result < duck_hunt_model.best_result:
+            duck_hunt_model.profile_user.top_result += results
         duck_hunt_model.total_points += 1
         duck_hunt_model.save()
+        duck_hunt_model.profile_user.save()
         return JsonResponse({'result': 'Success'})
     except ValueError:
         return HttpResponseBadRequest({'error': 'Invalid results format'})
@@ -435,10 +484,69 @@ def super_mario_points_save(request, results):
         results = int(results)
         if results > super_mario_model.best_result:
             super_mario_model.best_result = results
+        if super_mario_model.profile_user.top_result < super_mario_model.best_result:
+            super_mario_model.profile_user.top_result += results
         super_mario_model.total_points += 50
         super_mario_model.save()
+        super_mario_model.profile_user.save()
         return JsonResponse({'result': 'Success'})
     except ValueError:
         return HttpResponseBadRequest({'error': 'Invalid results format'})
     except Exception as e:
         return HttpResponseBadRequest({'error': str(e)})
+
+
+@login_required
+def kerby_points_save(request):
+    profile_user = ProfileUser.objects.get(user_name=request.user)
+    try:
+        kerby_model = KerbyModel.objects.get(profile_user=profile_user)
+    except KerbyModel.DoesNotExist:
+        kerby_model = KerbyModel(profile_user=profile_user)
+
+    total_points = int(request.POST.get('total_points'))
+    alias_saved = int(request.POST.get('alias_saved'))
+    alias_lost = int(request.POST.get('alias_lost'))
+
+    if total_points is not None:
+        try:
+            if total_points > kerby_model.best_result:
+                kerby_model.best_result = total_points
+            if  kerby_model.profile_user.top_result < kerby_model.best_result:
+                kerby_model.profile_user.top_result += total_points
+            kerby_model.allies_saved += alias_saved
+            kerby_model.allies_lost += alias_lost
+            kerby_model.total_points += total_points
+            kerby_model.save()
+            kerby_model.profile_user.save()
+            return JsonResponse({'result': 'Success'})
+        except ValueError:
+            return HttpResponseBadRequest({'error': 'Invalid results format'})
+        except Exception as e:
+            return HttpResponseBadRequest({'error': str(e)})
+
+
+@login_required
+def bomberman_points_save(request):
+    profile_user = ProfileUser.objects.get(user_name=request.user)
+    try:
+        bomberman_model = BombermanModel.objects.get(profile_user=profile_user)
+    except BombermanModel.DoesNotExist:
+        bomberman_model = BombermanModel(profile_user=profile_user)
+
+    data = request.POST.get('data_result')
+    data = json.loads(data)
+
+    if "npc_kills" in data:
+        try:
+            bomberman_model.total_kills += data["npc_kills"]
+            if bomberman_model.kill_npc_best < data["npc_kills"]:
+                bomberman_model.kill_npc_bprofile_userest = data["npc_kills"]
+                bomberman_model.profile_user.top_result += data["npc_kills"]
+            if "win_game" in data:
+                bomberman_model.count_win = data["win_game"]
+            bomberman_model.save()
+            bomberman_model.profile_user.save()
+            return JsonResponse({'result': 'Success'})
+        except ValueError:
+            return HttpResponseBadRequest({'error': 'Invalid results format'})

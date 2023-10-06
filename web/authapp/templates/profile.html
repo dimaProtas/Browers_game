@@ -13,6 +13,7 @@
     <a href="{% url 'add_post' %}" class="accordion-button">Создать пост</a>
     <p class="accordion-button" data-toggle="post">Мои посты</p>
     <p class="accordion-button" data-toggle="friends">Мои друзья</p>
+    <a href="{% url 'game_progress' pk=user.profile_user.id %}" class="accordion-button">Достижения</a>
 </div>
     <div class="profile_container">
         <div class="avatar_profile">
@@ -163,8 +164,6 @@
     </div>
 </div> {# Модальное окно удаления поста #}
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<meta name="csrf-token" content="{{ csrf_token }}"> {# Получаем токен в meta, для использования в скрипте js #}
 <script src="{% static 'js/post_user_hide.js' %}"></script> {# импорт скрипта скпыть\открыть посты #}
 <script src="{% static 'js/post_delete.js' %}"></script> {# импорт скрипта удаления постов #}
 <script>

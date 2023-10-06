@@ -5,7 +5,7 @@
 Developed By:       ╚╩═╩╩═╩══╩╩╩╩═╩══╝
 */
 
-function start() { 
+function start() {
 
 	$("#inicio").hide(); 
 	
@@ -287,7 +287,7 @@ function start() {
         somExplosao.play();
 
         $("#fundoGame").append("<div id='explosao1'></div");
-        $("#explosao1").css("background-image", "url(assets/image/explosao.png)");
+        $("#explosao1").css("background-image", "url(/static/game/kerby/assets/image/explosao.png)");
         var div=$("#explosao1");
         div.css("top", inimigo1Y);
         div.css("left", inimigo1X);
@@ -309,7 +309,7 @@ function start() {
         somExplosao.play();
 
         $("#fundoGame").append("<div id='explosao2'></div");
-        $("#explosao2").css("background-image", "url(assets/image/explosao.png)");
+        $("#explosao2").css("background-image", "url(/static/game/kerby/assets/image/explosao.png)");
         var div2=$("#explosao2");
         div2.css("top", inimigo2Y);
         div2.css("left", inimigo2X);
@@ -397,8 +397,7 @@ function start() {
 
     function placar() {
         
-        $("#placar").html("<h2> Pontos: " + pontos + " | Salvos: " + salvos + " | Perdidos: " + perdidos + "</h2>");
-            
+        $("#placar").html("<h2> Очки: " + pontos + " | Спасены: " + salvos + " | Потерянные: " + perdidos + "</h2>");
     } // Fim da função placar()
 
 
@@ -406,24 +405,23 @@ function start() {
     function energia() {
         
         if (energiaAtual==3) {
-            
-            $("#energia").css("background-image", "url(assets/image/energia3.png)");
+
+            $("#energia").css("background-image", "url(/static/game/kerby/assets/image/energia3.png)");
         }
 
         if (energiaAtual==2) {
-            
-            $("#energia").css("background-image", "url(assets/image/energia2.png)");
+
+            $("#energia").css("background-image", "url(/static/game/kerby/assets/image/energia2.png)");
         }
 
         if (energiaAtual==1) {
-            
-            $("#energia").css("background-image", "url(assets/image/energia1.png)");
+
+            $("#energia").css("background-image", "url(/static/game/kerby/assets/image/energia1.png)");
         }
 
         if (energiaAtual==0) {
             
-            $("#energia").css("background-image", "url(assets/image/energia0.png)");
-            
+            $("#energia").css("background-image", "url(/static/game/kerby/assets/image/energia0.png)");
             //Game Over
             gameOver();
         }
@@ -455,7 +453,7 @@ function start() {
             totalBonus = salvos * salvos;
             totalPtn = totalBonus + pontos + salvos - perdidos;
 
-            $("#fim").html("<h1> Game Over </h1><p>Pontos Adquiridos : " + pontos + "<br> Aliados resgatados: " + salvos + "<br> Parabéns pelo bônus : " + totalBonus + "<br> Aliados perdidos: " + perdidos + "<br>------------------<br>" + "A sua pontuação total é : " + totalPtn + " </p> " + "<div id='reinicia' onClick=reiniciaJogo()><h3></h3></div>");
+            $("#fim").html("<h1> Game Over </h1><p>Приобретенные очки : " + pontos + "<br> Союзники спасены: " + salvos + "<br> Parabéns pelo bônus : " + totalBonus + "<br> Потерянные союзники: " + perdidos + "<br>------------------<br>" + "Ваш общий балл : " + totalPtn + " </p> " + "<div id='reinicia' onClick=reiniciaJogo()><h3></h3></div>");
         }
         
         //Pontuação Normal
@@ -463,14 +461,43 @@ function start() {
         if (totalPtn < 0){
             $("#fim").html("<h1> GAME OVER </h1><div id='reinicia' onClick=reiniciaJogo()><h3></h3></div>"); 
         }else{ 
-            $("#fim").html("<h1> GAME OVER </h1><p>Pontos Adquiridos : " + pontos + "<br> Aliados resgatados: " + salvos + "<br> Aliados perdidos: " + perdidos + "<br>------------------<br>" + " A sua pontuação total é : " + totalPtn + " </p>" + "</div><div id='reinicia' onClick=reiniciaJogo()><h3></h3></div>"); 
+            $("#fim").html("<h1> GAME OVER </h1><p>Приобретенные очки : " + pontos + "<br> Союзники спасены: " + salvos + "<br> Потерянные союзники: " + perdidos + "<br>------------------<br>" + " Ваш общий балл : " + totalPtn + " </p>" + "</div><div id='reinicia' onClick=reiniciaJogo()><h3></h3></div>");
+            console.log('Общий:', totalPtn + "\n", 'Союзники Спасены:', salvos + '\n', 'Потерянные Союзники:', perdidos + '\n',
+            'Очки:', pontos + '\n',)
+
+            // Отправляем AJAX-запрос для сохранения очков игры
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var hostPort = $('meta[name="host-port"]').attr('content');
+            if (userIsAuthenticated === true) {
+                $.ajax({
+                url: hostPort + "kerby_save_points/",
+                type: "POST",
+                data: {
+                    csrfmiddlewaretoken: csrfToken,
+                    total_points: totalPtn,
+                    alias_saved: salvos,
+                    alias_lost: perdidos,
+                },
+                success: function(data) {
+                    if (data.result === 'Success') {
+                        console.log('Очки записаны в бд')
+                    } else {
+                        alert("Ошибка при сохранении игры!");
+                    }
+                },
+                error: function() {
+                    alert("Произошла ошибка при выполнении запроса.");
+                },
+            });
+            }
+
         }
     }
         /* 
         $("#fim").html("<h1> Game Over </h1><p>Sua pontuação foi: " + pontos + "</p>" + "<div id='reinicia' onClick=reiniciaJogo()><h3>Jogar Novamente</h3></div>");
         } // Fim da função gameOver();
         
-        $("#fim").html("<h1> GAME OVER </h1> <p> Pontos Adquiridos : " + pontos + " | Aliados resgatados: " + salvos + " | Aliados perdidos: " + perdidos + "</p>" + "<div id='reinicia' onClick=reiniciaJogo()><h3>Jogar Novamente</h3></div>"); */
+        $("#fim").html("<h1> GAME OVER </h1> <p> Приобретенные очки : " + pontos + " | Aliados resgatados: " + salvos + " | Потерянные союзники: " + perdidos + "</p>" + "<div id='reinicia' onClick=reiniciaJogo()><h3>Jogar Novamente</h3></div>"); */
 
 
 

@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
+        var socketHost = $('meta[name="socket-host"]').attr('content');
         // JavaScript-код для отправки сообщения через WebSocket
-        const socket = new WebSocket('ws://127.0.0.1:8888/ws/messages/');
+        const socket = new WebSocket(socketHost + 'ws/messages/');
 
         socket.onopen = function (e) {
             console.log('WebSocket connection established.');

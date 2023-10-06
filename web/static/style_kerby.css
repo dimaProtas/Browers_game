@@ -1,0 +1,18 @@
+.container_kerby {
+    display: flex;
+    justify-content: space-between;
+}
+
+.messages_block {
+    height: 590px;
+    width: 28%;
+    margin-left: 45px;
+    line-height: 1;
+    font-family: 'Patrick Hand SC', cursive;
+}
+
+.container-sm {
+    margin-left: 10px;
+}
+
+

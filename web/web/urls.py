@@ -20,12 +20,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from authapp.views import home, RegisterUser, LoginUser, profile_user_view, top_players, logout_user, \
-    ProfileUpdateView, game
+    ProfileUpdateView, RegisterDoneView, user_activate
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home,  name='home'),
+    path('register/activate/<str:sign>/', user_activate, name='register_activate'),
+    path('register/done/', RegisterDoneView.as_view(), name='register_done'),
     path('register/', RegisterUser.as_view(), name='register'),
     path('login/', LoginUser.as_view(), name='login'),
     path('profile/', profile_user_view, name='profile'),

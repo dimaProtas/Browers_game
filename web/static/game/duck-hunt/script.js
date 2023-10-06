@@ -100,9 +100,10 @@ function shootDuck() {
 
         // Отправляем AJAX-запрос для сохранения очков игры
         var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        var hostPort = $('meta[name="host-port"]').attr('content');
         if (userIsAuthenticated === true) {
             $.ajax({
-            url: "http://127.0.0.1:8888/duck_hunt_save_points/" + points + "/",
+            url: hostPort + "duck_hunt_save_points/" + points + "/",
             type: "POST",
             data: {
                 csrfmiddlewaretoken: csrfToken,

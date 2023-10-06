@@ -2182,13 +2182,13 @@
 
 .bg-dark {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+  background-color: rgba(59, 100, 94, 0.3);
+  /*background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;*/
 }
 
 .bg-black {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-black-rgb), var(--bs-bg-opacity)) !important;
-}
+    background-color: rgba(var(--bs-black-rgb), var(--bs-bg-opacity)) !important;
 
 .bg-white {
   --bs-bg-opacity: 1;
@@ -2264,7 +2264,8 @@
 }
 
 .bg-dark-subtle {
-  background-color: var(--bs-dark-bg-subtle) !important;
+  /*background-color: var(--bs-dark-bg-subtle) !important;*/
+  background-color: rgba(59, 100, 94, 0.3);
 }
 
 .bg-gradient {

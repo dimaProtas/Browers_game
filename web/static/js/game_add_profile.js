@@ -1,10 +1,12 @@
   $(document).ready(function() {
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
+    var hostPort = $('meta[name="host-port"]').attr('content');
     $(".game_add").click(function() {
 
       // Отправляем Ajax-запрос на сервер для удаления поста
+      if (userIsAuthenticated) {
       $.ajax({
-        url: "http://127.0.0.1:8888/game_add_profile/", // URL для удаления поста
+        url: hostPort + "game_add_profile/", // URL для удаления поста
         type: "POST",
         data: {
           csrfmiddlewaretoken: csrfToken, // CSRF-токен для безопасности
@@ -23,5 +25,6 @@
           alert("Произошла ошибка при выполнении запроса.");
         },
       });
+      }
     });
   });

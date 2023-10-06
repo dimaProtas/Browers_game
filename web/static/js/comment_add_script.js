@@ -1,5 +1,6 @@
 $(document).ready(function() {
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
+    var hostPort = $('meta[name="host-port"]').attr('content');
 
     // Обработчик события для поля ввода комментария
     $(".comment-input").keypress(function(event) {
@@ -28,7 +29,7 @@ $(document).ready(function() {
         if (comment !== '') {
             // Отправляем Ajax-запрос на сервер для сохранения комента
             $.ajax({
-            url: "http://127.0.0.1:8888/add_comment/" + postId + "/",
+            url: hostPort + "add_comment/" + postId + "/",
             type: "POST",
             data: {
                 csrfmiddlewaretoken: csrfToken, // CSRF-токен для безопасности

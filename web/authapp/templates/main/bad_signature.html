@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}Ошибка при активации{% endblock %}
+
+{% block content %}
+
+<h2>Активация</h2>
+<p>Активация пользователя с таким именем прошла не удачно!</p>
+<p><a href="{% url 'register' %}">Зарегистрироваться повторно</a></p>
+
+{% endblock %}

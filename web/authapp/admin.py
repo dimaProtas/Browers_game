@@ -2,18 +2,18 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import CustomUser, ProfileUser, MessagesModel, PostUser, CommentModel, LikeModel, DisLikeModel, \
-    FriendsRequest, DuckHuntModel, SuperMarioModel
+    FriendsRequest, DuckHuntModel, SuperMarioModel, KerbyModel, BombermanModel
 from django.utils.safestring import mark_safe
 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ('username', 'email', 'get_avatar', 'is_staff', 'is_active')
+    list_display = ('username', 'email', 'get_avatar', 'is_staff', 'is_active', 'is_activated')
     list_filter = ('username', 'email', 'is_staff', 'is_active',)
     fieldsets = (
         (None, {'fields': ('status', 'about_me', 'email', 'vk', 'instagram', 'github', 'avatar', 'username', 'password')}),
-        ('Permissions', {'fields': ('is_staff', 'is_active')}),
+        ('Permissions', {'fields': ('is_staff', 'is_active', 'is_activated')}),
     )
     add_fieldsets = (
         (None, {
@@ -124,3 +124,18 @@ class SuperMarioAdmin(admin.ModelAdmin):
 
 
 admin.site.register(SuperMarioModel, SuperMarioAdmin)
+
+class KerbyAdmin(admin.ModelAdmin):
+    list_display = ['id', 'profile_user', 'best_result', 'total_points', 'allies_saved', 'allies_lost']
+    list_display_links = ['id']
+
+
+admin.site.register(KerbyModel, KerbyAdmin)
+
+
+class BombermanAdmin(admin.ModelAdmin):
+    list_display = ['id', 'profile_user', 'count_win', 'total_kills', 'kill_npc_best']
+    list_display_links = ['id']
+
+
+admin.site.register(BombermanModel, BombermanAdmin)

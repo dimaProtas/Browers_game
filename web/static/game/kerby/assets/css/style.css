@@ -22,7 +22,7 @@ body {
 }
 
 #fundoGame	{
-	margin-top: 17px;	
+	margin-top: 5px;
 	width:950px;
 	height:630px;
 	background-image:url(../image/fundo_game.jpg);
@@ -410,6 +410,8 @@ h3:hover {
 
 
 /* Meu Footer - Assinatura */
+/*footer {
+=======
 footer {
 	margin-top: 20px;
 	position: relative;
@@ -421,9 +423,9 @@ a	{
 span {
   position: relative;
   display: inline-block;
-  color: var(--purple); 
+  color: var(--purple);
   animation: hearts 0.6s cubic-bezier(0.18, 0.89, 0.29, 1.05) infinite;
-}
+}*/
 
 
 /* Small Screen - Heart */

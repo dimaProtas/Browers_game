@@ -7,11 +7,33 @@
 {%load static%}
 
 {% block content %}
-<div class="game_container">
+<div class="game_all">
+    <div class="game_container">
     <img class="mario_img" src="/media/doom.jpg" alt="doom">
     <div class="game_button">
         <p>JS Doom Game</p>
     <a class="game_add" href="{% url 'js_doom_game' %}">Играть</a>
+    </div>
+</div>
+<div class="game_container">
+    <img class="mario_img" src="/media/bomberman.jpg" alt="doom">
+    <div class="game_button">
+        <p>Bomberman</p>
+    <a class="game_add" href="{% url 'bomberman' %}">Играть</a>
+    </div>
+</div>
+<div class="game_container">
+    <img class="mario_img" src="/media/batle_city.jpg" alt="doom">
+    <div class="game_button">
+        <p>Tank Iframe</p>
+    <a class="game_add" href="{% url 'tank_iframe' %}">Играть</a>
+    </div>
+</div>
+<div class="game_container">
+    <img class="mario_img" src="/media/tank.jpg" alt="doom">
+    <div class="game_button">
+        <p>Tank 2D</p>
+    <a class="game_add" href="{% url 'tank' %}">Играть</a>
     </div>
 </div>
 <div class="game_container">
@@ -50,11 +72,10 @@
     </div>
 </div>
 
+</div>
+
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<meta name="csrf-token" content="{{ csrf_token }}">
-
+<script>var userIsAuthenticated = {{ request.user.is_authenticated|lower }};</script> {# передаёт в скрипт request.user.is_authenticated #}
 <script src="{% static 'js/game_add_profile.js' %}"></script>  {# импорт скрипта подсчёта кол-во игр пользователя #}
 
 {% endblock %}
