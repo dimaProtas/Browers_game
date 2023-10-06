@@ -75,5 +75,15 @@ input[name="password2"],
     margin-bottom: 20px;
 }
 
+.auth_button {
+    display: flex;
+}
 
+.auth_button a {
+    margin-left: 5px;
+}
+
+.auth_button a:hover {
+    transform: scale(1.3);
+}
 

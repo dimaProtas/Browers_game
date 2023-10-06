@@ -32,6 +32,8 @@ import logging
 from django.contrib import messages
 import json
 from django.core.signing import BadSignature
+
+from .apps import user_registered
 from .utilites import signer
 
 
@@ -233,8 +235,6 @@ def login_github(request):
         'https://github.com/login/oauth/authorize?client_id={}&scope={}&state={}'.format(client_id,
                                                                                          scope, state,
                                                                                          ))
-
-
 def login_github_callback(request):
     print('start -> login_github_callback')
     code = request.GET.get('code', None)
@@ -286,8 +286,10 @@ def login_github_callback(request):
             user.is_admin = False
             user.is_active = True
             user.is_superuser = False
+            user.is_activated = False
 
             user.save()
+            user_registered.send(CustomUserCreationForm, instance=user)
             print('user created in db')
         except Exception as e:
             print(f'login error: {e}')
@@ -352,7 +354,9 @@ def login_vk_callback(request):
             user.is_admin = False
             user.is_active = True
             user.is_superuser = False
+            user.is_activated = False
             user.save()
+            user_registered.send(CustomUserCreationForm, instance=user)
             print('user created in db')
         except Exception as e:
             print(f'login error: {e}')

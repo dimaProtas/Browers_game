@@ -27,10 +27,10 @@
                  {% if user.status %}<div class="status_profile">{{ user.status }}</div>{% endif %}
 
                 <div class="data_profile_container">
-                <div><img src="/media/email.png" style="width: 23px; height: 23px;"><span class="data">{{ user.email }}</span></div>
-                {% if user.vk %}<div><img src="/media/vk.jpg" style="width: 23px; height: 23px;"><span class="data">{{ user.vk }}</span></div>{% endif %}
-                {% if user.instagram %}<div><img src="/media/inst.png" style="width: 23px; height: 23px;"><span class="data">{{ user.instagram }}</span></div>{% endif %}
-                {% if user.github %}<div><img src="/media/git.jpg" style="width: 23px; height: 23px;"><span class="data">{{ user.github }}</span></div>{% endif %}
+                <div><img src="/media/email_1.png" style="width: 28px; height: 23px;"><span class="data">{{ user.email }}</span></div>
+                {% if user.vk %}<div><img src="/media/VK-1024x1024.png" style="width: 25px; height: 25px;"><span class="data">{{ user.vk }}</span></div>{% endif %}
+                {% if user.instagram %}<div><img src="/media/instagram_icon_logo.png" style="width: 44px; height: 23px; margin-left: -11px;"><span class="data">{{ user.instagram }}</span></div>{% endif %}
+                {% if user.github %}<div><img src="/media/github-logo.png" style="width: 44px; height: 23px; margin-left: -11px;"><span class="data">{{ user.github }}</span></div>{% endif %}
                 <div><img src="/media/result.png" style="width: 23px; height: 23px;"><span class="data">
                     {% if profile.top_result %}
                         {{profile.top_result}}

@@ -14,15 +14,15 @@
     <form method="post" class="form">
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="btn btn-dark" type="submit">Войти</button>
-        <div style="margin-top:5px;">
-        <a href="{% url 'login_github' %}" class="white">
-            Login with GitHub <i class="fa fa-github"></i>
-        </a><br>
+        <div class="auth_button">
+            <button class="btn btn-dark" type="submit">Войти</button>
+            <a href="{% url 'login_github' %}" class="white">
+                <img src="/media/github-logo.png" style="width: 44px; height: 23px;">
+            </a>
             <a href="{% url 'login_vk' %}" class="white">
-            Login with VK <i class="fa fa-github"></i>
-        </a>
-</div>
+                <img src="/media/VK-1024x1024.png" style="width: 25px; height: 25px;">
+            </a>
+        </div>
     </form>
             <p>Для входа необходимо выполнить подтверждение регистрации!<br>
             Елси вы еще не подтверлили регистрацию,<br> письмо с подтверждением мы отправили вам на email.</p>
