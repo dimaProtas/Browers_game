@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from authapp.views import home, RegisterUser, LoginUser, profile_user_view, top_players, logout_user, \
-    ProfileUpdateView, RegisterDoneView, user_activate
+    ProfileUpdateView, RegisterDoneView, user_activate, login_github, login_github_callback, login_vk, login_vk_callback
 
 
 urlpatterns = [
@@ -35,6 +35,11 @@ urlpatterns = [
     path('logout/', logout_user,  name='logout'),
     path('edit_profile/', ProfileUpdateView.as_view(),  name='edit_profile'),
     path('', include("authapp.urls")),
+
+    path('login/github/', login_github, name='login_github'),
+    path('login/github/callback/', login_github_callback, name='login_github_callback'),
+    path('login/vk/', login_vk, name='login_vk'),
+    path('login/vk/callback/', login_vk_callback, name='login_vk_callback'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

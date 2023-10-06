@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+
+from django.urls import reverse_lazy
 from dotenv import load_dotenv
 
 #путь к своему окружению писать здесь
@@ -82,17 +84,24 @@ WSGI_APPLICATION = 'web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': os.environ.get('MYSQL_DATABASE'),
+#         'USER': os.environ.get('MYSQL_USER'),
+#         'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
+#         'HOST': os.environ.get('DBHOST'),
+#         'PORT': '3306',  # Порт MySQL по умолчанию
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('MYSQL_DATABASE'),
-        'USER': os.environ.get('MYSQL_USER'),
-        'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
-        'HOST': os.environ.get('DBHOST'),
-        'PORT': '3306',  # Порт MySQL по умолчанию
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -171,3 +180,15 @@ CHANNEL_LAYERS = {
 # }
 
 ASGI_APPLICATION = "web.asgi.application"
+
+# LOGIN_URL  is used by login_required decorator
+LOGIN_URL = reverse_lazy('home')
+
+# logout the user - invalidate the session - when browser is closed
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# secrets
+GITHUB_CLIENT_ID = os.environ.get('GITHUB_APP_ID')
+GITHUB_SECRET = os.environ.get('GITHUB_API_SECRET')
+VK_APP_ID = os.environ.get('VK_APP_ID')
+VK_API_SECRET = os.environ.get('VK_API_SECRET')

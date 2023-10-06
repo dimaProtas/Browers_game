@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 # from django.utils.translation import ugettext_lazy as _
+from django.db.models.fields import related
+
 from .managers import CustomUserManager
 from django.utils import timezone
 from django.urls import reverse

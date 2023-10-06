@@ -15,6 +15,14 @@
         {% csrf_token %}
         {{ form.as_p }}
         <button class="btn btn-dark" type="submit">Войти</button>
+        <div style="margin-top:5px;">
+        <a href="{% url 'login_github' %}" class="white">
+            Login with GitHub <i class="fa fa-github"></i>
+        </a><br>
+            <a href="{% url 'login_vk' %}" class="white">
+            Login with VK <i class="fa fa-github"></i>
+        </a>
+</div>
     </form>
             <p>Для входа необходимо выполнить подтверждение регистрации!<br>
             Елси вы еще не подтверлили регистрацию,<br> письмо с подтверждением мы отправили вам на email.</p>
@@ -23,4 +31,4 @@
 </div>
 
  
-{% endblock %}
+{% endblock content %}

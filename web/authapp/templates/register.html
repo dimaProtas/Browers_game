@@ -21,7 +21,13 @@
       <div class="form-error">{{ f.errors }}</div>
     {% endfor %}
 
-    <button class="btn btn-dark" type="submit">Регистрация</button>
+    <button class="btn btn-dark" type="submit">Регистрация</button><br>
+    <a href="{% url 'login_github' %}" class="white">
+            ... with GitHub <i class="fa fa-github"></i>
+        </a><br>
+            <a href="{% url 'login_vk' %}" class="white">
+            ... with VK <i class="fa fa-github"></i>
+        </a>
   </form>
 </div>
 

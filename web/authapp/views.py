@@ -20,7 +20,16 @@ from django.utils import timezone
 import locale
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponseBadRequest
+
+from django.shortcuts import redirect, render
+from django.urls import reverse
+from django.conf import settings
+from django.contrib.auth import logout, login
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+import requests
+import logging
+from django.contrib import messages
 import json
 from django.core.signing import BadSignature
 from .utilites import signer
@@ -215,6 +224,144 @@ class LoginUser(DataMixin, LoginView):
         return reverse_lazy('home')
 
 
+def login_github(request):
+    print('start -> login_github')
+    client_id = settings.GITHUB_CLIENT_ID
+    scope = 'read:user'
+    state = 'somerandomstring123'  # to prevent csrf
+    return redirect(
+        'https://github.com/login/oauth/authorize?client_id={}&scope={}&state={}'.format(client_id,
+                                                                                         scope, state,
+                                                                                         ))
+
+
+def login_github_callback(request):
+    print('start -> login_github_callback')
+    code = request.GET.get('code', None)
+    if not code:
+        return redirect(reverse("home", args=(), kwargs={}))
+
+    params = {
+        'client_id': settings.GITHUB_CLIENT_ID,
+        'client_secret': settings.GITHUB_SECRET,
+        'code': code,
+        'Content-Type': 'application/json'
+    }
+
+    headers = {
+        'Accept': 'application/json'
+    }
+
+    result = requests.post('https://github.com/login/oauth/access_token', data=params, headers=headers)
+    # print(result)
+    # print(result.text)
+    # print(result.json())
+    token = result.json().get('access_token')
+    user_api_url = 'https://api.github.com/user'
+    headers = {
+        'Authorization': 'token ' + token,
+        'Accept': 'application/json'
+    }
+    result = requests.get(user_api_url, headers=headers)
+    # print(result.json())
+    user_data = result.json()
+    email = user_data.get('email', None)
+    if not email:  # у нас email обязателен при регистрации!!! Проверка, чтобы с github вернулся email
+        print('email not present in data received from github {}')
+        return redirect(reverse("home", args=(), kwargs={}))
+
+    try:
+        user = CustomUser.objects.get(email=email)  # проверка по email, что пользователь уже есть в БД
+        print('user already in db')
+    except CustomUser.DoesNotExist as e:
+        print(f'Error_1: {e}')
+
+        # Если пользователя нет в БД => Создание нового пользователя
+        try:
+            print('start create new User')
+            user = CustomUser()
+            user.username = user_data.get('login', None)
+            user.email = email
+            user.github = user_data.get('url', None)
+            user.is_admin = False
+            user.is_active = True
+            user.is_superuser = False
+
+            user.save()
+            print('user created in db')
+        except Exception as e:
+            print(f'login error: {e}')
+
+    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+    print('Login by GITHUB Success')
+    return redirect(reverse("home", args=(), kwargs={}))
+
+
+def login_vk(request):
+    print('start -> login_vk')
+    client_id = settings.VK_APP_ID
+    redirect_uri = 'http://127.0.0.1:8888/login/vk/callback/'
+    return redirect(
+        f'https://oauth.vk.com/authorize?client_id={client_id}&display=page&redirect_uri={redirect_uri}&scope=email&response_type=code&v=5.131&state=123456')
+
+
+def login_vk_callback(request):
+    print('start -> login_vk_callback')
+    code = request.GET.get('code', None)
+    params = {
+        'client_id': settings.VK_APP_ID,
+        'client_secret': settings.VK_API_SECRET,
+        'code': code,
+        'redirect_uri': 'http://127.0.0.1:8888/login/vk/callback/',
+        'Content-Type': 'application/json'
+    }
+    headers = {
+        'Accept': 'application/json'
+    }
+
+    result = requests.post('https://oauth.vk.com/access_token', data=params, headers=headers)
+    # print(result)
+    # print(result.text)
+    email = result.json().get('email')
+    if not email:  # у нас email обязателен при регистрации!!! Проверка, чтобы с VK вернулся email
+        print('email not present in data received from VK {}')
+        return redirect(reverse("home", args=(), kwargs={}))
+
+    # если email есть продолжаем доставать данные пользователя
+    token = result.json().get('access_token')
+    user_id = result.json().get('user_id')
+    user_api_url = f'https://api.vk.com/method/users.get?user_id={user_id}&v=5.154&access_token={token}'
+    headers = {
+        'Accept': 'application/json'
+    }
+    result = requests.get(user_api_url, headers=headers)
+    user_data = result.json()
+    print(user_data)
+    try:
+        user = CustomUser.objects.get(email=email)  # проверка по email, что пользователь уже есть в БД
+        print('user already in db')
+    except CustomUser.DoesNotExist as e:
+        print(f'Error_1: {e}')
+        # Если пользователя нет в БД => Создание нового пользователя
+        try:
+            print('start create new User')
+            user = CustomUser()
+            user.username = user_data['response'][0].get('first_name', None)
+            user.email = email
+            user.vk = 'https://vk.com/id' + f'{user_data["response"][0].get("id", None)}'
+            user.is_admin = False
+            user.is_active = True
+            user.is_superuser = False
+            user.save()
+            print('user created in db')
+        except Exception as e:
+            print(f'login error: {e}')
+
+    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+    print('Login by VK Success')
+    return redirect(reverse("home", args=(), kwargs={}))
+
+
 def profile_user_view(request):
     user_id = request.user.id
     friends = FriendsRequest.objects.filter(
@@ -241,7 +388,7 @@ def delete_post(request, post_id):
     try:
         post = PostUser.objects.get(id=post_id)
         post.delete()
-        return JsonResponse({'sucses': True})
+        return JsonResponse({'success': True})
     except PostUser.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Post not found'}, status=404)
 
@@ -250,7 +397,7 @@ def delete_comment(request, comment_id):
     try:
         comment = CommentModel.objects.get(id=comment_id)
         comment.delete()
-        return JsonResponse({'sucses': True})
+        return JsonResponse({'success': True})
     except CommentModel.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Comment not found'}, status=404)
 
