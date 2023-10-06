@@ -85,7 +85,6 @@ class BombermanModel(models.Model):
         verbose_name_plural = 'Bomberman'
 
 
-
 class MessagesModel(models.Model):
     sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='sent_messages')
     message = models.TextField()

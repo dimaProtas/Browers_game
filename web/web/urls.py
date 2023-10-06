@@ -20,7 +20,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from authapp.views import home, RegisterUser, LoginUser, profile_user_view, top_players, logout_user, \
+<<<<<<< HEAD
     ProfileUpdateView, RegisterDoneView, user_activate, login_github, login_github_callback, login_vk, login_vk_callback
+=======
+    ProfileUpdateView, RegisterDoneView, user_activate
+>>>>>>> 9efadf649d828d4fc245c3fa2a4aa2e366ebe5fa
 
 
 urlpatterns = [

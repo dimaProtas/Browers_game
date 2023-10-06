@@ -175,6 +175,7 @@ DEFAULT_FROM_EMAIL = 'dima_protasevich92@mail.ru'
 
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
+
 ASGI_APPLICATION = "web.asgi.application"
 
 # LOGIN_URL  is used by login_required decorator
@@ -188,3 +189,20 @@ GITHUB_CLIENT_ID = os.environ.get('GITHUB_APP_ID')
 GITHUB_SECRET = os.environ.get('GITHUB_API_SECRET')
 VK_APP_ID = os.environ.get('VK_APP_ID')
 VK_API_SECRET = os.environ.get('VK_API_SECRET')
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [("192.168.99.104", 6379)],
+#         },
+#     },
+# }
+
+ASGI_APPLICATION = "web.asgi.application"
+
