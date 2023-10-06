@@ -3,6 +3,7 @@ from django.core.cache import cache
 
 from .models import *
 
+
 menu = [{'title': "Главная", 'url_name': 'home'},
         {'title': "Игра", 'url_name': 'game'},
         {'title': "Профиль", 'url_name': 'profile'},

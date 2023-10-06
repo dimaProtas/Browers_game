@@ -1,0 +1,89 @@
+/* Стилизация формы */
+.form_container {
+    background-color: rgba(318, 197, 194, 0.2);
+    /*background-color: #1d1f21;*/
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #c7c7c7;
+    margin: 15px;
+}
+
+.form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.form p {
+    margin-bottom: 15px;
+}
+
+.form input[type="text"],
+input[name="email"],
+input[name="password"],
+input[name="password1"],
+input[name="password2"],
+.form textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #282a2e;
+    color: #c7c7c7;
+    border-radius: 5px;
+}
+
+.form .sendButton {
+    background-color: #ff9800;
+    color: #1d1f21;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.form .sendButton:hover {
+    background-color: #e65100;
+}
+
+.image-preview-container {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+.checkbox_clear {
+    display: flex;
+}
+
+.checkbox {
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.img_post {
+    max-width: 100px;
+    max-height: 100px;
+    margin-left: 35px;
+}
+
+.profile_title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #FF0000;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.auth_button {
+    display: flex;
+}
+
+.auth_button a {
+    margin-left: 5px;
+}
+
+.auth_button a:hover {
+    transform: scale(1.3);
+}
+

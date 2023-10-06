@@ -1,17 +1,36 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style_edit_post.css' %}">
+{% endblock %}
 
 {% block content %}
-<h1>{{title}}</h1>
 
-<form method="post">
-  {% csrf_token %}
+<div class="form_container">
 
-  {% for f in form %}
-<p><label class="form-check" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
-<div class="form-error">{{ f.errors }}</div>
-{% endfor %}
+  <div class="profile_title">
+    <h1>{{title}}</h1>
+  </div>
 
-  <button class="button" type="submit">Регистрация</button>
-</form>
+  <form method="post" class="form">
+    {% csrf_token %}
+
+    {% for f in form %}
+      <p><label class="form-check" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+      <div class="form-error">{{ f.errors }}</div>
+    {% endfor %}
+      <div class="auth_button">
+          <button class="btn btn-dark" type="submit">Регистрация</button><br>
+            <a href="{% url 'login_github' %}" class="white">
+                <img src="/media/github-logo.png" style="width: 44px; height: 23px;">
+            </a>
+            <a href="{% url 'login_vk' %}" class="white">
+                <img src="/media/VK-1024x1024.png" style="width: 25px; height: 25px;">
+            </a>
+      </div>
+  </form>
+</div>
+
 
 {% endblock %}

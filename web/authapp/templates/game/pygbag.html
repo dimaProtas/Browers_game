@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container_game_chat">
+    <div class="game_block">
+
+        <div class="game">
+            <!-- iframe, который будет развернут на весь монитор -->
+            <iframe  id="fullscreen-iframe" src="http://localhost:8000"></iframe>
+            <!-- Нажмите на кнопку, чтобы развернуть iframe на весь монитор -->
+            <p>
+                <button id="fullscreen-button">Развернуть</button>
+            </p>
+
+        </div>
+
+
+
+    <script>
+        // Получаем ссылку на iframe и кнопку
+        var iframe = document.getElementById("fullscreen-iframe");
+        var fullscreenButton = document.getElementById("fullscreen-button");
+
+        // Обработчик события для кнопки
+        fullscreenButton.addEventListener("click", function() {
+            // Проверяем, поддерживает ли браузер Fullscreen API
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) { // Firefox
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari и Opera
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) { // Internet Explorer
+                iframe.msRequestFullscreen();
+            }
+        });
+    </script>
+</div>
+
+    {% include 'inc/chat_websocket.html' %}
+
+
+
+</div>
+</div>
+
+{% include 'inc/window_modal_like_dislike.html' %}
+
+<div id="user-data" data-current-user="{{ current_user }}"></div> {# div передаёт current_user в chat_websocket_script #}
+
+<script>var userIsAuthenticated = {{ request.user.is_authenticated|lower }};</script> {# передаёт в скрипт request.user.is_authenticated #}
+
+<script type="module" src="{% static 'js/chat_websocket_script.js' %}"></script> {# импортируем скрипт chat_websocket_script #}
+
+{% endblock %}

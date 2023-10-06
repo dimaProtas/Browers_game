@@ -1,0 +1,1 @@
+[{"model": "authapp.profileuser", "pk": 1, "fields": {"user_name": 2, "top_result": 100, "count_game": 4}}, {"model": "authapp.profileuser", "pk": 2, "fields": {"user_name": 1, "top_result": 23, "count_game": 4}}]

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style_all_users.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style_paginate.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+    <div class="all_users_container">
+        {% for user in page_obj %}
+            <div class="user_container">
+                <div class="username_status">
+                    <div class="avatar_name">
+                        <a href="{% url 'detail_profile_user' pk=user.id %}">{{ user.username }}</a>
+                    </div>
+                    <div class="status">
+                        {% if user.status %}{{ user.status }}{% else %}нет статуса{% endif %}
+                    </div>
+                </div>
+                <div class="avatar_top_res">
+                    {% if user.avatar %}
+                        <img src="{{ user.avatar.url }}" alt="ava">
+                    {% else %}
+                        <img src="/media/not_avatar.jpg" alt="ava">
+                    {% endif %}
+                    <div class="top_result">
+                        <p>
+                            <img src="/media/result.png" style="width: 23px; height: 23px;">
+                            {% if user.profile_user.top_result  %}{{ user.profile_user.top_result }}{% else %}0{% endif %}
+                        </p>
+                        <p>
+                            <img src="/media/game-icon.png" style="width: 23px; height: 23px;">
+                            {% if user.profile_user.count_game  %}{{ user.profile_user.count_game }}{% else %}0{% endif %}
+                        </p>
+                        <p>
+                            <img src="/media/post.png" style="width: 23px; height: 23px;">
+                            {% if user.post_count  %}{{ user.post_count }}{% else %}0{% endif %}
+                        </p>
+
+                    </div>
+
+    <div class="add_friends">
+            {% if user.relationship_statuses == "friend" %}
+                <span class="clik_button cancel" data-user-id="{{ user.id}}">Удалить из друзей</span>
+            {% elif user.relationship_statuses == "request_sent" %}
+                <span class="clik_button cancel" data-user-id="{{ user.id}}">Отменить заявку</span>
+            {% else %}
+                <span class="clik_button request" data-user-id="{{ user.id}}">Добавить в друзья</span>
+            {% endif %}
+    </div>
+
+                    </div>
+
+            </div>
+
+        {% endfor %}
+    </div>
+
+{% include 'inc/paginator.html' %}
+
+<script src="{% static 'js/delete_request_friends.js' %}"></script>
+
+{% endblock %}

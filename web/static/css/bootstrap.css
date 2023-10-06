@@ -2,8 +2,31 @@
 /*!
  * Bootstrap  v5.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2023 The Bootstrap Authors
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)   position: sticky;
  */
+
+ .bg-dark-my {
+    background-color: rgba(105, 105, 105, 0.5);
+ }
+
+ .nav-item img {
+    width: 30px;
+    height: 28px;
+    border-radius: 50%;
+    overflow: hidden;
+ }
+
+#my-footer {
+  position: sticky;
+  bottom: -100px; /* начальная позиция вне экрана */
+  left: 0;
+  width: 100%;
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+  transition: bottom 0.3s ease-in-out; /* анимация появления/скрытия */
+}
+
 :root,
 [data-bs-theme=light] {
   --bs-blue: #0d6efd;
@@ -744,6 +767,7 @@ progress {
   padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-right: auto;
   margin-left: auto;
+  font-family: 'Patrick Hand SC', cursive;
 }
 
 @media (min-width: 576px) {
@@ -8846,7 +8870,8 @@ textarea.form-control-lg {
 
 .bg-dark {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+  background-color: rgba(59, 100, 94, 0.3);
+  /*background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;*/
 }
 
 .bg-black {
@@ -8928,7 +8953,8 @@ textarea.form-control-lg {
 }
 
 .bg-dark-subtle {
-  background-color: var(--bs-dark-bg-subtle) !important;
+    background-color: rgba(59, 100, 94, 0.3);
+  /*background-color: var(--bs-dark-bg-subtle) !important;*/
 }
 
 .bg-gradient {

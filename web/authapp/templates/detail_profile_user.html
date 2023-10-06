@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style_profile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style_profile_post.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container_profile_base">
+    <div class="link_container">
+        <p class="accordion-button" data-toggle="post">Посты {{ detail_profile_user.username }}</p>
+        <a href="{% url 'game_progress' pk=detail_profile_user.profile_user.id %}" class="accordion-button">Достижения {{ detail_profile_user.username }}</a>
+    </div>
+    <div class="profile_container">
+        <div class="avatar_profile">
+            {% if detail_profile_user.avatar %}
+                <img class="img_ava" src="{{ detail_profile_user.avatar.url }}" alt="ava">
+            {% else %}
+                <img class="img_ava" src="/media/not_avatar.jpg" alt="ava">
+            {% endif %}
+            <div class="info_container">
+            <div><span class="username">{{detail_profile_user.username}}</span></div>
+            {% if detail_profile_user.status %}<div class="status_profile">{{ detail_profile_user.status }}</div>{% endif %}
+            <div class="data_profile_container">
+
+            <div><img src="/media/email.png" style="width: 23px; height: 23px;"><span class="data">{{ detail_profile_user.email }}</span></div>
+            {% if detail_profile_user.vk %}<div><img src="/media/vk.jpg" style="width: 23px; height: 23px;"><span class="data">{{ detail_profile_user.vk }}</span></div>{% endif %}
+            {% if detail_profile_user.instagram %}<div><img src="/media/inst.png" style="width: 23px; height: 23px;"><span class="data">{{ detail_profile_user.instagram }}</span></div>{% endif %}
+            {% if detail_profile_user.github %}<div><img src="/media/git.jpg" style="width: 23px; height: 23px;"><span class="data">{{ detail_profile_user.github }}</span></div>{% endif %}
+            {% if detail_profile_user.profile_user.top_result %}<div><img src="/media/result.png" style="width: 23px; height: 23px;"><span class="data">{{ detail_profile_user.profile_user.top_result }}</span></div>{% endif %}
+            {% if detail_profile_user.profile_user.count_game %}<div><img src="/media/game-icon.png" style="width: 23px; height: 23px;"><span class="data">{{ detail_profile_user.profile_user.count_game }}</span></div>{% endif %}
+        </div>
+        </div>
+        </div>
+
+
+        {% if detail_profile_user.about_me %}
+        <div class="about_me">
+            <h3>Обо мне</h3>
+            <div class="about_me_text">{{ detail_profile_user.about_me }}</div>
+        </div>
+        {% endif %}
+
+
+    </div>
+</div>
+
+
+{% include 'inc/post_user.html' with some_variable=detail_profile_user.user_post.all %}
+
+<script src="{% static 'js/post_user_hide.js' %}"></script>
+{% endblock %}
