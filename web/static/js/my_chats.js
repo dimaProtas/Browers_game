@@ -7,13 +7,11 @@ $(document).ready(function() {
         var userId = $(this).data("user-id");
         var isRequest = $(this).hasClass("request"); // Проверяем класс кнопки
         const chatURL = "http://127.0.0.1:8888/mess/chat/create_chat/"
-        console.log( csrfToken)
         // Отправляем Ajax-запрос на сервер
         $.ajax({
-            url: chatURL + userId,
+            url: chatURL,
             type: "POST",
             cache: false,
-            crossDomain: true,
             data: {
                 csrfmiddlewaretoken: csrfToken,
                 companion: userId,

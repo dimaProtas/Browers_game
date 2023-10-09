@@ -15,6 +15,7 @@ class MyChatsView(LoginRequiredMixin, ListView):
     model = Chat
     paginate_by = 10
     context_object_name = 'chats'
+    template_name = 'my_chats.html'
 
     def get_queryset(self):
         return Chat.objects.filter(users=self.request.user)
@@ -26,30 +27,43 @@ class MyChatsView(LoginRequiredMixin, ListView):
 
 
 class ChatView(LoginRequiredMixin, DetailView):
-    pass
+    model = Chat
+    template_name = 'chat_detail.html'
 
 
 
 class CreateChatView(LoginRequiredMixin, View):
-    '''Можно ли создавать views для ответа на ajax через CreateView???/'''
 
     def post(self, request, *args, **kwargs):
-        print('пришло')
-        data = json.load(request.body)
+        data = request.POST
         try:
-            initiator = CustomUser.objects.get(id=data.get('initiator'))
-            companion = CustomUser.objects.get(id=data.get('companion'))
+            initiator = request.user
+            companion = CustomUser.objects.get(id=int(data.get('companion')))
 
-            chat_inst = Chat()
+            if Chat.objects.get(users=(initiator.id, companion.id)):#проверка существования чата
+                raise ValueError
+
+            chat_inst = Chat.objects.create()
             chat_inst.users.add(initiator, companion)
-            chat_inst.save()
-            operation_result = {'success'}
-        except CustomUser.DoesNotExist as error:
+            operation_result = 'ok'
+
+
+        except (CustomUser.DoesNotExist, ValueError) as error:
             print(f'CreateChatView error === {error}')
-            operation_result = {'error'}
+            operation_result = 'error'
 
         return JsonResponse({'chat_status': operation_result})
 
+@login_required
+def send_message(request, *args, **kwargs):
+    '''
+    Функция получения сообщения с фронта
+    :param request:
+    :param args:
+    :param kwargs:
+    :return:
+    '''
+    return JsonResponse({'mess_status': 'ok'})
 
 # class CreateChatView(LoginRequiredMixin, CreateView):
 #     model = Chat
