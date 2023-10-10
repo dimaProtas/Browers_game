@@ -1,57 +1,37 @@
-import json
-
-from django.shortcuts import render
-from django.views import View
-from django.views.generic import (TemplateView, UpdateView, ListView, DetailView, CreateView)
-from django.core.paginator import Paginator
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from users_messages_app.models import Chat
-from authapp.models import CustomUser
+from django.db.models import Q
 from django.http import JsonResponse
+from django.shortcuts import redirect, render, get_object_or_404
+
+from .models import PrivateMessagesModel
+from authapp.models import FriendsRequest, CustomUser
 
 
-class MyChatsView(LoginRequiredMixin, ListView):
-    model = Chat
-    paginate_by = 10
-    context_object_name = 'chats'
-
-    def get_queryset(self):
-        return Chat.objects.filter(users=self.request.user)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['current_user'] = self.request.user
-        return context
+def private_message_view(request):
+    user_id = request.user.id
+    current_user = request.user
+    friends = FriendsRequest.objects.filter(
+        Q(sent_from=user_id, status=2) | Q(sent_to=user_id, status=2)
+    ).order_by('-sent_on')
+    return render(request, 'private_message.html', {'friends': friends, 'current_user': current_user})
 
 
-class ChatView(LoginRequiredMixin, DetailView):
-    pass
+def get_messages(request, friends_id):
+    friend = get_object_or_404(CustomUser, id=friends_id)
 
+    messages = PrivateMessagesModel.objects.filter(
+        Q(sender=request.user, recipient=friend) | Q(sender=friend, recipient=request.user)
+    ).order_by('timestamp')
 
+    message_list = []
 
-class CreateChatView(LoginRequiredMixin, View):
-    '''Можно ли создавать views для ответа на ajax через CreateView???/'''
+    for message in messages:
+        message_data = {
+            'sender': message.sender.username,
+            'recipient': message.recipient.username,
+            'message': message.message,
+            'timestamp': message.timestamp.strftime('%d %B %Y г. %H:%M'),
+        }
+        message_list.append(message_data)
 
-    def post(self, request, *args, **kwargs):
-        print('пришло')
-        data = json.load(request.body)
-        try:
-            initiator = CustomUser.objects.get(id=data.get('initiator'))
-            companion = CustomUser.objects.get(id=data.get('companion'))
+    return JsonResponse({'messages': message_list})
 
-            chat_inst = Chat()
-            chat_inst.users.add(initiator, companion)
-            chat_inst.save()
-            operation_result = {'success'}
-        except CustomUser.DoesNotExist as error:
-            print(f'CreateChatView error === {error}')
-            operation_result = {'error'}
-
-        return JsonResponse({'chat_status': operation_result})
-
-
-# class CreateChatView(LoginRequiredMixin, CreateView):
-#     model = Chat
-#     fields = ['users']
-#     template_name = 'my_chats.html'

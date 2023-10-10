@@ -36,6 +36,7 @@ urlpatterns = [
     path('logout/', logout_user,  name='logout'),
     path('edit_profile/', ProfileUpdateView.as_view(),  name='edit_profile'),
     path('', include("authapp.urls")),
+    path('', include("users_messages_app.urls")),
 
     path('login/github/', login_github, name='login_github'),
     path('login/github/callback/', login_github_callback, name='login_github_callback'),

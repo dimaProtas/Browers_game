@@ -7,8 +7,66 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 # from game_src.doom_game.main import Game
 from .models import MessagesModel
+from users_messages_app.models import PrivateMessagesModel
 from channels.db import database_sync_to_async
 import locale
+
+
+class PrivateMessageConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        # Создание уникального канала для переписки
+        chat_room_name = f"private_chat"
+        await self.channel_layer.group_add(chat_room_name, self.channel_name)
+        await self.accept()
+        print(f"WebSocket connected: {self.channel_name}")
+
+    async def disconnect(self, close_code):
+        # Удаление из группы для переписки
+        chat_room_name = f"private_chat"
+        await self.channel_layer.group_discard(chat_room_name, self.channel_name)
+        print(f"WebSocket disconnected: {self.channel_name}")
+
+    async def receive(self, text_data=None):
+        data = json.loads(text_data)
+        message_text = data['message']
+        recipient_id = data['recipientId']
+        sender = self.scope['user']
+
+        if recipient_id != sender.id:
+            chat_room_name = f"private_chat"
+
+            # Сохранение сообщения
+            await self.save_message(sender, recipient_id, message_text)
+
+            # Отправка сообщения обратно всем в группу
+            await self.send_message_to_group(sender, recipient_id, message_text, chat_room_name)
+
+    @database_sync_to_async
+    def save_message(self, sender, recipient_id, message_text):
+        message = PrivateMessagesModel(sender=sender, recipient_id=recipient_id, message=message_text)
+        message.save()
+
+    async def send_message_to_group(self, sender, recipient_id, message_text, chat_room_name):
+        formatted_datetime = timezone.localtime(timezone.now()).strftime('%d %B %Y г. %H:%M')
+        await self.channel_layer.group_send(
+            chat_room_name,
+            {
+                "type": "chat_message",
+                "sender": sender.username,
+                "sender_id": sender.id,
+                "recipient_id": recipient_id,
+                "message": message_text,
+                "timestamp": formatted_datetime,
+            },
+        )
+
+    async def chat_message(self, event):
+        sender = event["sender"]
+        sender_id = event["sender_id"]
+        recipient_id = event["recipient_id"]
+        message = event["message"]
+        timestamp = event["timestamp"]
+        await self.send(text_data=json.dumps({"sender": sender, "sender_id": sender_id, "recipient_id": recipient_id, "message": message, "timestamp": timestamp}))
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -83,11 +141,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
 #         print(f"WebSocket disconnected: {self.channel_name}")
 #         if self.game_thread:
 #             self.game_thread.join()
-
-
-class TryMore():
-    pass
-
 
 
 # class GameConsumer(AsyncWebsocketConsumer):

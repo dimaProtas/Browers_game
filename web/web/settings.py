@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # созданные приложения
     # 'channels',
     'authapp',
+    'users_messages_app',
     'bootstrap4',
 
 ]

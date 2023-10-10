@@ -36,6 +36,13 @@
     padding: 5px 68px;
     border-radius: 10px;
     font-size: 13px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.clik_button:hover {
+    text-decoration: none;
+    color: #fff;
 }
 
 .delete:hover {

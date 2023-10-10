@@ -13,6 +13,7 @@
     <a href="{% url 'add_post' %}" class="accordion-button">Создать пост</a>
     <p class="accordion-button" data-toggle="post">Мои посты</p>
     <p class="accordion-button" data-toggle="friends">Мои друзья</p>
+    <a href="{% url 'private_message' %}" class="accordion-button" >Личные сообщения</a>
     <a href="{% url 'game_progress' pk=user.profile_user.id %}" class="accordion-button">Достижения</a>
 </div>
     <div class="profile_container">
@@ -89,7 +90,7 @@
                 <div class="time_button">
                     <p class="date_time">{{ f.sent_on }}</p>
                     <div class="message_delete_button">
-                        <span class="clik_button message">Сообщение</span>
+                        <a href="{% url 'private_message' %}" class="clik_button message">Сообщение</a>
                         <span class="clik_button delete" data-user-id="{{ f.sent_from.id }}">Удалить из друзей</span>
 
                     </div>
@@ -108,7 +109,7 @@
                 <div class="time_button">
                     <p class="date_time">{{ f.sent_on }}</p>
                     <div class="message_delete_button">
-                        <span class="clik_button message">Сообщение</span>
+                        <a href="{% url 'private_message' %}" class="clik_button message">Сообщение</a>
                         <span data-user-id="{{ f.sent_to.id }}" class="clik_button delete">Удалить из друзей</span>
                     </div>
                 </div>
