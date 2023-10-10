@@ -40,8 +40,11 @@
              <li class="nav-item">
             <a class="nav-link" href="{% url 'top' %}">Таблица лидеров</a>
           </li>
-
-
+        {% if user.is_authenticated %}
+           <li class="nav-item">
+            <a class="nav-link" href="{% url 'users_messages_app:chat_list' %}">Мои чаты</a>
+          </li>
+        {% endif %}
             {% if request.user.is_authenticated %}
             <li class="nav-item">
             <a class="nav-link" href="{% url 'users_all' %}">Игроки</a>

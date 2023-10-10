@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  {% if chats %}
+    {% for chat in chats %}
+        <div class="user_container">
+          <div>
+            <a href="{% url 'users_messages_app:chat' chat.slug %}">
+            <span>{{ chat }}</span></a>
+          </div>
+        </div>
+
+    {% endfor %}
+  {% else %}
+    <div class="user_container">
+            <span>Чатов нет</span>
+        </div>
+  {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+{% endblock %}

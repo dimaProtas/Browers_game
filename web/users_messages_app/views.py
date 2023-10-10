@@ -35,3 +35,4 @@ def get_messages(request, friends_id):
 
     return JsonResponse({'messages': message_list})
 
+
