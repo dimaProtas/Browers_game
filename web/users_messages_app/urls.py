@@ -3,7 +3,8 @@ from django.urls import path
 
 from users_messages_app import views
 
-app_name = 'users_messages_app'
+# app_name = 'users_messages_app'
+
 urlpatterns = [
     path('private_message/', views.private_message_view, name='private_message'),
     path('get_messages/<int:friends_id>/', views.get_messages),
