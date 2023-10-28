@@ -8,8 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token }}">
-    <meta name="host-port" content="{{ 'http://127.0.0.1:8888/' }}">
-    <meta name="socket-host" content="{{ 'ws://127.0.0.1:8888/' }}">
+    <meta name="host-port" content="{{ 'http://localhost/' }}">
+    <meta name="socket-host" content="{{ 'ws://localhost/' }}">
 
     <title>{% block title %}Simple blog{% endblock %}</title>
     {% load bootstrap4 %}
@@ -19,6 +19,7 @@
     <link rel="shortcut icon" href="/media/unnamed.jpg" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'style_chat.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style_notifications_messages.css' %}">
     {% block style %}{% endblock %}
 </head>
 <body>
@@ -70,22 +71,22 @@
     </div>
   </nav>
   <div class="container-sm">
+    <div class="notification-container"></div>
+    <div id="user-data" data-current-user="{{ current_user }}"></div>
+    <div id="user-data-id" data-current-user-id="{{ current_user.id }}"></div>
 
-{% block content %}
-        </div>
+    <script src="{% static 'js/notifications_messages.js' %}"></script>
+
+{% block content %} {% endblock %}
+
+  </div>
   {% block footer %}
     <footer id="my-footer bg-dark-my" class="py-5 bg-dark-my">
         <div class="container">
         <p class="m-0 text-center text-white">Нижний блок {% now "Y" %}</p>
     </div>
     </footer>
-
     <script>
-  {% endblock %}
-
-    {% bootstrap_javascript jquery='full' %}
-
-  <script>
         window.addEventListener("scroll", function () {
   var footer = document.getElementById("my-footer");
   var scrollHeight = window.innerHeight + window.scrollY;

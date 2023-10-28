@@ -37,7 +37,9 @@ from .apps import user_registered
 import json
 from django.core.signing import BadSignature
 from .utilites import signer
+import logging
 
+logger = logging.getLogger(__name__)
 
 
 # Функция проверки отношений между пользователями.
@@ -64,12 +66,13 @@ def users_all_view(request):
     paginator = Paginator(users, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    current_user = request.user
 
     # Обновляем объекты CustomUser с атрибутом status
     for user in page_obj:
         user.relationship_statuses = get_relationship_status(request.user, user)
 
-    return render(request, 'users.html', {'page_obj': page_obj})
+    return render(request, 'users.html', {'page_obj': page_obj, 'current_user': current_user})
 
 
 class BaseGameView(View):
@@ -131,7 +134,8 @@ def start_game(request):
 
 
 def game(request):
-    return render(request, 'game.html')
+    current_user = request.user
+    return render(request, 'game.html', {'current_user': current_user})
 
 
 def home(request):
@@ -148,7 +152,8 @@ def home(request):
     paginator = Paginator(post, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'index.html', {'page_obj': page_obj})
+    current_user = request.user
+    return render(request, 'index.html', {'page_obj': page_obj, 'current_user': current_user})
 
 
 class PostCreated(CreateView):
@@ -156,6 +161,11 @@ class PostCreated(CreateView):
     form_class = PostForm
     template_name = 'add_post_form.html'
     success_url = '/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_user'] = self.request.user
+        return context
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -173,6 +183,13 @@ class PostUpdateView(UpdateView):
     template_name = 'edit_post.html'
     success_url = '/profile/'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_user'] = self.request.user
+        return context
+
+
+
 
 class PostDetailView(DetailView):
     model = PostUser
@@ -188,6 +205,7 @@ class PostDetailView(DetailView):
         context['like_count'] = LikeModel.objects.filter(post=self.object).count()
         context['dislike_count'] = DisLikeModel.objects.filter(post=self.object).count()
         context['comment_count'] = CommentModel.objects.filter(post=self.object).count()
+        context['current_user'] = self.request.user
         return context
 
 
@@ -385,15 +403,22 @@ def profile_user_view(request):
     post_user = PostUser.objects.filter(author_id=user_id)
     profile = ProfileUser.objects.get(user_name_id=user_id)
     user = CustomUser.objects.get(id=profile.user_name_id)
+    current_user = request.user
     return render(request, 'profile.html', {'profile': profile, 'user': user, 'post_user': post_user,
                                             'friends': friends, 'request_friends': request_friends,
-                                            'request_friends_count': request_friends_count, 'friends_count': friends_count})
+                                            'request_friends_count': request_friends_count,
+                                            'friends_count': friends_count, 'current_user': current_user})
 
 
 class ProfileDetailUserView(DetailView):
     model = CustomUser
     template_name = 'detail_profile_user.html'
     context_object_name = 'detail_profile_user'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_user'] = self.request.user
+        return context
 
 
 def delete_post(request, post_id):
@@ -416,12 +441,18 @@ def delete_comment(request, comment_id):
 
 def top_players(request):
     top = ProfileUser.objects.annotate(post_count=Count('user_name__user_post')).order_by('-top_result')[:10]
-    return render(request, 'top.html', {'top': top})
+    current_user = request.user
+    return render(request, 'top.html', {'top': top, 'current_user': current_user})
 
 class GameResultDetail(DetailView):
     model = ProfileUser
     template_name = 'game_progress_detail.html'
     context_object_name = 'game_progress'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_user'] = self.request.user
+        return context
 
 
 def logout_user(request):
@@ -443,6 +474,7 @@ class ProfileUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = f'Редактирование профиля пользователя: {self.request.user.username}'
+        context['current_user'] = self.request.user
         if self.request.POST:
             context['user_form'] = CustomUserChangeForm(self.request.POST, instance=self.request.user)
         else:
@@ -503,28 +535,30 @@ from .models import PostUser
 
 
 def add_comment(request, post_id):
-    post = get_object_or_404(PostUser, id=post_id)
-    locale.setlocale(locale.LC_TIME, 'ru_RU')
-    formatted_datetime = timezone.localtime(timezone.now()).strftime('%d %B %Y г. %H:%M')
-    locale.setlocale(locale.LC_TIME, '')
+    try:
+        post = get_object_or_404(PostUser, id=post_id)
+        formatted_datetime = timezone.localtime(timezone.now()).strftime('%d %B %Y г. %H:%M')
 
-    if request.method == 'POST':
-        comment_text = request.POST.get('comment', '')
+        if request.method == 'POST':
+            comment_text = request.POST.get('comment', '')
 
-        if comment_text:
-            comment = CommentModel(
-                author=request.user,
-                post=post,
-                content=comment_text
-            )
-            comment.save()
+            if comment_text:
+                comment = CommentModel(
+                    author=request.user,
+                    post=post,
+                    content=comment_text
+                )
+                comment.save()
 
-            return JsonResponse({'result': 'Success', 'author': request.user.username, 'content': comment_text,
-                                 'created_at': formatted_datetime, 'comment_id': comment.id})
-        else:
-            return JsonResponse({'result': 'Empty comment'}, status=400)
+                return JsonResponse({'result': 'Success', 'author': request.user.username, 'content': comment_text,
+                                     'created_at': formatted_datetime, 'comment_id': comment.id})
+            else:
+                return JsonResponse({'result': 'Empty comment'}, status=400)
 
-    return JsonResponse({'result': 'Method not allowed'}, status=405)
+        return JsonResponse({'result': 'Method not allowed'}, status=405)
+    except Exception as e:
+        logger.error("Error in add_comment view: %s", str(e))
+        return JsonResponse({'result': 'Error'}, status=500)
 
 
 def request_friends(request, friends_id):
