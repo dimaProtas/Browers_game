@@ -27,16 +27,20 @@ $(document).ready(function() {
         var commentCountElement = $(`[data-toggle="comments-${postId}"]`);
 
         if (comment !== '') {
-            var postData = {
-                csrfmiddlewaretoken: csrfToken,
-                comment: comment
-            };
+            // var postData = {
+            //     csrfmiddlewaretoken: csrfToken,
+            //     comment: comment
+            // };
             // Отправляем Ajax-запрос на сервер для сохранения комента
             $.ajax({
             url: hostPort + "add_comment/" + postId + "/",
             type: "POST",
-            data: JSON.stringify(postData), // Преобразование в JSON
-            contentType: "application/json",
+            data: {
+                csrfmiddlewaretoken: csrfToken,
+                comment: comment
+            },
+            // data: JSON.stringify(postData), // Преобразование в JSON
+            // contentType: "application/json",
             success: function(data) {
                 if (data.result === 'Success') {
 
